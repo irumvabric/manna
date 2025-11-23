@@ -1,0 +1,37 @@
+:root {
+    --primary-color: #0070ba;
+}
+
+.hero {
+    background: linear-gradient(rgba(0, 0, 50, 0.5), rgba(0, 0, 70, 0.6)),
+        url("https://images.pexels.com/photos/301926/pexels-photo-301926.jpeg")
+            center/cover no-repeat;
+    min-height: 85vh;
+}
+
+.nav-link.active {
+    color: var(--primary-color) !important;
+    font-weight: 600;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-color);
+}
+
+footer {
+    background-color: var(--primary-color);
+}
+
+.get-involved {
+    background-image: ("img/bac.png");
+}

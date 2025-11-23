@@ -1,0 +1,20 @@
+models:
+  Donator:
+    name: string
+    surname: string
+    email: string:unique
+    phone: string:nullable
+    payment_method: string
+    target_amount: double
+    periodicity: integer
+    currency: string:default:BIF
+    controller: resource donators
+    seed: 50
+
+  Donation:
+    donator_id: id:foreign:donators
+    amount: double
+    currency: string:default:BIF
+    payment_method: string
+    controller: resource donations
+    seed: 100
