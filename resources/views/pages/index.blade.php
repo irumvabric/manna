@@ -21,16 +21,17 @@
         <div class="container">
             <div class="row align-items-center g-4">
                 <div class="col-lg-6 text-center text-lg-start">
-                    <img src="{{ asset('img/bac.png') }}" alt="About Maana" class="about-image img-fluid">
+                    {{-- <img src="{{ asset('img/bac.png') }}" alt="About Maana" class="about-image img-fluid"> --}}
+                    <img src="https://images.pexels.com/photos/6207910/pexels-photo-6207910.jpeg" alt="About Maana"
+                        class="about-image img-fluid">
                 </div>
                 <div class="col-lg-6">
                     <p class="small text-muted mb-2">Small Help Can Make Change</p>
                     <h2 class="fw-bold display-6 mb-3">About us</h2>
                     <p class="mb-4">
-                        At Maana Initiative, we believe that education is the key to breaking
-                        the cycle of poverty. Your support provides scholarships, educational
-                        materials, and mentorship opportunities to talented students who otherwise
-                        couldn’t afford university.
+                        At Maana Initiative, we believe that education is the key to breaking the cycle of poverty.Your
+                        support provides scholarships, educational materials, and mentorship opportunities to talented
+                        students who otherwise couldn’t afford university.
                     </p>
                     <a href="{{ url('/about') }}" class="btn btn-primary btn-lg">See more about us</a>
                 </div>
@@ -46,10 +47,11 @@
                 <div class="col-md-4">
                     <div class="card h-100 shadow-sm">
                         <div class="card-body">
-                            <h5 class="card-title fw-bold">Education Support</h5>
+                            <img src="https://images.pexels.com/photos/289737/pexels-photo-289737.jpeg" alt="">
+                            <h5 class="card-title fw-bold">Scholarships for University Students</h5>
                             <p class="card-text">
-                                We provide scholarships and resources to students from
-                                low-income families.
+                                We provide tuition assistance and scholarships for brilliant students from disadvantaged
+                                backgrounds.
                             </p>
                         </div>
                     </div>
@@ -57,10 +59,10 @@
                 <div class="col-md-4">
                     <div class="card h-100 shadow-sm">
                         <div class="card-body">
-                            <h5 class="card-title fw-bold">Mentorship</h5>
+                            <img src="https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg" alt="">
+                            <h5 class="card-title fw-bold">Educational Resources Support</h5>
                             <p class="card-text">
-                                Our mentors guide scholars through academic and personal
-                                development.
+                                We supply books, learning tools, and technology to help students thrive academically.
                             </p>
                         </div>
                     </div>
@@ -68,10 +70,10 @@
                 <div class="col-md-4">
                     <div class="card h-100 shadow-sm">
                         <div class="card-body">
-                            <h5 class="card-title fw-bold">Community Engagement</h5>
+                            <img src="https://images.pexels.com/photos/3280130/pexels-photo-3280130.jpeg" alt="">
+                            <h5 class="card-title fw-bold">Mentorship and Career Guidance</h5>
                             <p class="card-text">
-                                We foster a sense of giving back through volunteer programs
-                                and events.
+                                We connect scholars with professionals to build skills, confidence, and a successful future.
                             </p>
                         </div>
                     </div>
@@ -86,8 +88,9 @@
             <div class="row align-items-center">
                 <div class="col-md-8 content">
                     <h2 class="fw-bold">Get involved</h2>
-                    <p class="lead mb-4">
-                        You can change a student's life today — whether by donating, volunteering, or spreading the word.
+                    <p class="lead mb-0">
+                        You can change a student's life today — whether by donating, volunteering, or spreading the
+                        word.
                         Together, we can make higher education accessible for all.
                     </p>
                 </div>

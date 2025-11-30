@@ -8,7 +8,7 @@
     <link rel="icon" href="{{ asset('img/favicon.png') }}" type="image/x-icon" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
@@ -17,6 +17,34 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Montserrat', sans-serif;
+        }
+
+        .hero {
+            background: url("{{ asset('img/hero-bg.jpg') }}") center center/cover no-repeat;
+            height: 100vh;
+        }
+
+        .about-image {
+            height: 400px;
+            margin: 0 auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .text-lg-start {
+            text-align: center !important;
+        }
+
+        .card-body {
+            border-radius: 80px;
+        }
+
+        .card-body img {
+            width: 100%;
+            height: 200px;
+            margin-bottom: 15px;
+            object-fit: contain;
+            border-radius: 2%;
         }
     </style>
 
@@ -55,6 +83,7 @@
     <main>
         @yield('content')
     </main>
+    
 
     <!-- Footer -->
     <footer class="text-white py-5" style="background-color: #0070ba;">

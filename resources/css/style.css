@@ -33,5 +33,11 @@ footer {
 }
 
 .get-involved {
-    background-image: ("img/bac.png");
+    background-image: url("img/bac.png");
+}
+
+.card-body img {
+    height: 200px;
+    object-fit: cover;
+    border-radius: 3%;
 }
