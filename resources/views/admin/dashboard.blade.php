@@ -1,7 +1,7 @@
 <!-- resources/views/admin/dashboard.blade.php -->
 @extends('layouts.admin')
 
-@section('title', 'Dashboard - Administration CLSKY')
+@section('title', 'Dashboard - Administration Manna')
 
 @section('content')
     <div class="page-header">

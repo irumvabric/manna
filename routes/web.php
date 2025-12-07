@@ -1,13 +1,15 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\donationController;
+use App\Http\Controllers\donatorController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Donation;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('pages.index');
-});
+})->name('home');
 Route::get('/about', function () {
     return view('pages.about');
 })->name('about');
@@ -31,7 +33,8 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
     // Route::delete('contacts/{contact}', [ContactsController::class, 'destroy'])->name('contacts.destroy');
 });
 
-Route::get('/dashboard', DashboardController::class . '@index')->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', DashboardController::class . '@index');
+// Route::get('/dashboard', DashboardController::class . '@index')->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -39,4 +42,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__ . '/auth.php';
+// donation form
+Route::get('/donate', [donatorController::class, 'index']);
+Route::post('/donate', [donatorController::class, 'store']);

@@ -17,9 +17,9 @@ return new class extends Migration
             $table->string('surname');
             $table->string('email')->unique();
             $table->string('phone')->nullable();
-            $table->string('payment_method');
-            $table->double('target_amount');
-            $table->integer('periodicity');
+            $table->string('payment_method')->nullable();
+            $table->double('target_amount')->nullable();
+            $table->integer('periodicity')->nullable();
             $table->string('currency')->default('BIF');
             $table->timestamps();
             $table->softDeletes();

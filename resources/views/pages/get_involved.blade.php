@@ -1,95 +1,99 @@
-@extends('layouts.guest')
+@extends('layouts.web')
 
-@section('title', 'Get Involved - Donate Now')
+@section('title', 'Donate — Maana Initiative')
 
 @section('content')
 
-    <!-- Contribute Now Section -->
-    <section class="py-5 text-center">
-        <div class="container">
-            <h2 class="fw-bold mb-3">Contribute now for Growth</h2>
-            <p class="text-muted mb-5">
-                Every donation helps us support more university students on their academic journey. Your generosity fuels
-                mentorship programs, tuition support, and opportunities that change lives.
-            </p>
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                @if (session('success'))
+                    <div class="alert alert-success">{{ session('success') }}</div>
+                @endif
 
-            <div class="row justify-content-center g-4">
-                <!-- First Donation Card -->
-                <div class="col-md-5">
-                    <div class="p-4 rounded-4 shadow-sm bg-light">
-                        <h5 class="fw-bold mb-2">Your donation</h5>
-                        <p class="small text-muted">
-                            {{-- You are about to become a Maana supporter — someone committed to helping students succeed all
-                            year long. --}}
-                            Please download this form, fill it out, and send it back to us via <span class="mx-3 fw-bold"
-                                style="color:#005d9b"><a
-                                    href="mailto:initiativemanna@gmail.com">initiativemanna@gmail.com</a>
-                            </span>
-                        </p>
-                        <div class="form-pdf">
-                            <a href="{{ asset('docs/donation_form.pdf') }}" class="btn btn-primary px-4" download>Download
-                                Donation Form (PDF)</a>
-                        </div>
-                        {{-- <div class="d-flex flex-wrap justify-content-center gap-2 mb-3">
-                            <button class="btn btn-outline-primary px-4">10$</button>
-                            <button class="btn btn-outline-primary px-4">20$</button>
-                            <button class="btn btn-outline-primary px-4">50$</button>
-                            <button class="btn btn-outline-primary px-4">100$</button>
-                        </div>
-                        <!-- This link might route to a donation form view -->
-                        <a href="{{ url('/donate/form') }}" class="btn btn-primary px-5">Donate</a> 
-                    </div> --}}
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul class="mb-0">
+                            @foreach ($errors->all() as $err)
+                                <li>{{ $err }}</li>
+                            @endforeach
+                        </ul>
                     </div>
+                @endif
 
-                    {{-- <!-- Second Donation Card -->
-                    <div class="col-md-5">
-                        <div class="p-4 rounded-4 shadow-sm bg-light">
-                            <h5 class="fw-bold mb-2">Your monthly donation</h5>
-                            <p class="small text-muted">
-                                You are about to become a Maana monthly supporter
-                            </p>
-                            <div class="d-flex flex-wrap justify-content-center gap-2 mb-3">
-                                <button class="btn btn-outline-primary px-4">10$</button>
-                                <button class="btn btn-outline-primary px-4">20$</button>
-                                <button class="btn btn-outline-primary px-4">50$</button>
-                                <button class="btn btn-outline-primary px-4">100$</button>
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h4 class="card-title mb-3">Donation Form</h4>
+                        <form action="{{ url('/donate') }}" method="POST">
+                            @csrf
+
+                            <div class="mb-3">
+                                <label class="form-label">Full name</label>
+                                <input type="text" name="name" value="{{ old('name') }}" class="form-control"
+                                    required>
                             </div>
-                            <!-- This link might route to a donation form view -->
-                            <a href="{{ url('/donate/form') }}" class="btn btn-primary px-5">Donate</a>
-                        </div>
-                    </div> --}}
+
+                            {{-- <div class="mb-3">
+                                <label class="form-label">Address</label>
+                                <input type="text" name="address" value="{{ old('address') }}" class="form-control">
+                            </div> --}}
+
+                            <div class="mb-3">
+                                <label class="form-label">Email</label>
+                                <input type="email" name="email" value="{{ old('email') }}" class="form-control"
+                                    required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Phone</label>
+                                <input type="text" name="phone" value="{{ old('phone') }}" class="form-control">
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Donation Amount</label>
+                                <input type="number" step="0.01" name="target_amount" value="{{ old('target_amount') }}"
+                                    class="form-control" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Frequency</label>
+                                <select name="periodicity" class="form-select">
+                                    <option value="">One-time</option>
+                                    <option value="Annuel" {{ old('frequency') == 'Annuel' ? 'selected' : '' }}>Annuel
+                                    </option>
+                                    <option value="Semestriel" {{ old('frequency') == 'Semestriel' ? 'selected' : '' }}>
+                                        Semestriel</option>
+                                    <option value="Trimestriel" {{ old('frequency') == 'Trimestriel' ? 'selected' : '' }}>
+                                        Trimestriel</option>
+                                    <option value="Mensuel" {{ old('frequency') == 'Mensuel' ? 'selected' : '' }}>Mensuel
+                                    </option>
+                                </select>
+                            </div>
+
+                            {{-- <div class="mb-3">
+                                <label class="form-label">Comments</label>
+                                <textarea name="comments" class="form-control" rows="4">{{ old('comments') }}</textarea>
+                            </div> --}}
+
+                            <div class="mb-3">
+                                <label class="form-label">Currency</label>
+                                <select name="currency" class="form-select">
+                                    <option value="USD" {{ old('currency') == 'USD' ? 'selected' : '' }}>USD</option>
+                                    <option value="EUR" {{ old('currency') == 'EUR' ? 'selected' : '' }}>EUR</option>
+                                    <option value="BIF" {{ old('currency') == 'BIF' ? 'selected' : '' }}>BIF</option>
+                                </select>
+                            </div>
+
+                            <div class="d-flex justify-content-between align-items-center">
+                                <button class="btn btn-primary">Submit Donation</button>
+                                <a href="{{ asset('docs/donation_form.pdf') }}" class="btn btn-outline-secondary"
+                                    download>Download PDF form</a>
+                            </div>
+                        </form>
+                    </div>
                 </div>
+
             </div>
-    </section>
-
-    <!-- Thank You Section -->
-    <section class="text-white text-center py-5" style="background-color: #005d9b">
-        <div class="container">
-            <h2 class="fw-bold mb-3">Thank you</h2>
-            <p>
-                Your support truly matters. It enables us to reach more students, offer stronger programs, and build a
-                brighter future for young leaders.
-            </p>
         </div>
-    </section>
-
-    <!-- Get Involved section -->
-    <section class="get-involved text-white">
-        <div class="container py-5">
-            <div class="row align-items-center">
-                <div class="col-md-8 content">
-                    <h2 class="fw-bold">Get involved</h2>
-                    <p class="lead mb-0">
-                        You can change a student's life today — whether by donating, volunteering, or spreading the
-                        word.
-                        Together, we can make higher education accessible for all.
-                    </p>
-                </div>
-                <div class="col-md-4 text-md-end content text-white">
-                    <a href="{{ url('/contact') }}" class="btn btn-primary btn-contact px-4">Contact us</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
+    </div>
 @endsection

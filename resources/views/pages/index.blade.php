@@ -1,4 +1,4 @@
-@extends('layouts.guest')
+@extends('layouts.web')
 
 @section('title', 'Empowering Students Through Education')
 
