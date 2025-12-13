@@ -5,9 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Donation;
 use Illuminate\Http\Request;
-use Maatwebsite\Excel\Facades\Excel; // Will be available after install
-use App\Exports\DonationsExport;     // We will create this
-use Barryvdh\DomPDF\Facade\Pdf;      // Will be available after install
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Response; // For CSV download
 
 class ReportController extends Controller
 {
@@ -33,7 +32,8 @@ class ReportController extends Controller
     public function export(Request $request, $type)
     {
         if ($type === 'excel') {
-            return Excel::download(new DonationsExport($request->all()), 'donations_' . now()->format('Ymd_His') . '.xlsx');
+            // Fallback to CSV since Excel package had installation issues
+            return $this->exportCsv($request);
         } 
         
         if ($type === 'pdf') {
@@ -47,6 +47,53 @@ class ReportController extends Controller
         }
 
         return back();
+    }
+
+    private function exportCsv(Request $request)
+    {
+        $query = $this->getFilteredQuery($request);
+        $donations = $query->get();
+        $filename = "donations_" . now()->format('Ymd_His') . ".csv";
+
+        $headers = array(
+            "Content-type"        => "text/csv",
+            "Content-Disposition" => "attachment; filename=$filename",
+            "Pragma"              => "no-cache",
+            "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
+            "Expires"             => "0"
+        );
+
+        $columns = array('Donator Name', 'Email', 'Amount', 'Currency', 'Periodicity', 'Status', 'Date');
+
+        $callback = function() use($donations, $columns) {
+            $file = fopen('php://output', 'w');
+            fputcsv($file, $columns);
+
+            foreach ($donations as $donation) {
+                $periodMap = [
+                    1 => 'Monthly',
+                    3 => 'Quarterly', 
+                    6 => 'Semiannually',
+                    12 => 'Yearly'
+                ];
+                
+                $row = [
+                    $donation->donator ? ($donation->donator->name . ' ' . $donation->donator->surname) : 'Unknown',
+                    $donation->donator ? $donation->donator->email : '-',
+                    $donation->amount,
+                    $donation->currency,
+                    $periodMap[$donation->donator->periodicity ?? 1] ?? 'Monthly',
+                    ucfirst($donation->status),
+                    $donation->created_at->format('Y-m-d H:i:s'),
+                ];
+
+                fputcsv($file, $row);
+            }
+
+            fclose($file);
+        };
+
+        return response()->stream($callback, 200, $headers);
     }
 
     private function getFilteredQuery(Request $request)
