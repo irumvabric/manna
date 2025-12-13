@@ -20,7 +20,7 @@ class Donation extends Model
         'amount',
         'currency',
         'payment_method',
-        'controller',
+        'status',
         'seed',
     ];
 
@@ -40,6 +40,6 @@ class Donation extends Model
 
     public function donator(): BelongsTo
     {
-        return $this->belongsTo(Foreign::class);
+        return $this->belongsTo(Donator::class);
     }
 }

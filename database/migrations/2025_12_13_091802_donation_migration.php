@@ -15,8 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('donator_id');
             $table->double('amount');
-            $table->string('currency')->default('BIF');
-            $table->string('payment_method');
+            $table->enum('currency', ['BIF', 'USD', 'EUR'])->default('BIF');
+            $table->enum('payment_method', ['cash', 'card', 'mobile'])->default('cash');
+            $table->enum('status', ['pending', 'approved', 'rejected','late'])->default('pending');
             $table->timestamps();
             $table->softDeletes();
         });

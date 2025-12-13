@@ -1,40 +1,15 @@
 <?php
 
-use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\donationController;
-use App\Http\Controllers\donatorController;
 use App\Http\Controllers\ProfileController;
-use App\Models\Donation;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('pages.index');
-})->name('home');
-Route::get('/about', function () {
-    return view('pages.about');
-})->name('about');
-
-Route::get('/contact', function () {
-    return view('pages.contact');
-})->name('contact');
-
-Route::get('/get-involved', function () {
-    return view('pages.get_involved');
-})->name('get_involved');
-
-Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () {
-
-
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::get('/donations', [Donation::class, 'index'])->name('donations.index');
-    Route::get('/donators', [Donation::class, 'index'])->name('donators.index');
-    // Route::get('contacts', [ContactsController::class, 'index'])->name('contacts.index');
-    // Route::get('contacts/{contact}', [ContactsController::class, 'show'])->name('contacts.show');
-    // Route::delete('contacts/{contact}', [ContactsController::class, 'destroy'])->name('contacts.destroy');
+    return view('welcome');
 });
 
-Route::get('/dashboard', DashboardController::class . '@index');
-// Route::get('/dashboard', DashboardController::class . '@index')->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -42,6 +17,5 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// donation form
-Route::get('/donate', [donatorController::class, 'index']);
-Route::post('/donate', [donatorController::class, 'store']);
+require __DIR__.'/auth.php';
+require __DIR__.'/admin.php';

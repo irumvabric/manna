@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Donator;
-use App\Models\Foreign;
+
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class DonationFactory extends Factory
@@ -15,10 +15,10 @@ class DonationFactory extends Factory
     {
         return [
             'donator_id' => Donator::factory(),
-            'amount' => fake()->randomFloat(0, 0, 9999999999.),
-            'currency' => fake()->regexify('[A-Za-z0-9]{default}'),
-            'payment_method' => fake()->word(),
-
+            'amount' => fake()->randomFloat(2, 100, 1000000),
+            'currency' => fake()->randomElement(['BIF', 'USD', 'EUR']),
+            'payment_method' => fake()->randomElement(['cash', 'card', 'mobile']),
+            'status' => fake()->randomElement(['pending', 'approved', 'rejected', 'late']),
         ];
     }
 }
