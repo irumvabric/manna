@@ -14,14 +14,26 @@
                         respond as soon as possible.</p>
                     <ul class="list-unstyled mt-4">
                         <li><strong>Email:</strong> initiativemanna@gmail.com</li>
-                        <li><strong>Phone:</strong> +257 76 89 40 70</li>
+                        <li><strong>Phone:</strong> +257 76 89 40 70/+1 (872) 810-5471</li>
                         <li><strong>Location:</strong> Bujumbura, Burundi</li>
                     </ul>
                 </div>
                 <div class="col-md-6">
+                    @if (session('success'))
+                        <div class="alert alert-success">{{ session('success') }}</div>
+                    @endif
+
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul class="mb-0">
+                                @foreach ($errors->all() as $err)
+                                    <li>{{ $err }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                     <!-- The form action typically points to a Laravel route for handling submissions -->
-                    <form class="shadow p-4 bg-white rounded" method="POST">
-                        {{-- <form class="shadow p-4 bg-white rounded" method="POST" action="{{ route('contact.submit') }}"> --}}
+                    <form class="shadow p-4 bg-white rounded" method="POST" action="{{ route('contact.submit') }}">
                         @csrf <!-- CSRF protection token required for Laravel forms -->
                         <div class="mb-3">
                             <label for="name" class="form-label">Name</label>

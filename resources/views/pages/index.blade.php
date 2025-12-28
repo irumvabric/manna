@@ -21,15 +21,15 @@
         <div class="container">
             <div class="row align-items-center g-4">
                 <div class="col-lg-6 text-center text-lg-start">
-                    {{-- <img src="{{ asset('img/bac.png') }}" alt="About Maana" class="about-image img-fluid"> --}}
-                    <img src="https://images.pexels.com/photos/6207910/pexels-photo-6207910.jpeg" alt="About Maana"
+                    {{-- <img src="{{ asset('img/bac.png') }}" alt="About Manna" class="about-image img-fluid"> --}}
+                    <img src="https://images.pexels.com/photos/6207910/pexels-photo-6207910.jpeg" alt="About Manna"
                         class="about-image img-fluid">
                 </div>
                 <div class="col-lg-6">
                     <p class="small text-muted mb-2">Small Help Can Make Change</p>
                     <h2 class="fw-bold display-6 mb-3">About us</h2>
                     <p class="mb-4">
-                        At Maana Initiative, we believe that education is the key to breaking the cycle of poverty.Your
+                        At Manna Initiative, we believe that education is the key to breaking the cycle of poverty.Your
                         support provides scholarships, educational materials, and mentorship opportunities to talented
                         students who otherwise couldn’t afford university.
                     </p>

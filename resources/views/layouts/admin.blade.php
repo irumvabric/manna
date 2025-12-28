@@ -13,6 +13,8 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
         :root {
             --sidebar-width: 260px;
         }
@@ -20,6 +22,7 @@
         body {
             overflow-x: hidden;
             background-color: #f8f9fa;
+            font-family: 'Inter', sans-serif;
         }
         
         .sidebar {
@@ -218,6 +221,7 @@
         ['id' => 'admin.dashboard', 'label' => 'Dashboard', 'icon' => 'layout-dashboard'],
         ['id' => 'admin.donators.index', 'label' => 'Donator Management', 'icon' => 'users'],
         ['id' => 'admin.donations.index', 'label' => 'Donations Management', 'icon' => 'heart-handshake'],
+        ['id' => 'admin.beneficiaries.index', 'label' => 'Beneficiaries', 'icon' => 'graduation-cap'],
         ['id' => 'admin.reports.index', 'label' => 'Reports & Analytics', 'icon' => 'bar-chart-3'],
         ['id' => 'admin.settings', 'label' => 'Settings', 'icon' => 'settings'],
     ];

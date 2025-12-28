@@ -52,4 +52,42 @@ class DonatorController extends Controller
             'totalTargetAmount'
         ));
     }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:donators,email',
+            'phone' => 'nullable|string|max:20',
+            'target_amount' => 'required|numeric|min:0',
+            'periodicity' => 'required|integer',
+            'currency' => 'required|string|size:3',
+        ]);
+
+        Donator::create($request->all());
+
+        return redirect()->back()->with('success', 'Donator added successfully.');
+    }
+
+    public function update(Request $request, Donator $donator)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:donators,email,' . $donator->id,
+            'phone' => 'nullable|string|max:20',
+            'target_amount' => 'required|numeric|min:0',
+            'periodicity' => 'required|integer',
+            'currency' => 'required|string|size:3',
+        ]);
+
+        $donator->update($request->all());
+
+        return redirect()->back()->with('success', 'Donator updated successfully.');
+    }
+
+    public function destroy(Donator $donator)
+    {
+        $donator->delete();
+        return redirect()->back()->with('success', 'Donator deleted successfully.');
+    }
 }

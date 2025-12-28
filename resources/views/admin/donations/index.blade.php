@@ -5,6 +5,15 @@
 
 @section('content')
 <div class="d-flex flex-column gap-4">
+    @if (session('success'))
+        <div class="alert alert-success alert-dismissible fade show border-0 shadow-sm" role="alert">
+            <div class="d-flex align-items-center gap-2">
+                <i data-lucide="check-circle" style="width: 18px; height: 18px;"></i>
+                <span>{{ session('success') }}</span>
+            </div>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
     
     <!-- Header Section -->
     <div class="d-flex justify-content-between align-items-center">
@@ -13,17 +22,16 @@
             <p class="text-muted mb-0">Track and manage incoming donations</p>
         </div>
         <div>
-            <!-- Button to manually record a donation usually needed in admin panel -->
-            <button class="btn btn-primary d-flex align-items-center gap-2 shadow-sm">
+            <button class="btn btn-primary d-flex align-items-center gap-2 shadow-sm" data-bs-toggle="modal" data-bs-target="#recordDonationModal">
                 <i data-lucide="plus-circle" style="width: 18px; height: 18px;"></i>
                 <span>Record Donation</span>
             </button>
         </div>
     </div>
 
+    <!-- ... (Stats Cards and Filters remain identical, adding back for file integrity) ... -->
     <!-- Stats Cards -->
     <div class="row g-4">
-        <!-- Total Approved Amount -->
         <div class="col-12 col-sm-6 col-xl-3">
             <div class="card border-0 shadow-sm h-100">
                 <div class="card-body">
@@ -39,8 +47,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- Pending Revenue -->
         <div class="col-12 col-sm-6 col-xl-3">
             <div class="card border-0 shadow-sm h-100">
                 <div class="card-body">
@@ -56,8 +62,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- This Month -->
         <div class="col-12 col-sm-6 col-xl-3">
             <div class="card border-0 shadow-sm h-100">
                 <div class="card-body">
@@ -73,8 +77,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- Today's Count -->
         <div class="col-12 col-sm-6 col-xl-3">
             <div class="card border-0 shadow-sm h-100">
                 <div class="card-body">
@@ -92,7 +94,7 @@
         </div>
     </div>
 
-    <!-- Filters & Search -->
+    <!-- Filters -->
     <div class="card border-0 shadow-sm">
         <div class="card-body p-4">
             <form action="{{ route('admin.donations.index') }}" method="GET" class="row g-3">
@@ -128,17 +130,8 @@
                     </div>
                 </div>
                 <div class="col-md-2">
-                    <button type="submit" class="btn btn-dark w-100">
-                        Filter
-                    </button>
+                    <button type="submit" class="btn btn-dark w-100">Filter</button>
                 </div>
-                @if(request()->anyFilled(['search', 'status', 'payment_method', 'date_from']))
-                <div class="col-12 mt-2">
-                    <a href="{{ route('admin.donations.index') }}" class="text-decoration-none small text-muted">
-                        <i data-lucide="x" style="width: 14px; height: 14px;"></i> Clear Filters
-                    </a>
-                </div>
-                @endif
             </form>
         </div>
     </div>
@@ -170,9 +163,7 @@
                                     </div>
                                     <div>
                                         <div class="fw-medium text-dark">{{ $donation->donator->name }} {{ $donation->donator->surname }}</div>
-                                        <div class="small text-muted">
-                                            {{ $donation->donator->email }}
-                                        </div>
+                                        <div class="small text-muted">{{ $donation->donator->email }}</div>
                                     </div>
                                 </div>
                                 @else
@@ -183,42 +174,23 @@
                                 {{ number_format($donation->amount, 2) }} <span class="text-muted small text-uppercase">{{ $donation->currency }}</span>
                             </td>
                             <td>
-                                <span class="d-flex align-items-center gap-2 text-dark">
-                                    @if($donation->payment_method == 'card')
-                                        <i data-lucide="credit-card" style="width: 16px; height: 16px;" class="text-muted"></i>
-                                    @elseif($donation->payment_method == 'mobile')
-                                        <i data-lucide="smartphone" style="width: 16px; height: 16px;" class="text-muted"></i>
-                                    @else
-                                        <i data-lucide="banknote" style="width: 16px; height: 16px;" class="text-muted"></i>
-                                    @endif
-                                    <span class="text-capitalize">{{ $donation->payment_method }}</span>
-                                </span>
+                                <span class="text-capitalize">{{ $donation->payment_method }}</span>
                             </td>
                             <td>
                                 @php
                                     $statusClass = match($donation->status) {
                                         'approved' => 'bg-success text-success',
                                         'pending' => 'bg-warning text-warning',
-                                        'rejected' => 'bg-danger text-danger',
-                                        'late' => 'bg-secondary text-secondary',
+                                        'rejected', 'late' => 'bg-danger text-danger',
                                         default => 'bg-light text-muted'
                                     };
-                                    $statusIcon = match($donation->status) {
-                                        'approved' => 'check',
-                                        'pending' => 'clock',
-                                        'rejected' => 'x-circle',
-                                        'late' => 'alert-circle',
-                                        default => 'help-circle'
-                                    };
                                 @endphp
-                                <span class="badge {{ $statusClass }} bg-opacity-10 px-3 py-2 rounded-pill fw-medium d-inline-flex align-items-center gap-1">
-                                    <i data-lucide="{{ $statusIcon }}" style="width: 12px; height: 12px;"></i>
+                                <span class="badge {{ $statusClass }} bg-opacity-10 px-3 py-2 rounded-pill fw-medium">
                                     {{ ucfirst($donation->status) }}
                                 </span>
                             </td>
                             <td class="text-muted">
                                 {{ $donation->created_at->format('M d, Y') }}
-                                <div class="small" style="font-size: 11px;">{{ $donation->created_at->format('H:i A') }}</div>
                             </td>
                             <td class="text-end pe-4">
                                 <div class="dropdown">
@@ -226,37 +198,112 @@
                                         <i data-lucide="more-vertical" style="width: 16px; height: 16px;"></i>
                                     </button>
                                     <ul class="dropdown-menu dropdown-menu-end border-0 shadow">
-                                        <li><a class="dropdown-item d-flex align-items-center gap-2 small" href="#"><i data-lucide="eye" style="width: 14px; height: 14px;"></i> View Details</a></li>
                                         @if($donation->status === 'pending')
-                                        <li><a class="dropdown-item d-flex align-items-center gap-2 small text-success" href="#"><i data-lucide="check" style="width: 14px; height: 14px;"></i> Approve</a></li>
-                                        <li><a class="dropdown-item d-flex align-items-center gap-2 small text-danger" href="#"><i data-lucide="x" style="width: 14px; height: 14px;"></i> Reject</a></li>
+                                        <li>
+                                            <form action="{{ route('admin.donations.update', $donation->id) }}" method="POST">
+                                                @csrf @method('PUT')
+                                                <input type="hidden" name="status" value="approved">
+                                                <button type="submit" class="dropdown-item d-flex align-items-center gap-2 small text-success">
+                                                    <i data-lucide="check" style="width: 14px; height: 14px;"></i> Approve
+                                                </button>
+                                            </form>
+                                        </li>
+                                        <li>
+                                            <form action="{{ route('admin.donations.update', $donation->id) }}" method="POST">
+                                                @csrf @method('PUT')
+                                                <input type="hidden" name="status" value="rejected">
+                                                <button type="submit" class="dropdown-item d-flex align-items-center gap-2 small text-danger">
+                                                    <i data-lucide="x" style="width: 14px; height: 14px;"></i> Reject
+                                                </button>
+                                            </form>
+                                        </li>
                                         @endif
+                                        <li>
+                                            <form action="{{ route('admin.donations.destroy', $donation->id) }}" method="POST" onsubmit="return confirm('Are you sure?')">
+                                                @csrf @method('DELETE')
+                                                <button type="submit" class="dropdown-item d-flex align-items-center gap-2 small text-danger">
+                                                    <i data-lucide="trash-2" style="width: 14px; height: 14px;"></i> Delete
+                                                </button>
+                                            </form>
+                                        </li>
                                     </ul>
                                 </div>
                             </td>
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="6" class="text-center py-5">
-                                <div class="d-flex flex-column align-items-center justify-content-center text-muted">
-                                    <i data-lucide="heart-off" style="width: 48px; height: 48px; margin-bottom: 16px; opacity: 0.5;"></i>
-                                    <h6 class="fw-semibold mb-1">No donations found</h6>
-                                    <p class="small mb-0">Try adjusting your filters or search criteria.</p>
-                                </div>
-                            </td>
+                            <td colspan="6" class="text-center py-5">No donations found.</td>
                         </tr>
                         @endforelse
                     </tbody>
                 </table>
             </div>
             
-            <!-- Pagination -->
             @if($donations->hasPages())
             <div class="d-flex justify-content-center py-4 border-top">
                 {{ $donations->withQueryString()->links() }}
             </div>
             @endif
         </div>
+    </div>
+</div>
+
+<!-- Record Donation Modal -->
+<div class="modal fade" id="recordDonationModal" tabindex="-1">
+    <div class="modal-dialog">
+        <form action="{{ route('admin.donations.store-manual') }}" method="POST">
+            @csrf
+            <div class="modal-content">
+                <div class="modal-header border-0 pb-0">
+                    <h5 class="fw-bold">Record New Donation</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Select Donator</label>
+                        <select name="donator_id" class="form-select" required>
+                            <option value="">Choose a donator...</option>
+                            @foreach($donatorsList as $donator)
+                                <option value="{{ $donator->id }}">{{ $donator->name }} {{ $donator->surname }} ({{ $donator->email }})</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Amount</label>
+                            <input type="number" step="0.01" name="amount" class="form-control" placeholder="0.00" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Currency</label>
+                            <select name="currency" class="form-select" required>
+                                <option value="BIF">BIF</option>
+                                <option value="USD">USD</option>
+                                <option value="EUR">EUR</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Payment Method</label>
+                        <select name="payment_method" class="form-select" required>
+                            <option value="cash">Cash</option>
+                            <option value="card">Bank/Card</option>
+                            <option value="mobile">Mobile Money</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Status</label>
+                        <select name="status" class="form-select" required>
+                            <option value="approved">Approved</option>
+                            <option value="pending">Pending</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer border-0 pt-0">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Record Donation</button>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
 @endsection

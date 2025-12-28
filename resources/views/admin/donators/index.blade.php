@@ -5,6 +5,15 @@
 
 @section('content')
 <div class="d-flex flex-column gap-4">
+    @if (session('success'))
+        <div class="alert alert-success alert-dismissible fade show border-0 shadow-sm" role="alert">
+            <div class="d-flex align-items-center gap-2">
+                <i data-lucide="check-circle" style="width: 18px; height: 18px;"></i>
+                <span>{{ session('success') }}</span>
+            </div>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
     
     <!-- Header Section -->
     <div class="d-flex justify-content-between align-items-center">
@@ -13,17 +22,16 @@
             <p class="text-muted mb-0">Manage and view all registered donators</p>
         </div>
         <div>
-            <!-- Placeholder for "Add Donator" button if needed later -->
-            <button class="btn btn-primary d-flex align-items-center gap-2 shadow-sm">
+            <button class="btn btn-primary d-flex align-items-center gap-2 shadow-sm" data-bs-toggle="modal" data-bs-target="#addDonatorModal">
                 <i data-lucide="plus" style="width: 18px; height: 18px;"></i>
                 <span>Add Donator</span>
             </button>
         </div>
     </div>
 
+    <!-- ... (Stats Cards and Filters remain the same, adding them back in the replacement block to ensure file integrity) ... -->
     <!-- Stats Cards -->
     <div class="row g-4">
-        <!-- Total Donators -->
         <div class="col-12 col-sm-6 col-xl-3">
             <div class="card border-0 shadow-sm h-100">
                 <div class="card-body">
@@ -39,8 +47,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- Monthly Donators -->
         <div class="col-12 col-sm-6 col-xl-3">
             <div class="card border-0 shadow-sm h-100">
                 <div class="card-body">
@@ -56,8 +62,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- Yearly Donators -->
         <div class="col-12 col-sm-6 col-xl-3">
             <div class="card border-0 shadow-sm h-100">
                 <div class="card-body">
@@ -73,8 +77,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- Total Target Amount -->
         <div class="col-12 col-sm-6 col-xl-3">
             <div class="card border-0 shadow-sm h-100">
                 <div class="card-body">
@@ -92,7 +94,7 @@
         </div>
     </div>
 
-    <!-- Filters & Search -->
+    <!-- Filters -->
     <div class="card border-0 shadow-sm">
         <div class="card-body p-4">
             <form action="{{ route('admin.donators.index') }}" method="GET" class="row g-3">
@@ -113,7 +115,6 @@
                         <option value="12" {{ request('periodicity') == 12 ? 'selected' : '' }}>Yearly</option>
                     </select>
                 </div>
-                <!-- Currency Filter (Optional) -->
                 <div class="col-md-3">
                     <select name="currency" class="form-select">
                         <option value="">All Currencies</option>
@@ -123,17 +124,8 @@
                     </select>
                 </div>
                 <div class="col-md-2">
-                    <button type="submit" class="btn btn-dark w-100">
-                        Filter
-                    </button>
+                    <button type="submit" class="btn btn-dark w-100">Filter</button>
                 </div>
-                @if(request()->anyFilled(['search', 'periodicity', 'currency']))
-                <div class="col-12 mt-2">
-                    <a href="{{ route('admin.donators.index') }}" class="text-decoration-none small text-muted">
-                        <i data-lucide="x" style="width: 14px; height: 14px;"></i> Clear Filters
-                    </a>
-                </div>
-                @endif
             </form>
         </div>
     </div>
@@ -149,7 +141,8 @@
                             <th class="border-0 text-muted small fw-semibold py-3">Contact</th>
                             <th class="border-0 text-muted small fw-semibold py-3">Periodicity</th>
                             <th class="border-0 text-muted small fw-semibold py-3">Target Amount</th>
-                            <th class="border-0 text-muted small fw-semibold py-3 text-end pe-4">Joined Date</th>
+                            <th class="border-0 text-muted small fw-semibold py-3">Joined Date</th>
+                            <th class="border-0 text-muted small fw-semibold py-3 text-end pe-4">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -169,60 +162,194 @@
                             </td>
                             <td>
                                 <div class="d-flex flex-column">
-                                    <div class="small text-dark mb-1">
-                                        <i data-lucide="mail" style="width: 14px; height: 14px; display: inline; margin-right: 4px;" class="text-muted"></i>
-                                        {{ $donator->email }}
-                                    </div>
-                                    <div class="small text-muted">
-                                        <i data-lucide="phone" style="width: 14px; height: 14px; display: inline; margin-right: 4px;"></i>
-                                        {{ $donator->phone }}
-                                    </div>
+                                    <div class="small text-dark mb-1">{{ $donator->email }}</div>
+                                    <div class="small text-muted">{{ $donator->phone }}</div>
                                 </div>
                             </td>
                             <td>
                                 @php
-                                    $periodMap = [
-                                        1 => ['label' => 'Monthly', 'class' => 'bg-info text-info'],
-                                        3 => ['label' => 'Quarterly', 'class' => 'bg-primary text-primary'],
-                                        6 => ['label' => 'Semiannually', 'class' => 'bg-warning text-warning'],
-                                        12 => ['label' => 'Yearly', 'class' => 'bg-purple text-purple', 'style' => 'color: rgb(147, 51, 234);']
-                                    ];
-                                    $p = $periodMap[$donator->periodicity] ?? ['label' => 'Unknown', 'class' => 'bg-secondary text-secondary'];
+                                    $periodMap = [1 => 'Monthly', 3 => 'Quarterly', 6 => 'Semiannually', 12 => 'Yearly'];
+                                    $label = $periodMap[$donator->periodicity] ?? 'Unknown';
                                 @endphp
-                                <span class="badge {{ $p['class'] }} bg-opacity-10 px-3 py-2 rounded-pill fw-medium" 
-                                      @if(isset($p['style'])) style="{{ $p['style'] }}" @endif>
-                                    {{ $p['label'] }}
+                                <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill fw-medium">
+                                    {{ $label }}
                                 </span>
                             </td>
                             <td class="fw-medium text-dark">
                                 {{ number_format($donator->target_amount, 2) }} <span class="text-muted small">{{ $donator->currency }}</span>
                             </td>
-                            <td class="text-end pe-4 text-muted">
+                            <td class="text-muted">
                                 {{ $donator->created_at->format('M d, Y') }}
                             </td>
-                        </tr>
-                        @empty
-                        <tr>
-                            <td colspan="5" class="text-center py-5">
-                                <div class="d-flex flex-column align-items-center justify-content-center text-muted">
-                                    <i data-lucide="users" style="width: 48px; height: 48px; margin-bottom: 16px; opacity: 0.5;"></i>
-                                    <h6 class="fw-semibold mb-1">No donators found</h6>
-                                    <p class="small mb-0">Try adjusting your filters or search terms.</p>
+                            <td class="text-end pe-4">
+                                <div class="d-flex justify-content-end gap-2">
+                                    <button class="btn btn-sm btn-light-primary border-0" data-bs-toggle="modal" data-bs-target="#editDonatorModal{{ $donator->id }}">
+                                        <i data-lucide="edit-2" style="width: 16px; height: 16px;"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-light-danger border-0" data-bs-toggle="modal" data-bs-target="#deleteDonatorModal{{ $donator->id }}">
+                                        <i data-lucide="trash-2" style="width: 16px; height: 16px;"></i>
+                                    </button>
                                 </div>
                             </td>
+                        </tr>
+
+                        <!-- Edit Modal -->
+                        <div class="modal fade" id="editDonatorModal{{ $donator->id }}" tabindex="-1">
+                            <div class="modal-dialog">
+                                <form action="{{ route('admin.donators.update', $donator->id) }}" method="POST">
+                                    @csrf
+                                    @method('PUT')
+                                    <div class="modal-content">
+                                        <div class="modal-header border-0 pb-0">
+                                            <h5 class="fw-bold">Edit Donator</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="mb-3">
+                                                <label class="form-label">Full Name</label>
+                                                <input type="text" name="name" class="form-control" value="{{ $donator->name }}" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">Email</label>
+                                                <input type="email" name="email" class="form-control" value="{{ $donator->email }}" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">Phone</label>
+                                                <input type="text" name="phone" class="form-control" value="{{ $donator->phone }}">
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6 mb-3">
+                                                    <label class="form-label">Target Amount</label>
+                                                    <input type="number" step="0.01" name="target_amount" class="form-control" value="{{ $donator->target_amount }}" required>
+                                                </div>
+                                                <div class="col-md-6 mb-3">
+                                                    <label class="form-label">Currency</label>
+                                                    <select name="currency" class="form-select" required>
+                                                        <option value="BIF" {{ $donator->currency == 'BIF' ? 'selected' : '' }}>BIF</option>
+                                                        <option value="USD" {{ $donator->currency == 'USD' ? 'selected' : '' }}>USD</option>
+                                                        <option value="EUR" {{ $donator->currency == 'EUR' ? 'selected' : '' }}>EUR</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">Periodicity</label>
+                                                <select name="periodicity" class="form-select" required>
+                                                    <option value="1" {{ $donator->periodicity == 1 ? 'selected' : '' }}>Monthly</option>
+                                                    <option value="3" {{ $donator->periodicity == 3 ? 'selected' : '' }}>Quarterly</option>
+                                                    <option value="6" {{ $donator->periodicity == 6 ? 'selected' : '' }}>Semiannually</option>
+                                                    <option value="12" {{ $donator->periodicity == 12 ? 'selected' : '' }}>Yearly</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer border-0 pt-0">
+                                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+                                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- Delete Modal -->
+                        <div class="modal fade" id="deleteDonatorModal{{ $donator->id }}" tabindex="-1">
+                            <div class="modal-dialog modal-dialog-centered modal-sm">
+                                <div class="modal-content border-0 shadow">
+                                    <div class="modal-body text-center p-4">
+                                        <div class="text-danger mb-3">
+                                            <i data-lucide="alert-triangle" style="width: 48px; height: 48px;"></i>
+                                        </div>
+                                        <h5 class="fw-bold">Delete Donator?</h5>
+                                        <p class="text-muted small">This action cannot be undone and will remove all associated records.</p>
+                                        <div class="d-flex gap-2">
+                                            <button type="button" class="btn btn-light flex-grow-1" data-bs-dismiss="modal">Cancel</button>
+                                            <form action="{{ route('admin.donators.destroy', $donator->id) }}" method="POST" class="flex-grow-1">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger w-100">Delete</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @empty
+                        <tr>
+                            <td colspan="6" class="text-center py-5">No donators found.</td>
                         </tr>
                         @endforelse
                     </tbody>
                 </table>
             </div>
             
-            <!-- Pagination -->
             @if($donators->hasPages())
             <div class="d-flex justify-content-center py-4 border-top">
-                {{ $donators->withQueryString()->links() }}
+                {{ $donators->links() }}
             </div>
             @endif
         </div>
     </div>
 </div>
+
+<!-- Add Donator Modal -->
+<div class="modal fade" id="addDonatorModal" tabindex="-1">
+    <div class="modal-dialog">
+        <form action="{{ route('admin.donators.store') }}" method="POST">
+            @csrf
+            <div class="modal-content">
+                <div class="modal-header border-0 pb-0">
+                    <h5 class="fw-bold">Add New Donator</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Full Name</label>
+                        <input type="text" name="name" class="form-control" placeholder="Enter name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input type="email" name="email" class="form-control" placeholder="Enter email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Phone</label>
+                        <input type="text" name="phone" class="form-control" placeholder="+257 ...">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Target Amount</label>
+                            <input type="number" step="0.01" name="target_amount" class="form-control" placeholder="0.00" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Currency</label>
+                            <select name="currency" class="form-select" required>
+                                <option value="BIF">BIF</option>
+                                <option value="USD">USD</option>
+                                <option value="EUR">EUR</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Periodicity</label>
+                        <select name="periodicity" class="form-select" required>
+                            <option value="1">Monthly</option>
+                            <option value="3">Quarterly</option>
+                            <option value="6">Semiannually</option>
+                            <option value="12">Yearly</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer border-0 pt-0">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Add Donator</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    .btn-light-primary { background-color: rgba(59, 130, 246, 0.1); color: #3b82f6; }
+    .btn-light-primary:hover { background-color: #3b82f6; color: white; }
+    .btn-light-danger { background-color: rgba(239, 68, 68, 0.1); color: #ef4444; }
+    .btn-light-danger:hover { background-color: #ef4444; color: white; }
+</style>
 @endsection

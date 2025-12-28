@@ -8,7 +8,7 @@
     <section class="py-5 text-center">
         <div class="container">
             <h2 class="fw-bold text-primary mb-4">Who We Are</h2>
-            <p class="lead mb-5 ">Maana Initiative is a non-profit organization dedicated to helping university scholars from
+            <p class="lead mb-5 ">Manna Initiative is a non-profit organization dedicated to helping university scholars from
                 underprivileged families access quality education and mentorship opportunities.</p>
             <!-- Note: Using a direct URL for the image below, but if you download it and place it in your public folder, use asset() -->
             <img src="https://images.pexels.com/photos/901962/pexels-photo-901962.jpeg" alt="Students learning"

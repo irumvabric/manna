@@ -1,6 +1,6 @@
 @extends('layouts.web')
 
-@section('title', 'Donate — Maana Initiative')
+@section('title', 'Donate — Manna Initiative')
 
 @section('content')
 
@@ -24,7 +24,7 @@
                 <div class="card shadow-sm">
                     <div class="card-body">
                         <h4 class="card-title mb-3">Donation Form</h4>
-                        <form action="{{ url('/donate') }}" method="POST">
+                        <form action="{{ url('/donate_form') }}" method="POST">
                             @csrf
 
                             <div class="mb-3">
@@ -58,15 +58,12 @@
                             <div class="mb-3">
                                 <label class="form-label">Frequency</label>
                                 <select name="periodicity" class="form-select">
-                                    <option value="">One-time</option>
-                                    <option value="Annuel" {{ old('frequency') == 'Annuel' ? 'selected' : '' }}>Annuel
-                                    </option>
-                                    <option value="Semestriel" {{ old('frequency') == 'Semestriel' ? 'selected' : '' }}>
-                                        Semestriel</option>
-                                    <option value="Trimestriel" {{ old('frequency') == 'Trimestriel' ? 'selected' : '' }}>
-                                        Trimestriel</option>
-                                    <option value="Mensuel" {{ old('frequency') == 'Mensuel' ? 'selected' : '' }}>Mensuel
-                                    </option>
+                                    <option value="one_time">One-time</option>
+                                    <option value="yearly" {{ old('periodicity') == 'yearly' ? 'selected' : '' }}>Yearly</option>
+                                    <option value="semester" {{ old('periodicity') == 'semester' ? 'selected' : '' }}>
+                                        Semester</option>
+                                    <option value="monthly" {{ old('periodicity') == 'monthly' ? 'selected' : '' }}>
+                                        Monthly</option>
                                 </select>
                             </div>
 

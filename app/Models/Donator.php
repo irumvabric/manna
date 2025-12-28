@@ -22,9 +22,6 @@ class Donator extends Model
         'payment_method',
         'target_amount',
         'periodicity',
-        'currency',
-        'controller',
-        'seed',
     ];
 
     /**
