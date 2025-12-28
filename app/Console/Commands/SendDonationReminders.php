@@ -2,7 +2,10 @@
 
 namespace App\Console\Commands;
 
+use App\Mail\DonationReminder;
+use App\Models\Donator;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Mail;
 
 class SendDonationReminders extends Command
 {
@@ -20,6 +23,7 @@ class SendDonationReminders extends Command
      */
     public function handle()
     {
+   
         $today = now();
         $targetDate = $today->copy()->addDays(4); // 5 days before the 5th (if today is 1st, 1+4=5, so it's 4 days before? No, 5 days BEFORE means 5-5=0. Let's use 5th as target.)
         
