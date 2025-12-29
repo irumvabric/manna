@@ -109,7 +109,9 @@
                                 Us</a></li>
                         <li class="mb-2"><a href="{{ url('/contact') }}"
                                 class="text-white text-decoration-none">Contact</a></li>
-                        <li><a href="{{ url('/get-involved') }}" class="text-white text-decoration-none">Donate</a>
+                        <li class="mb-2"><a href="{{ url('/get-involved') }}" class="text-white text-decoration-none">Donate</a>
+                        </li>
+                        <li class="mb-2"><a href="{{ url('/login') }}" class="text-white text-decoration-none">Login</a>
                         </li>
                     </ul>
                 </div>

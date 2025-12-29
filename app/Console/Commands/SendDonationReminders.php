@@ -23,7 +23,7 @@ class SendDonationReminders extends Command
      */
     public function handle()
     {
-   
+   $this->info('');
         $today = now();
         $targetDate = $today->copy()->addDays(4); // 5 days before the 5th (if today is 1st, 1+4=5, so it's 4 days before? No, 5 days BEFORE means 5-5=0. Let's use 5th as target.)
         
@@ -43,6 +43,7 @@ class SendDonationReminders extends Command
         // 1. Monthly Reminders (Every month)
         $monthlyDonators = \App\Models\Donator::where('periodicity', 1)->get();
         foreach ($monthlyDonators as $donator) {
+            $this->info('Sending monthly reminder to ' . $donator->email);
             \Illuminate\Support\Facades\Mail::to($donator->email)->send(new \App\Mail\DonationReminder($donator, 'Monthly Donation Reminder'));
         }
 
