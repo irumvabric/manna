@@ -71,6 +71,11 @@
                         <a class="nav-link @if (Request::is('/about')) active @endif"
                             href="{{ url('/about') }}">About</a>
                     </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link @if (Request::is('blog*')) active @endif"
+                            href="{{ route('blog.index') }}">Blog</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link @if (Request::is('/contact')) active @endif"
                             href="{{ url('/contact') }}">Contact</a>

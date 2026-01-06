@@ -222,6 +222,7 @@
         ['id' => 'admin.donators.index', 'label' => 'Donator Management', 'icon' => 'users'],
         ['id' => 'admin.donations.index', 'label' => 'Donations Management', 'icon' => 'heart-handshake'],
         ['id' => 'admin.beneficiaries.index', 'label' => 'Beneficiaries', 'icon' => 'graduation-cap'],
+        ['id' => 'admin.blogs.index', 'label' => 'Blog Management', 'icon' => 'newspaper'],
         ['id' => 'admin.reports.index', 'label' => 'Reports & Analytics', 'icon' => 'bar-chart-3'],
         ['id' => 'admin.settings', 'label' => 'Settings', 'icon' => 'settings'],
     ];
