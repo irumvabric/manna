@@ -16,7 +16,6 @@ class Donator extends Model
      */
     protected $fillable = [
         'name',
-        'surname',
         'email',
         'phone',
         'payment_method',

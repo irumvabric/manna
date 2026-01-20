@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('donators', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('surname');
             $table->string('email')->unique();
             $table->string('phone')->nullable();
             $table->string('payment_method')->nullable();

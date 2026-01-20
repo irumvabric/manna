@@ -13,7 +13,6 @@ class DonatorFactory extends Factory
     {
         return [
             'name' => fake()->name(),
-            'surname' => fake()->word(),
             'email' => fake()->safeEmail(),
             'phone' => fake()->phoneNumber(),
             'payment_method' => fake()->word(),

@@ -78,7 +78,7 @@ class ReportController extends Controller
                 ];
                 
                 $row = [
-                    $donation->donator ? ($donation->donator->name . ' ' . $donation->donator->surname) : 'Unknown',
+                    $donation->donator ? ($donation->donator->name) : 'Unknown',
                     $donation->donator ? $donation->donator->email : '-',
                     $donation->amount,
                     $donation->currency,

@@ -106,7 +106,7 @@ class DashboardController extends Controller
                 }
 
                 return (object)[
-                    'donator_name' => $donation->donator ? ($donation->donator->name . ' ' . $donation->donator->surname) : 'Unknown',
+                    'donator_name' => $donation->donator ? ($donation->donator->name) : 'Unknown',
                     'amount' => $donation->amount,
                     'period' => $this->getPeriodLabel($donation->donator->periodicity ?? 1),
                     'status' => $status,
