@@ -75,7 +75,7 @@
                                 <div class="mb-4">
                                     <label class="form-label fw-semibold">Donation Amount</label>
                                     <div class="input-group input-group-lg">
-                                        <span class="input-group-text bg-primary text-white border-0" id="currencySymbol">$</span>
+                                        <span class="input-group-text bg-primary text-white border-0" id="currencySymbol">BIF</span>
                                         <input type="number" step="0.01" name="target_amount" id="donationAmount" value="{{ old('target_amount', 50) }}" class="form-control border-primary border-2 text-primary fw-bold" required>
                                     </div>
                                 </div>
