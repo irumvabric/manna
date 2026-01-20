@@ -74,12 +74,6 @@
 
                                 <div class="mb-4">
                                     <label class="form-label fw-semibold">Donation Amount</label>
-                                    <div class="donation-buttons d-flex flex-wrap gap-2 mb-3">
-                                        <button type="button" class="btn btn-outline-primary amount-btn" data-amount="20">$20</button>
-                                        <button type="button" class="btn btn-outline-primary amount-btn active" data-amount="50">$50</button>
-                                        <button type="button" class="btn btn-outline-primary amount-btn" data-amount="100">$100</button>
-                                        <button type="button" class="btn btn-outline-primary amount-btn" data-amount="250">$250</button>
-                                    </div>
                                     <div class="input-group input-group-lg">
                                         <span class="input-group-text bg-primary text-white border-0" id="currencySymbol">$</span>
                                         <input type="number" step="0.01" name="target_amount" id="donationAmount" value="{{ old('target_amount', 50) }}" class="form-control border-primary border-2 text-primary fw-bold" required>
