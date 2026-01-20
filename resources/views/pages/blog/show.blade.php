@@ -8,8 +8,8 @@
         <div class="container">
             <nav aria-label="breadcrumb" class="mb-4">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ url('/') }}" class="text-decoration-none">Home</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('blog.index') }}" class="text-decoration-none">Blog</a></li>
+                    <li class="breadcrumb-item"><a href="{{ url('/') }}" class="text-decoration-none">{{ __('messages.home') }}</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('blog.index') }}" class="text-decoration-none">{{ __('messages.blog') }}</a></li>
                     <li class="breadcrumb-item active" aria-current="page">{{ Str::limit($blog->title, 30) }}</li>
                 </ol>
             </nav>
@@ -45,7 +45,7 @@
                     <!-- Share section -->
                     <div class="border-top pt-4 mb-5">
                         <div class="d-flex align-items-center gap-3">
-                            <span class="fw-bold">Share this post:</span>
+                            <span class="fw-bold">{{ __('messages.share_this_post') }}</span>
                             <div class="d-flex gap-2">
                                 <a href="#" class="btn btn-outline-secondary btn-sm rounded-circle" style="width: 32px; height: 32px; padding: 0; display: flex; align-items: center; justify-content: center;"><i class="bi bi-facebook"></i></a>
                                 <a href="#" class="btn btn-outline-secondary btn-sm rounded-circle" style="width: 32px; height: 32px; padding: 0; display: flex; align-items: center; justify-content: center;"><i class="bi bi-twitter-x"></i></a>
@@ -61,7 +61,7 @@
                         <!-- Recent Posts -->
                         <div class="card border-0 shadow-sm mb-4">
                             <div class="card-body p-4">
-                                <h5 class="fw-bold mb-4">Recent Posts</h5>
+                                <h5 class="fw-bold mb-4">{{ __('messages.recent_posts') }}</h5>
                                 @foreach($recentBlogs as $recent)
                                 <div class="d-flex gap-3 mb-4">
                                     <div class="flex-shrink-0">
@@ -89,9 +89,9 @@
                         <!-- CTA Card -->
                         <div class="card border-0 shadow-sm bg-primary text-white">
                             <div class="card-body p-4 text-center">
-                                <h5 class="fw-bold mb-3">Support Our Scholars</h5>
-                                <p class="small mb-4">Your donation can help a student achieve their dreams. Contribute today.</p>
-                                <a href="{{ url('/get-involved') }}" class="btn btn-light w-100 fw-bold">Donate Now</a>
+                                <h5 class="fw-bold mb-3">{{ __('messages.support_our_scholars') }}</h5>
+                                <p class="small mb-4">{{ __('messages.support_desc') }}</p>
+                                <a href="{{ url('/get-involved') }}" class="btn btn-light w-100 fw-bold">{{ __('messages.donate') }}</a>
                             </div>
                         </div>
                     </div>

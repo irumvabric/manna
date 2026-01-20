@@ -1,15 +1,14 @@
 @extends('layouts.web')
 
-@section('title', 'About Us')
+@section('title', __('messages.about'))
 
 @section('content')
 
     <!-- About Section -->
     <section class="py-5 text-center">
         <div class="container">
-            <h2 class="fw-bold text-primary mb-4">Who We Are</h2>
-            <p class="lead mb-5 ">Manna Initiative is a non-profit organization dedicated to helping university scholars from
-                underprivileged families access quality education and mentorship opportunities.</p>
+            <h2 class="fw-bold text-primary mb-4">{{ __('messages.who_we_are') }}</h2>
+            <p class="lead mb-5 ">{{ __('messages.about_description') }}</p>
             <!-- Note: Using a direct URL for the image below, but if you download it and place it in your public folder, use asset() -->
             <img src="https://images.pexels.com/photos/901962/pexels-photo-901962.jpeg" alt="Students learning"
                 class="img-fluid rounded shadow-sm mb-5 w-50 x-25">
@@ -19,21 +18,21 @@
     <!-- Mission, Vision, Values -->
     <section class="py-5 bg-light text-center">
         <div class="container">
-            <h3 class="fw-bold text-primary mb-4">Our Mission, Vision & Values</h3>
+            <h3 class="fw-bold text-primary mb-4">{{ __('messages.mission_vision_values') }}</h3>
             <div class="row g-4">
                 <div class="col-md-4">
                     <i class=""></i>
-                    <h5 class="fw-bold">Mission</h5>
-                    <p>To support and empower young scholars by providing financial assistance and mentorship opportunities.
+                    <h5 class="fw-bold">{{ __('messages.mission') }}</h5>
+                    <p>{{ __('messages.mission_desc') }}
                     </p>
                 </div>
                 <div class="col-md-4">
-                    <h5 class="fw-bold">Vision</h5>
-                    <p>To see every talented student, regardless of background, achieve their full potential.</p>
+                    <h5 class="fw-bold">{{ __('messages.vision') }}</h5>
+                    <p>{{ __('messages.vision_desc') }}</p>
                 </div>
                 <div class="col-md-4">
-                    <h5 class="fw-bold">Values</h5>
-                    <p>Equity, Empowerment, Integrity, and Community Development.</p>
+                    <h5 class="fw-bold">{{ __('messages.values') }}</h5>
+                    <p>{{ __('messages.values_desc') }}</p>
                 </div>
             </div>
         </div>
@@ -44,15 +43,13 @@
         <div class="container py-5">
             <div class="row align-items-center">
                 <div class="col-md-8 content">
-                    <h2 class="fw-bold">Get involved</h2>
+                    <h2 class="fw-bold">{{ __('messages.get_involved') }}</h2>
                     <p class="lead mb-4">
-                        You can change a student's life today — whether by donating, volunteering, or spreading the
-                        word.
-                        Together, we can make higher education accessible for all.
+                        {{ __('messages.hero_subtitle') }}
                     </p>
                 </div>
                 <div class="col-md-4 text-md-end content text-white">
-                    <a href="{{ url('/contact') }}" class="btn btn-primary btn-contact px-4">Contact us</a>
+                    <a href="{{ url('/contact') }}" class="btn btn-primary btn-contact px-4">{{ __('messages.contact') }}</a>
                 </div>
             </div>
         </div>

@@ -1,6 +1,6 @@
 @extends('layouts.web')
 
-@section('title', 'Get Involved — Manna Initiative')
+@section('title', __('messages.get_involved') . ' — Manna Initiative')
 
 @section('content')
     
@@ -29,8 +29,8 @@
 
                     <div class="card border-0 shadow-lg overflow-hidden" style="border-radius: 20px;">
                         <div class="card-header bg-white border-0 pt-4 pb-0 text-center">
-                            <h3 class="fw-bold text-dark mb-0">Make a Donation</h3>
-                            <p class="text-muted small">Choose how you want to support</p>
+                            <h3 class="fw-bold text-dark mb-0">{{ __('messages.make_donation') }}</h3>
+                            <p class="text-muted small">{{ __('messages.choose_how_to_support') }}</p>
                         </div>
                         <div class="card-body p-4 p-md-5">
                             <form action="{{ url('/donate_form') }}" method="POST" id="donationForm">
@@ -38,32 +38,32 @@
 
                                 <div class="row g-3">
                                     <div class="col-md-6 mb-3">
-                                        <label class="form-label fw-semibold">Full Name</label>
+                                        <label class="form-label fw-semibold">{{ __('messages.full_name') }}</label>
                                         <div class="input-group">
                                             <span class="input-group-text bg-light border-0"><i class="bi bi-person"></i></span>
-                                            <input type="text" name="name" value="{{ old('name') }}" class="form-control bg-light border-0" placeholder="John Doe" required>
+                                            <input type="text" name="name" value="{{ old('name') }}" class="form-control bg-light border-0" placeholder="{{ __('messages.name_placeholder') }}" required>
                                         </div>
                                     </div>
 
                                     <div class="col-md-6 mb-3">
-                                        <label class="form-label fw-semibold">Email Address</label>
+                                        <label class="form-label fw-semibold">{{ __('messages.email') }}</label>
                                         <div class="input-group">
                                             <span class="input-group-text bg-light border-0"><i class="bi bi-envelope"></i></span>
-                                            <input type="email" name="email" value="{{ old('email') }}" class="form-control bg-light border-0" placeholder="john@example.com" required>
+                                            <input type="email" name="email" value="{{ old('email') }}" class="form-control bg-light border-0" placeholder="{{ __('messages.email_placeholder') }}" required>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="row g-3">
                                     <div class="col-md-6 mb-4">
-                                        <label class="form-label fw-semibold">Phone Number</label>
+                                        <label class="form-label fw-semibold">{{ __('messages.phone') }}</label>
                                         <div class="input-group">
                                             <span class="input-group-text bg-light border-0"><i class="bi bi-telephone"></i></span>
                                             <input type="text" name="phone" value="{{ old('phone') }}" class="form-control bg-light border-0" placeholder="+257 ...">
                                         </div>
                                     </div>
                                     <div class="col-md-6 mb-4">
-                                        <label class="form-label fw-semibold">Currency</label>
+                                        <label class="form-label fw-semibold">{{ __('messages.currency') }}</label>
                                         <select name="currency" class="form-select bg-light border-0">
                                             <option value="USD" {{ old('currency') == 'USD' ? 'selected' : '' }}>USD ($)</option>
                                             <option value="EUR" {{ old('currency') == 'EUR' ? 'selected' : '' }}>EUR (€)</option>
@@ -73,7 +73,7 @@
                                 </div>
 
                                 <div class="mb-4">
-                                    <label class="form-label fw-semibold">Donation Amount</label>
+                                    <label class="form-label fw-semibold">{{ __('messages.donation_amount') }}</label>
                                     <div class="input-group input-group-lg">
                                         <span class="input-group-text bg-primary text-white border-0" id="currencySymbol">BIF</span>
                                         <input type="number" step="0.01" name="target_amount" id="donationAmount" value="{{ old('target_amount', 50) }}" class="form-control border-primary border-2 text-primary fw-bold" required>
@@ -81,32 +81,32 @@
                                 </div>
 
                                 <div class="mb-4">
-                                    <label class="form-label fw-semibold">Frequency</label>
+                                    <label class="form-label fw-semibold">{{ __('messages.frequency') }}</label>
                                     <div class="row g-2">
                                         <div class="col-6 col-sm-3">
                                             <input type="radio" class="btn-check" name="periodicity" id="freq_once" value="one_time" checked>
-                                            <label class="btn btn-outline-secondary w-100 py-2 border-0 bg-light" for="freq_once">One-time</label>
+                                            <label class="btn btn-outline-secondary w-100 py-2 border-0 bg-light" for="freq_once">{{ __('messages.one_time') }}</label>
                                         </div>
                                         <div class="col-6 col-sm-3">
                                             <input type="radio" class="btn-check" name="periodicity" id="freq_monthly" value="monthly">
-                                            <label class="btn btn-outline-secondary w-100 py-2 border-0 bg-light" for="freq_monthly">Monthly</label>
+                                            <label class="btn btn-outline-secondary w-100 py-2 border-0 bg-light" for="freq_monthly">{{ __('messages.monthly') }}</label>
                                         </div>
                                         <div class="col-6 col-sm-3">
                                             <input type="radio" class="btn-check" name="periodicity" id="freq_semester" value="semester">
-                                            <label class="btn btn-outline-secondary w-100 py-2 border-0 bg-light" for="freq_semester">Semester</label>
+                                            <label class="btn btn-outline-secondary w-100 py-2 border-0 bg-light" for="freq_semester">{{ __('messages.semester') }}</label>
                                         </div>
                                         <div class="col-6 col-sm-3">
                                             <input type="radio" class="btn-check" name="periodicity" id="freq_yearly" value="yearly">
-                                            <label class="btn btn-outline-secondary w-100 py-2 border-0 bg-light" for="freq_yearly">Yearly</label>
+                                            <label class="btn btn-outline-secondary w-100 py-2 border-0 bg-light" for="freq_yearly">{{ __('messages.yearly') }}</label>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="d-grid gap-3 pt-3">
-                                    <button type="submit" class="btn btn-primary btn-lg fw-bold py-3 shadow-sm rounded-pill">Complete Donation</button>
+                                    <button type="submit" class="btn btn-primary btn-lg fw-bold py-3 shadow-sm rounded-pill">{{ __('messages.complete_donation') }}</button>
                                     <div class="text-center">
                                          <a href="{{ asset('docs/donation_form.pdf') }}" class="text-muted small text-decoration-none" download>
-                                            <i class="bi bi-file-earmark-pdf me-1"></i> Or download and fill the PDF form
+                                            <i class="bi bi-file-earmark-pdf me-1"></i> {{ __('messages.download_pdf_form') }}
                                          </a>
                                     </div>
                                 </div>

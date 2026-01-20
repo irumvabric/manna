@@ -270,7 +270,7 @@
                 <button id="menuToggle" class="btn btn-light d-lg-none">
                     <i data-lucide="menu"></i>
                 </button>
-                <h5 class="mb-0 d-none d-md-inline-block ms-3">@yield('page-title', 'Dashboard')</h5>
+                <h5 class="mb-0 d-none d-md-inline-block ms-3">@yield('page-title', __('messages.dashboard'))</h5>
             </div>
             <div class="col-auto">
                 <div class="d-flex align-items-center gap-3">

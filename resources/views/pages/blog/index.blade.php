@@ -1,14 +1,14 @@
 @extends('layouts.web')
 
-@section('title', 'Our Blog | Manna Initiative')
+@section('title', __('messages.blog_title') . ' | Manna Initiative')
 
 @section('content')
     <!-- Hero Section -->
     <section class="py-5 text-center bg-light">
         <div class="container">
-            <h1 class="fw-bold text-primary mb-3">Our Blog</h1>
+            <h1 class="fw-bold text-primary mb-3">{{ __('messages.blog_title') }}</h1>
             <p class="lead text-muted mx-auto" style="max-width: 700px;">
-                Stay updated with the latest news, stories, and insights from Manna Initiative and our community of scholars.
+                {{ __('messages.blog_subtitle') }}
             </p>
         </div>
     </section>
@@ -37,15 +37,15 @@
                             <p class="card-text text-muted mb-4">
                                 {{ Str::limit(strip_tags($blog->description), 120) }}
                             </p>
-                            <a href="{{ route('blog.show', $blog->slug) }}" class="btn btn-outline-primary btn-sm rounded-pill px-4">Read More</a>
+                            <a href="{{ route('blog.show', $blog->slug) }}" class="btn btn-outline-primary btn-sm rounded-pill px-4">{{ __('messages.read_more') }}</a>
                         </div>
                     </div>
                 </div>
                 @empty
                 <div class="col-12 text-center py-5">
                     <div class="text-muted mb-3"><i class="bi bi-journal-x" style="font-size: 3rem;"></i></div>
-                    <h4>No blog posts found</h4>
-                    <p>Check back later for more updates.</p>
+                    <h4>{{ __('messages.no_blogs_found') }}</h4>
+                    <p>{{ __('messages.check_back_later') }}</p>
                 </div>
                 @endforelse
             </div>

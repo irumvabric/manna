@@ -1,15 +1,15 @@
 @extends('layouts.admin')
 
-@section('title', 'System Settings')
-@section('page-title', 'System Settings')
+@section('title', __('messages.system_settings'))
+@section('page-title', __('messages.system_settings'))
 
 @section('content')
     <div class="d-flex flex-column gap-4" style="max-width: 800px;">
 
         <!-- Header Section -->
         <div>
-            <h4 class="fw-bold text-dark mb-1">System Settings</h4>
-            <p class="text-muted mb-0">Configure system-wide preferences and notifications</p>
+            <h4 class="fw-bold text-dark mb-1">{{ __('messages.system_settings') }}</h4>
+            <p class="text-muted mb-0">{{ __('messages.configure_prefs') }}</p>
         </div>
 
         @if (session('success'))
@@ -29,15 +29,15 @@
                     <div class="card-body p-4">
                         <div class="d-flex align-items-center gap-2 mb-4">
                             <i data-lucide="bell" style="width: 20px; height: 20px;" class="text-muted"></i>
-                            <h6 class="fw-semibold text-dark mb-0">Notification Settings</h6>
+                            <h6 class="fw-semibold text-dark mb-0">{{ __('messages.notification_settings') }}</h6>
                         </div>
 
                         <div class="d-flex flex-column gap-4">
                             <!-- Email Notifications -->
                             <div class="d-flex justify-content-between align-items-center">
                                 <div>
-                                    <div class="fw-medium text-dark">Email Notifications</div>
-                                    <div class="text-muted small">Send email notifications to donators</div>
+                                    <div class="fw-medium text-dark">{{ __('messages.email_notifications') }}</div>
+                                    <div class="text-muted small">{{ __('messages.send_email_donators') }}</div>
                                 </div>
                                 <div class="form-check form-switch">
                                     <input class="form-check-input" type="checkbox" role="switch"
@@ -49,8 +49,8 @@
                             <!-- Late Payment Alerts -->
                             <div class="d-flex justify-content-between align-items-center">
                                 <div>
-                                    <div class="fw-medium text-dark">Late Payment Alerts</div>
-                                    <div class="text-muted small">Notify donators about overdue payments</div>
+                                    <div class="fw-medium text-dark">{{ __('messages.late_payment_alerts') }}</div>
+                                    <div class="text-muted small">{{ __('messages.notify_overdue') }}</div>
                                 </div>
                                 <div class="form-check form-switch">
                                     <input class="form-check-input" type="checkbox" role="switch"
@@ -61,11 +61,10 @@
 
                             <!-- Reminder Days -->
                             <div>
-                                <label for="reminderDays" class="form-label fw-medium text-dark">Reminder Days Before Due
-                                    Date</label>
+                                <label for="reminderDays" class="form-label fw-medium text-dark">{{ __('messages.reminder_days') }}</label>
                                 <input type="number" class="form-control" id="reminderDays" name="reminder_days"
                                     value="{{ old('reminder_days', $settings['reminder_days'] ?? 7) }}">
-                                <div class="form-text text-muted">Send reminders this many days before payment is due</div>
+                                <div class="form-text text-muted">{{ __('messages.send_reminders_before') }}</div>
                                 @error('reminder_days')
                                     <div class="text-danger small">{{ $message }}</div>
                                 @enderror
@@ -79,14 +78,14 @@
                     <div class="card-body p-4">
                         <div class="d-flex align-items-center gap-2 mb-4">
                             <i data-lucide="users" style="width: 20px; height: 20px;" class="text-muted"></i>
-                            <h6 class="fw-semibold text-dark mb-0">Approval Settings</h6>
+                            <h6 class="fw-semibold text-dark mb-0">{{ __('messages.approval_settings') }}</h6>
                         </div>
 
                         <!-- Auto-Approval -->
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
-                                <div class="fw-medium text-dark">Auto-Approval</div>
-                                <div class="text-muted small">Automatically approve donations without admin review</div>
+                                <div class="fw-medium text-dark">{{ __('messages.auto_approval') }}</div>
+                                <div class="text-muted small">{{ __('messages.auto_approve_desc') }}</div>
                             </div>
                             <div class="form-check form-switch">
                                 <input class="form-check-input" type="checkbox" role="switch" name="auto_approval"
@@ -101,15 +100,15 @@
                     <div class="card-body p-4">
                         <div class="d-flex align-items-center gap-2 mb-4">
                             <i data-lucide="mail" style="width: 20px; height: 20px;" class="text-muted"></i>
-                            <h6 class="fw-semibold text-dark mb-0">Admin Settings</h6>
+                            <h6 class="fw-semibold text-dark mb-0">{{ __('messages.admin_settings') }}</h6>
                         </div>
 
                         <!-- Admin Email -->
                         <div>
-                            <label for="adminEmail" class="form-label fw-medium text-dark">Admin Email Address</label>
+                            <label for="adminEmail" class="form-label fw-medium text-dark">{{ __('messages.admin_email_addr') }}</label>
                             <input type="email" class="form-control" id="adminEmail" name="admin_email"
                                 value="{{ old('admin_email', $settings['admin_email'] ?? 'admin@donation.com') }}">
-                            <div class="form-text text-muted">Receive system notifications at this email</div>
+                            <div class="form-text text-muted">{{ __('messages.receive_system_notifs') }}</div>
                             @error('admin_email')
                                 <div class="text-danger small">{{ $message }}</div>
                             @enderror
@@ -122,7 +121,7 @@
                     <button type="submit"
                         class="btn btn-primary d-flex align-items-center gap-2 px-4 py-2 shadow-sm fw-medium">
                         <i data-lucide="save" style="width: 18px; height: 18px;"></i>
-                        <span>Save Settings</span>
+                        <span>{{ __('messages.save_settings') }}</span>
                     </button>
                 </div>
             </div>

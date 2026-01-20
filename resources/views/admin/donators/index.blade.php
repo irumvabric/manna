@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
-@section('title', 'Donators Management')
-@section('page-title', 'Donators')
+@section('title', __('messages.manage_view', ['entity' => __('messages.donators')]))
+@section('page-title', __('messages.donators'))
 
 @section('content')
 <div class="d-flex flex-column gap-4">
@@ -18,13 +18,13 @@
     <!-- Header Section -->
     <div class="d-flex justify-content-between align-items-center">
         <div>
-            <h4 class="fw-bold text-dark mb-1">Donators Management</h4>
-            <p class="text-muted mb-0">Manage and view all registered donators</p>
+            <h4 class="fw-bold text-dark mb-1">{{ __('messages.manage_view', ['entity' => __('messages.donators')]) }}</h4>
+            <p class="text-muted mb-0">{{ __('messages.manage_view', ['entity' => __('messages.donators')]) }}</p>
         </div>
         <div>
             <button class="btn btn-primary d-flex align-items-center gap-2 shadow-sm" data-bs-toggle="modal" data-bs-target="#addDonatorModal">
                 <i data-lucide="plus" style="width: 18px; height: 18px;"></i>
-                <span>Add Donator</span>
+                <span>{{ __('messages.add_new', ['entity' => __('messages.donator')]) }}</span>
             </button>
         </div>
     </div>
@@ -37,7 +37,7 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-start mb-3">
                         <div>
-                            <div class="text-muted small mb-1">Total Donators</div>
+                            <div class="text-muted small mb-1">{{ __('messages.total', ['entity' => __('messages.donators')]) }}</div>
                             <div class="h4 mb-0 fw-bold text-dark">{{ $totalDonators }}</div>
                         </div>
                         <div class="d-flex align-items-center justify-content-center bg-primary bg-opacity-10 rounded-3" style="width: 40px; height: 40px;">
@@ -52,7 +52,7 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-start mb-3">
                         <div>
-                            <div class="text-muted small mb-1">Monthly Donators</div>
+                            <div class="text-muted small mb-1">{{ __('messages.monthly') }} {{ __('messages.donators') }}</div>
                             <div class="h4 mb-0 fw-bold text-dark">{{ $monthlyDonators }}</div>
                         </div>
                         <div class="d-flex align-items-center justify-content-center bg-info bg-opacity-10 rounded-3" style="width: 40px; height: 40px;">
@@ -67,7 +67,7 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-start mb-3">
                         <div>
-                            <div class="text-muted small mb-1">Yearly Donators</div>
+                            <div class="text-muted small mb-1">{{ __('messages.yearly') }} {{ __('messages.donators') }}</div>
                             <div class="h4 mb-0 fw-bold text-dark">{{ $yearlyDonators }}</div>
                         </div>
                         <div class="d-flex align-items-center justify-content-center bg-purple bg-opacity-10 rounded-3" style="width: 40px; height: 40px; background-color: rgba(147, 51, 234, 0.1);">
@@ -103,28 +103,28 @@
                         <span class="input-group-text bg-white border-end-0">
                             <i data-lucide="search" style="width: 18px; height: 18px; color: #6c757d;"></i>
                         </span>
-                        <input type="text" name="search" class="form-control border-start-0 ps-0" placeholder="Search by name, email, phone..." value="{{ request('search') }}">
+                        <input type="text" name="search" class="form-control border-start-0 ps-0" placeholder="{{ __('messages.search_placeholder') }}" value="{{ request('search') }}">
                     </div>
                 </div>
                 <div class="col-md-3">
                     <select name="periodicity" class="form-select">
-                        <option value="">All Periods</option>
-                        <option value="1" {{ request('periodicity') == 1 ? 'selected' : '' }}>Monthly</option>
-                        <option value="3" {{ request('periodicity') == 3 ? 'selected' : '' }}>Quarterly</option>
-                        <option value="6" {{ request('periodicity') == 6 ? 'selected' : '' }}>Semiannually</option>
-                        <option value="12" {{ request('periodicity') == 12 ? 'selected' : '' }}>Yearly</option>
+                        <option value="">{{ __('messages.all_periods') }}</option>
+                        <option value="1" {{ request('periodicity') == 1 ? 'selected' : '' }}>{{ __('messages.monthly') }}</option>
+                        <option value="3" {{ request('periodicity') == 3 ? 'selected' : '' }}>{{ __('messages.quarterly') }}</option>
+                        <option value="6" {{ request('periodicity') == 6 ? 'selected' : '' }}>{{ __('messages.semiannually') }}</option>
+                        <option value="12" {{ request('periodicity') == 12 ? 'selected' : '' }}>{{ __('messages.yearly') }}</option>
                     </select>
                 </div>
                 <div class="col-md-3">
                     <select name="currency" class="form-select">
-                        <option value="">All Currencies</option>
+                        <option value="">{{ __('messages.all_currencies') }}</option>
                         <option value="BIF" {{ request('currency') == 'BIF' ? 'selected' : '' }}>BIF</option>
                         <option value="USD" {{ request('currency') == 'USD' ? 'selected' : '' }}>USD</option>
                         <option value="EUR" {{ request('currency') == 'EUR' ? 'selected' : '' }}>EUR</option>
                     </select>
                 </div>
                 <div class="col-md-2">
-                    <button type="submit" class="btn btn-dark w-100">Filter</button>
+                    <button type="submit" class="btn btn-dark w-100">{{ __('messages.filter') }}</button>
                 </div>
             </form>
         </div>
@@ -137,12 +137,12 @@
                 <table class="table table-hover align-middle mb-0">
                     <thead class="bg-light">
                         <tr>
-                            <th class="border-0 text-muted small fw-semibold ps-4 py-3">Donator</th>
-                            <th class="border-0 text-muted small fw-semibold py-3">Contact</th>
-                            <th class="border-0 text-muted small fw-semibold py-3">Periodicity</th>
-                            <th class="border-0 text-muted small fw-semibold py-3">Target Amount</th>
-                            <th class="border-0 text-muted small fw-semibold py-3">Joined Date</th>
-                            <th class="border-0 text-muted small fw-semibold py-3 text-end pe-4">Actions</th>
+                            <th class="border-0 text-muted small fw-semibold ps-4 py-3">{{ __('messages.donator') }}</th>
+                            <th class="border-0 text-muted small fw-semibold py-3">{{ __('messages.contact') }}</th>
+                            <th class="border-0 text-muted small fw-semibold py-3">{{ __('messages.frequency') }}</th>
+                            <th class="border-0 text-muted small fw-semibold py-3">{{ __('messages.donation_amount') }}</th>
+                            <th class="border-0 text-muted small fw-semibold py-3">{{ __('messages.joined_date') }}</th>
+                            <th class="border-0 text-muted small fw-semibold py-3 text-end pe-4">{{ __('messages.actions') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -168,7 +168,12 @@
                             </td>
                             <td>
                                 @php
-                                    $periodMap = [1 => 'Monthly', 3 => 'Quarterly', 6 => 'Semiannually', 12 => 'Yearly'];
+                                    $periodMap = [
+                                        1 => __('messages.monthly'),
+                                        3 => __('messages.quarterly'),
+                                        6 => __('messages.semiannually'),
+                                        12 => __('messages.yearly')
+                                    ];
                                     $label = $periodMap[$donator->periodicity] ?? 'Unknown';
                                 @endphp
                                 <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill fw-medium">
@@ -201,7 +206,7 @@
                                     @method('PUT')
                                     <div class="modal-content">
                                         <div class="modal-header border-0 pb-0">
-                                            <h5 class="fw-bold">Edit Donator</h5>
+                                            <h5 class="fw-bold">{{ __('messages.edit', ['entity' => __('messages.donator')]) }}</h5>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                         </div>
                                         <div class="modal-body">
@@ -232,18 +237,18 @@
                                                 </div>
                                             </div>
                                             <div class="mb-3">
-                                                <label class="form-label">Periodicity</label>
+                                                <label class="form-label">{{ __('messages.frequency') }}</label>
                                                 <select name="periodicity" class="form-select" required>
-                                                    <option value="1" {{ $donator->periodicity == 1 ? 'selected' : '' }}>Monthly</option>
-                                                    <option value="3" {{ $donator->periodicity == 3 ? 'selected' : '' }}>Quarterly</option>
-                                                    <option value="6" {{ $donator->periodicity == 6 ? 'selected' : '' }}>Semiannually</option>
-                                                    <option value="12" {{ $donator->periodicity == 12 ? 'selected' : '' }}>Yearly</option>
+                                                    <option value="1" {{ $donator->periodicity == 1 ? 'selected' : '' }}>{{ __('messages.monthly') }}</option>
+                                                    <option value="3" {{ $donator->periodicity == 3 ? 'selected' : '' }}>{{ __('messages.quarterly') }}</option>
+                                                    <option value="6" {{ $donator->periodicity == 6 ? 'selected' : '' }}>{{ __('messages.semiannually') }}</option>
+                                                    <option value="12" {{ $donator->periodicity == 12 ? 'selected' : '' }}>{{ __('messages.yearly') }}</option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="modal-footer border-0 pt-0">
-                                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
-                                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">{{ __('messages.cancel') }}</button>
+                                            <button type="submit" class="btn btn-primary">{{ __('messages.save_changes') }}</button>
                                         </div>
                                     </div>
                                 </form>
@@ -258,14 +263,14 @@
                                         <div class="text-danger mb-3">
                                             <i data-lucide="alert-triangle" style="width: 48px; height: 48px;"></i>
                                         </div>
-                                        <h5 class="fw-bold">Delete Donator?</h5>
-                                        <p class="text-muted small">This action cannot be undone and will remove all associated records.</p>
+                                        <h5 class="fw-bold">{{ __('messages.confirm_delete_title', ['entity' => __('messages.donator')]) }}</h5>
+                                        <p class="text-muted small">{{ __('messages.delete_confirm') }}</p>
                                         <div class="d-flex gap-2">
-                                            <button type="button" class="btn btn-light flex-grow-1" data-bs-dismiss="modal">Cancel</button>
+                                            <button type="button" class="btn btn-light flex-grow-1" data-bs-dismiss="modal">{{ __('messages.cancel') }}</button>
                                             <form action="{{ route('admin.donators.destroy', $donator->id) }}" method="POST" class="flex-grow-1">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-danger w-100">Delete</button>
+                                                <button type="submit" class="btn btn-danger w-100">{{ __('messages.delete', ['entity' => '']) }}</button>
                                             </form>
                                         </div>
                                     </div>
@@ -274,7 +279,7 @@
                         </div>
                         @empty
                         <tr>
-                            <td colspan="6" class="text-center py-5">No donators found.</td>
+                            <td colspan="6" class="text-center py-5">{{ __('messages.no_records_found', ['entity' => __('messages.donators')]) }}</td>
                         </tr>
                         @endforelse
                     </tbody>
@@ -297,7 +302,7 @@
             @csrf
             <div class="modal-content">
                 <div class="modal-header border-0 pb-0">
-                    <h5 class="fw-bold">Add New Donator</h5>
+                    <h5 class="fw-bold">{{ __('messages.add_new', ['entity' => __('messages.donator')]) }}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
@@ -306,8 +311,8 @@
                         <input type="text" name="name" class="form-control" placeholder="Enter name" required>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Email</label>
-                        <input type="email" name="email" class="form-control" placeholder="Enter email" required>
+                        <label class="form-label">{{ __('messages.email') }}</label>
+                        <input type="email" name="email" class="form-control" placeholder="{{ __('messages.email') }}" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Phone</label>
@@ -328,18 +333,18 @@
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Periodicity</label>
+                        <label class="form-label">{{ __('messages.frequency') }}</label>
                         <select name="periodicity" class="form-select" required>
-                            <option value="1">Monthly</option>
-                            <option value="3">Quarterly</option>
-                            <option value="6">Semiannually</option>
-                            <option value="12">Yearly</option>
+                            <option value="1">{{ __('messages.monthly') }}</option>
+                            <option value="3">{{ __('messages.quarterly') }}</option>
+                            <option value="6">{{ __('messages.semiannually') }}</option>
+                            <option value="12">{{ __('messages.yearly') }}</option>
                         </select>
                     </div>
                 </div>
                 <div class="modal-footer border-0 pt-0">
-                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Add Donator</button>
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">{{ __('messages.cancel') }}</button>
+                    <button type="submit" class="btn btn-primary">{{ __('messages.add_new', ['entity' => '']) }}</button>
                 </div>
             </div>
         </form>
