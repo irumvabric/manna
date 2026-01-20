@@ -59,12 +59,19 @@
                             </div>
 
                             @if (Route::has('password.request'))
-                                <div class="text-center">
+                                <div class="text-center mb-4">
                                     <a class="text-decoration-none small text-muted hover-primary" href="{{ route('password.request') }}">
                                         {{ __('Forgot your password?') }}
                                     </a>
                                 </div>
                             @endif
+
+                            <div class="text-center">
+                                <p class="small text-muted mb-2">Don't have an account?</p>
+                                <a href="{{ route('register') }}" class="text-primary fw-bold text-decoration-none text-uppercase small">
+                                    {{ __('Create Account') }}
+                                </a>
+                            </div>
                         </form>
                     </div>
                 </div>
