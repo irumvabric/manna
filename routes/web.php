@@ -2,7 +2,10 @@
 
 use App\Http\Controllers\Admin\DonationController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\LanguageController;
 use Illuminate\Support\Facades\Route;
+
+Route::get('/lang/{locale}', [LanguageController::class, 'switch'])->name('lang.switch');
 
 Route::get('/', function () {
     return view('pages.index',);

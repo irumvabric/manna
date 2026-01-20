@@ -1,6 +1,6 @@
 <!-- resources/views/layouts/app.blade.php -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -211,14 +211,14 @@
     $currentPage = $currentPage ?? '';
 
     $donatorMenuItems = [
-        ['id' => 'dashboard', 'label' => 'Dashboard', 'icon' => 'layout-dashboard'],
-        ['id' => 'make-donation', 'label' => 'Make a Donation', 'icon' => 'dollar-sign'],
+        ['id' => 'dashboard', 'label' => __('messages.home'), 'icon' => 'layout-dashboard'],
+        ['id' => 'make-donation', 'label' => __('messages.donate'), 'icon' => 'dollar-sign'],
         ['id' => 'history', 'label' => 'Donation History', 'icon' => 'history'],
         ['id' => 'notifications', 'label' => 'Notifications', 'icon' => 'bell'],
     ];
 
     $adminMenuItems = [
-        ['id' => 'admin.dashboard', 'label' => 'Dashboard', 'icon' => 'layout-dashboard'],
+        ['id' => 'admin.dashboard', 'label' => __('messages.home'), 'icon' => 'layout-dashboard'],
         ['id' => 'admin.donators.index', 'label' => 'Donator Management', 'icon' => 'users'],
         ['id' => 'admin.donations.index', 'label' => 'Donations Management', 'icon' => 'heart-handshake'],
         ['id' => 'admin.beneficiaries.index', 'label' => 'Beneficiaries', 'icon' => 'graduation-cap'],
@@ -256,7 +256,7 @@
             @csrf
             <button type="submit" class="btn logout-btn d-flex align-items-center justify-content-center gap-2">
                 <i data-lucide="log-out" style="width: 18px; height: 18px;"></i>
-                <span>Logout</span>
+                <span>{{ __('messages.logout') }}</span>
             </button>
         </form>
     </div>
@@ -279,6 +279,16 @@
                         <span class="notification-badge"></span>
                     </button>
                     
+                    <div class="dropdown">
+                        <button class="btn btn-light dropdown-toggle" type="button" id="adminLangDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i data-lucide="languages" style="width: 18px; height: 18px;"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="adminLangDropdown">
+                            <li><a class="dropdown-item" href="{{ route('lang.switch', 'en') }}">English</a></li>
+                            <li><a class="dropdown-item" href="{{ route('lang.switch', 'fr') }}">Français</a></li>
+                        </ul>
+                    </div>
+
                     <div class="d-none d-md-flex align-items-center gap-3 ps-3 border-start">
                         <div class="text-end">
                             <div class="fw-semibold small">{{ $currentUser->name }}</div>

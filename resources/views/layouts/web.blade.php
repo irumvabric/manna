@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
     <meta charset="UTF-8" />
@@ -65,23 +65,32 @@
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
                         <a class="nav-link @if (Request::is('/')) active @endif"
-                            href="{{ url('/') }}">Home</a>
+                            href="{{ url('/') }}">{{ __('messages.home') }}</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link @if (Request::is('/about')) active @endif"
-                            href="{{ url('/about') }}">About</a>
+                            href="{{ url('/about') }}">{{ __('messages.about') }}</a>
                     </li>
 
                     <li class="nav-item">
                         <a class="nav-link @if (Request::is('blog*')) active @endif"
-                            href="{{ route('blog.index') }}">Blog</a>
+                            href="{{ route('blog.index') }}">{{ __('messages.blog') }}</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link @if (Request::is('/contact')) active @endif"
-                            href="{{ url('/contact') }}">Contact</a>
+                            href="{{ url('/contact') }}">{{ __('messages.contact') }}</a>
                     </li>
                 </ul>
-                <a href="{{ url('/get-involved') }}" class="btn btn-primary ms-lg-3">Donate Now</a>
+                <div class="nav-item dropdown ms-lg-3">
+                    <a class="nav-link dropdown-toggle" href="#" id="langDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-translate"></i> {{ strtoupper(app()->getLocale()) }}
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="langDropdown">
+                        <li><a class="dropdown-item" href="{{ route('lang.switch', 'en') }}">English</a></li>
+                        <li><a class="dropdown-item" href="{{ route('lang.switch', 'fr') }}">Français</a></li>
+                    </ul>
+                </div>
+                <a href="{{ url('/get-involved') }}" class="btn btn-primary ms-lg-3">{{ __('messages.donate') }}</a>
             </div>
         </div>
     </nav>
