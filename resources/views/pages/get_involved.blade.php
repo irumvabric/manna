@@ -118,30 +118,7 @@
         </div>
     </section>
 
-    <!-- Volunteer Section -->
-    <section class="py-5 bg-dark text-white text-center">
-        <div class="container py-4">
-            <h2 class="fw-bold mb-3">Other Ways to Help</h2>
-            <p class="lead mb-4 mx-auto" style="max-width: 600px; opacity: 0.8;">
-                Can't give financially? You can still make a difference by sharing your time, skills, or spreading the word about Manna Initiative.
-            </p>
-            <div class="row g-4 justify-content-center mt-2">
-                <div class="col-md-4">
-                    <h5 class="fw-bold mb-3"><i class="bi bi-people me-2"></i>Mentorship</h5>
-                    <p class="small opacity-75">Guide a student in their professional or academic journey.</p>
-                </div>
-                <div class="col-md-4">
-                    <h5 class="fw-bold mb-3"><i class="bi bi-share me-2"></i>Advocacy</h5>
-                    <p class="small opacity-75">Tell your friends and community about our mission.</p>
-                </div>
-                <div class="col-md-4">
-                    <h5 class="fw-bold mb-3"><i class="bi bi-megaphone me-2"></i>Volunteering</h5>
-                    <p class="small opacity-75">Help us organize events and community outreach.</p>
-                </div>
-            </div>
-            <a href="{{ url('/contact') }}" class="btn btn-outline-light px-5 py-2 mt-5 rounded-pill">Contact Us to Volunteer</a>
-        </div>
-    </section>
+   
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
