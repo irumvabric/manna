@@ -82,7 +82,8 @@
                     </li>
                 </ul>
                 <div class="nav-item dropdown ms-lg-3">
-                    <a class="nav-link dropdown-toggle" href="#" id="langDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="langDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="bi bi-translate"></i> {{ strtoupper(app()->getLocale()) }}
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="langDropdown">
@@ -99,7 +100,7 @@
     <main>
         @yield('content')
     </main>
-    
+
 
     <!-- Footer -->
     <footer class="text-white py-5" style="background-color: #0070ba;">
@@ -108,33 +109,34 @@
                 <!-- Column 1: About -->
                 <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
                     <img src="{{ asset('img/LOGO.png') }}" alt="Footer Logo" class="border-2">
-                    <h5 class="fw-bold mb-3">About Manna</h5>
-                    <p class="small">Manna Initiative is dedicated to empowering university students through education
-                        support, mentorship, and community engagement.</p>
+                    <h5 class="fw-bold mb-3">{{ __('messages.about_manna') }}</h5>
+                    <p class="small">{{ __('messages.footer_about_desc') }}</p>
                 </div>
 
                 <!-- Column 2: Quick Links -->
                 <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
-                    <h5 class="fw-bold mb-3">Quick Links</h5>
+                    <h5 class="fw-bold mb-3">{{ __('messages.quick_links') }}</h5>
                     <ul class="list-unstyled">
                         <li class="mb-2"><a href="{{ url('/') }}"
-                                class="text-white text-decoration-none">Home</a></li>
-                        <li class="mb-2"><a href="{{ url('/about') }}" class="text-white text-decoration-none">About
-                                Us</a></li>
+                                class="text-white text-decoration-none">{{ __('messages.home') }}</a></li>
+                        <li class="mb-2"><a href="{{ url('/about') }}"
+                                class="text-white text-decoration-none">{{ __('messages.about_us') }}</a></li>
                         <li class="mb-2"><a href="{{ url('/contact') }}"
-                                class="text-white text-decoration-none">Contact</a></li>
-                        <li class="mb-2"><a href="{{ url('/get-involved') }}" class="text-white text-decoration-none">Donate</a>
+                                class="text-white text-decoration-none">{{ __('messages.contact') }}</a></li>
+                        <li class="mb-2"><a href="{{ url('/get-involved') }}"
+                                class="text-white text-decoration-none">{{ __('messages.donate') }}</a>
                         </li>
-                        <li class="mb-2"><a href="{{ url('/login') }}" class="text-white text-decoration-none">Login</a>
+                        <li class="mb-2"><a href="{{ url('/login') }}"
+                                class="text-white text-decoration-none">{{ __('messages.login') }}</a>
                         </li>
                     </ul>
                 </div>
 
                 <!-- Column 3: Contact Info -->
                 <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
-                    <h5 class="fw-bold mb-3">Contact Us</h5>
+                    <h5 class="fw-bold mb-3">{{ __('messages.contact_us') }}</h5>
                     <ul class="list-unstyled">
-                        <li class="mb-2"><i class="bi bi-geo-alt"></i> Bujumbura,Burundi</li>
+                        <li class="mb-2"><i class="bi bi-geo-alt"></i> {{ __('messages.location') }}</li>
                         <li class="mb-2"><i class="bi bi-envelope"></i>initiativemanna@gmail.com</li>
                         <li><i class="bi bi-telephone"></i>+257 76 89 40 70/+1 (872) 810-5471</li>
                     </ul>
@@ -142,19 +144,18 @@
 
                 <!-- Column 4: Social Media -->
                 <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
-                    <h5 class="fw-bold mb-3">Follow Us</h5>
+                    <h5 class="fw-bold mb-3">{{ __('messages.follow_us') }}</h5>
                     <div class="d-flex gap-3">
                         <a href="#" class="text-white"><i class="bi bi-facebook fs-5"></i></a>
                         <a href="#" class="text-white"><i class="bi bi-twitter fs-5"></i></a>
                         <a href="#" class="text-white"><i class="bi bi-instagram fs-5"></i></a>
-                        <a href="#" class="text-white"><i class="bi bi-linkedin fs-5"></i></a>
                     </div>
                 </div>
             </div>
 
             <!-- Copyright -->
             <div class="text-center mt-4 pt-3 border-top">
-                <p class="mb-0 small">&copy; 2025 Manna Initiative. All rights reserved.</p>
+                <p class="mb-0 small">{{ __('messages.copyright') }}</p>
             </div>
         </div>
     </footer>

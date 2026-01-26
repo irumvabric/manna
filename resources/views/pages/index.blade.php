@@ -11,7 +11,8 @@
             <p class="lead mt-3 mb-4">
                 {{ __('messages.hero_subtitle') }}
             </p>
-            <a href="{{ url('/about') }}" style="color: #0070ba;" class="btn btn-light btn-lg text-primary fw-semibold">{{ __('messages.about') }}</a>
+            <a href="{{ url('/about') }}" style="color: #0070ba;"
+                class="btn btn-light btn-lg text-primary fw-semibold">{{ __('messages.about') }}</a>
         </div>
     </section>
 
@@ -27,9 +28,7 @@
                     <p class="small text-muted mb-2">{{ __('messages.small_help') }}</p>
                     <h2 class="fw-bold display-6 mb-3">{{ __('messages.about') }}</h2>
                     <p class="mb-4">
-                        At Manna Initiative, we believe that education is the key to breaking the cycle of poverty.Your
-                        support provides scholarships, educational materials, and mentorship opportunities to talented
-                        students who otherwise couldn’t afford university.
+                        {{ __('messages.about_description') }}
                     </p>
                     <a href="{{ url('/about') }}" class="btn btn-primary btn-lg">{{ __('messages.see_more') }}</a>
                 </div>
@@ -48,8 +47,7 @@
                             <img src="https://images.pexels.com/photos/289737/pexels-photo-289737.jpeg" alt="">
                             <h5 class="card-title fw-bold">{{ __('messages.scholarships') }}</h5>
                             <p class="card-text">
-                                We provide tuition assistance and scholarships for brilliant students from disadvantaged
-                                backgrounds.
+                                {{ __('messages.scholarships_desc') }}
                             </p>
                         </div>
                     </div>
@@ -60,7 +58,7 @@
                             <img src="https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg" alt="">
                             <h5 class="card-title fw-bold">{{ __('messages.educational_resources') }}</h5>
                             <p class="card-text">
-                                We supply books, learning tools, and technology to help students thrive academically.
+                                {{ __('messages.educational_resources_desc') }}
                             </p>
                         </div>
                     </div>
@@ -71,7 +69,7 @@
                             <img src="https://images.pexels.com/photos/3280130/pexels-photo-3280130.jpeg" alt="">
                             <h5 class="card-title fw-bold">{{ __('messages.career_guidance') }}</h5>
                             <p class="card-text">
-                                We connect scholars with professionals to build skills, confidence, and a successful future.
+                                {{ __('messages.career_guidance_desc') }}
                             </p>
                         </div>
                     </div>
@@ -87,13 +85,12 @@
                 <div class="col-md-8 content">
                     <h2 class="fw-bold">{{ __('messages.get_involved') }}</h2>
                     <p class="lead mb-0">
-                        You can change a student's life today — whether by donating, volunteering, or spreading the
-                        word.
-                        Together, we can make higher education accessible for all.
+                        {{ __('messages.get_involved_desc') }}
                     </p>
                 </div>
                 <div class="col-md-4 text-md-end content text-white">
-                    <a href="{{ url('/contact') }}" class="btn btn-primary btn-contact px-4">{{ __('messages.contact') }}</a>
+                    <a href="{{ url('/contact') }}"
+                        class="btn btn-primary btn-contact px-4">{{ __('messages.contact') }}</a>
                 </div>
             </div>
         </div>
