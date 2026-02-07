@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', __('messages.donations_management'))
+@section('title', __('messages.my_donations'))
 @section('page-title', __('messages.donations'))
 
 @section('content')
@@ -18,7 +18,7 @@
     <!-- Header Section -->
     <div class="d-flex justify-content-between align-items-center">
         <div>
-            <h4 class="fw-bold text-dark mb-1">{{ __('messages.donations_management') }}</h4>
+            <h4 class="fw-bold text-dark mb-1">{{ __('messages.my_donations') }}</h4>
             <p class="text-muted mb-0">{{ __('messages.track_manage_donations') }}</p>
         </div>
         <div>
@@ -36,9 +36,16 @@
             <div class="card border-0 shadow-sm h-100">
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-start mb-3">
+                        @php
+                            $symbol = match($donator->currency ?? 'BIF') {
+                                'USD' => '$',
+                                'EUR' => '€',
+                                default => 'BIF '
+                            };
+                        @endphp
                         <div>
                             <div class="text-muted small mb-1">{{ __('messages.total_approved') }}</div>
-                            <div class="h4 mb-0 fw-bold text-dark">${{ number_format($totalApprovedAmount, 2) }}</div>
+                            <div class="h4 mb-0 fw-bold text-dark">{{ $symbol }}{{ number_format($totalApprovedAmount, 2) }}</div>
                         </div>
                         <div class="d-flex align-items-center justify-content-center bg-success bg-opacity-10 rounded-3" style="width: 40px; height: 40px;">
                             <i data-lucide="check-circle" class="text-success" style="width: 20px; height: 20px;"></i>
@@ -53,7 +60,7 @@
                     <div class="d-flex justify-content-between align-items-start mb-3">
                         <div>
                             <div class="text-muted small mb-1">{{ __('messages.pending_amount') }}</div>
-                            <div class="h4 mb-0 fw-bold text-dark">${{ number_format($pendingAmount, 2) }}</div>
+                            <div class="h4 mb-0 fw-bold text-dark">{{ $symbol }}{{ number_format($pendingAmount, 2) }}</div>
                         </div>
                         <div class="d-flex align-items-center justify-content-center bg-warning bg-opacity-10 rounded-3" style="width: 40px; height: 40px;">
                             <i data-lucide="clock" class="text-warning" style="width: 20px; height: 20px;"></i>
@@ -68,7 +75,7 @@
                     <div class="d-flex justify-content-between align-items-start mb-3">
                         <div>
                             <div class="text-muted small mb-1">{{ __('messages.this_month') }}</div>
-                            <div class="h4 mb-0 fw-bold text-dark">${{ number_format($thisMonthAmount, 2) }}</div>
+                            <div class="h4 mb-0 fw-bold text-dark">{{ $symbol }}{{ number_format($thisMonthAmount, 2) }}</div>
                         </div>
                         <div class="d-flex align-items-center justify-content-center bg-info bg-opacity-10 rounded-3" style="width: 40px; height: 40px;">
                             <i data-lucide="calendar" class="text-info" style="width: 20px; height: 20px;"></i>
@@ -108,6 +115,7 @@
                 </div>
                 <div class="col-md-2">
                     <select name="status" class="form-select">
+                   
                         <option value="">{{ __('messages.status_all') }}</option>
                         <option value="approved" {{ request('status') == 'approved' ? 'selected' : '' }}>{{ __('messages.approved') }}</option>
                         <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>{{ __('messages.pending') }}</option>
@@ -148,7 +156,7 @@
                             <th class="border-0 text-muted small fw-semibold py-3">{{ __('messages.payment_method') }}</th>
                             <th class="border-0 text-muted small fw-semibold py-3">{{ __('messages.status') }}</th>
                             <th class="border-0 text-muted small fw-semibold py-3">{{ __('messages.date') }}</th>
-                            <th class="border-0 text-muted small fw-semibold py-3 text-end pe-4">{{ __('messages.actions') }}</th>
+                            <!--<th class="border-0 text-muted small fw-semibold py-3 text-end pe-4">{{ __('messages.actions') }}</th>-->
                         </tr>
                     </thead>
                     <tbody>
@@ -193,7 +201,7 @@
                                 {{ $donation->created_at->format('M d, Y') }}
                             </td>
                             <td class="text-end pe-4">
-                                <div class="dropdown">
+                                <!--<div class="dropdown">
                                     <button class="btn btn-sm btn-light border-0" type="button" data-bs-toggle="dropdown">
                                         <i data-lucide="more-vertical" style="width: 16px; height: 16px;"></i>
                                     </button>
@@ -204,7 +212,7 @@
                                                 @csrf @method('PUT')
                                                 <input type="hidden" name="status" value="approved">
                                                 <button type="submit" class="dropdown-item d-flex align-items-center gap-2 small text-success">
-                                                    <i data-lucide="check" style="width: 14px; height: 14px;"></i> {{ __('messages.approve') }}
+                                                    <i data-lucide="check" style="width: 14px; height: 14px;"></i> Approve
                                                 </button>
                                             </form>
                                         </li>
@@ -213,21 +221,21 @@
                                                 @csrf @method('PUT')
                                                 <input type="hidden" name="status" value="rejected">
                                                 <button type="submit" class="dropdown-item d-flex align-items-center gap-2 small text-danger">
-                                                    <i data-lucide="x" style="width: 14px; height: 14px;"></i> {{ __('messages.reject') }}
+                                                    <i data-lucide="x" style="width: 14px; height: 14px;"></i> Reject
                                                 </button>
                                             </form>
                                         </li>
                                         @endif
                                         <li>
-                                            <form action="{{ route('admin.donations.destroy', $donation->id) }}" method="POST" onsubmit="return confirm('{{ __('messages.are_you_sure') }}')">
+                                            <form action="{{ route('admin.donations.destroy', $donation->id) }}" method="POST" onsubmit="return confirm('Are you sure?')">
                                                 @csrf @method('DELETE')
                                                 <button type="submit" class="dropdown-item d-flex align-items-center gap-2 small text-danger">
-                                                    <i data-lucide="trash-2" style="width: 14px; height: 14px;"></i> {{ __('messages.delete', ['entity' => '']) }}
+                                                    <i data-lucide="trash-2" style="width: 14px; height: 14px;"></i> Delete
                                                 </button>
                                             </form>
                                         </li>
                                     </ul>
-                                </div>
+                                </div>-->
                             </td>
                         </tr>
                         @empty
@@ -260,13 +268,11 @@
                 </div>
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label class="form-label">{{ __('messages.select_donator') }}</label>
-                        <select name="donator_id" class="form-select" required>
-                            <option value="">{{ __('messages.choose_donator') }}</option>
-                            @foreach($donatorsList as $donator)
-                                <option value="{{ $donator->id }}">{{ $donator->name }} {{ $donator->surname }} ({{ $donator->email }})</option>
-                            @endforeach
+                        <label class="form-label">{{ __('messages.donator') }}</label>
+                        <select name="donator_id" class="form-select" required readonly>
+                            <option value="{{ $donator->id }}" selected>{{ $donator->name }} {{ $donator->surname }} ({{ $donator->email }})</option>
                         </select>
+                        <small class="text-muted">{{ __('messages.recording_for_account') }}</small>
                     </div>
                     <div class="row">
                         <div class="col-md-6 mb-3">
@@ -276,9 +282,9 @@
                         <div class="col-md-6 mb-3">
                             <label class="form-label">{{ __('messages.currency') }}</label>
                             <select name="currency" class="form-select" required>
-                                <option value="BIF">BIF</option>
-                                <option value="USD">USD</option>
-                                <option value="EUR">EUR</option>
+                                <option value="BIF" {{ ($donator->currency ?? 'BIF') == 'BIF' ? 'selected' : '' }}>BIF</option>
+                                <option value="USD" {{ ($donator->currency ?? '') == 'USD' ? 'selected' : '' }}>USD</option>
+                                <option value="EUR" {{ ($donator->currency ?? '') == 'EUR' ? 'selected' : '' }}>EUR</option>
                             </select>
                         </div>
                     </div>

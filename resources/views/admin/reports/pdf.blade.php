@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Donation Report</title>
+    <title>{{ __('messages.reports') }}</title>
     <style>
         body {
             font-family: sans-serif;
@@ -47,37 +47,42 @@
 </head>
 <body>
     <div class="header">
-        <h2>Donation Report</h2>
+        <h2>{{ __('messages.reports_exports') }}</h2>
         <p>Generated on {{ now()->format('Y-m-d H:i') }}</p>
     </div>
 
     <div class="summary">
-        <strong>Total Records:</strong> {{ $totalRecords }} | 
-        <strong>Total Amount:</strong> ${{ number_format($totalAmount, 2) }}
+        <strong>{{ __('messages.total_records') }}:</strong> {{ $totalRecords }} | 
+        <strong>{{ __('messages.total_amount') }}:</strong> {{ session('currency_symbol', '$') }}{{ number_format($totalAmount, 2) }}
     </div>
 
     <table>
         <thead>
             <tr>
-                <th>Donator</th>
-                <th>Email</th>
-                <th>Amount</th>
-                <th>Period</th>
-                <th>Status</th>
-                <th>Date</th>
+                <th>{{ __('messages.donator') }}</th>
+                <th>{{ __('messages.email') }}</th>
+                <th>{{ __('messages.amount') }}</th>
+                <th>{{ __('messages.period') }}</th>
+                <th>{{ __('messages.status') }}</th>
+                <th>{{ __('messages.date') }}</th>
             </tr>
         </thead>
         <tbody>
             @foreach($donations as $donation)
             <tr>
-                <td>{{ $donation->donator->name ?? 'Unknown' }}</td>
+                <td>{{ $donation->donator->name ?? __('messages.unknown') }}</td>
                 <td>{{ $donation->donator->email ?? '-' }}</td>
-                <td>${{ number_format($donation->amount) }}</td>
+                <td>{{ number_format($donation->amount, 2) }} {{ $donation->currency ?? 'USD' }}</td>
                 <td>
                     @php
-                        $periodMap = [1 => 'Monthly', 3 => 'Quarterly', 6 => 'Semiannually', 12 => 'Yearly'];
+                        $periodMap = [
+                            1 => __('messages.monthly'),
+                            3 => __('messages.quarterly'),
+                            6 => __('messages.semiannually'),
+                            12 => __('messages.yearly')
+                        ];
                     @endphp
-                    {{ $periodMap[$donation->donator->periodicity ?? 1] ?? 'Monthly' }}
+                    {{ $periodMap[$donation->donator->periodicity ?? 1] ?? __('messages.monthly') }}
                 </td>
                 <td>
                     @php
@@ -89,7 +94,7 @@
                         };
                     @endphp
                     <span class="badge {{ $badgeClass }}">
-                        {{ ucfirst($donation->status) }}
+                        {{ __('messages.' . $donation->status) }}
                     </span>
                 </td>
                 <td>{{ $donation->created_at->format('Y-m-d') }}</td>

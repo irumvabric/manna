@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
-@section('title', 'Beneficiaries Management')
-@section('page-title', 'Beneficiaries')
+@section('title', __('messages.beneficiary_management'))
+@section('page-title', __('messages.beneficiary_management'))
 
 @section('content')
 <div class="d-flex flex-column gap-4">
@@ -18,13 +18,13 @@
     <!-- Header Section -->
     <div class="d-flex justify-content-between align-items-center">
         <div>
-            <h4 class="fw-bold text-dark mb-1">Beneficiaries Management</h4>
-            <p class="text-muted mb-0">Track and manage scholarship recipients</p>
+            <h4 class="fw-bold text-dark mb-1">{{ __('messages.beneficiary_management') }}</h4>
+            <p class="text-muted mb-0">{{ __('messages.track_manage_beneficiaries') }}</p>
         </div>
         <div>
             <button class="btn btn-primary d-flex align-items-center gap-2 shadow-sm" data-bs-toggle="modal" data-bs-target="#addBeneficiaryModal">
                 <i data-lucide="user-plus" style="width: 18px; height: 18px;"></i>
-                <span>Add Beneficiary</span>
+                <span>{{ __('messages.add_beneficiary') }}</span>
             </button>
         </div>
     </div>
@@ -38,11 +38,11 @@
                         <span class="input-group-text bg-white border-end-0">
                             <i data-lucide="search" style="width: 18px; height: 18px; color: #6c757d;"></i>
                         </span>
-                        <input type="text" name="search" class="form-control border-start-0 ps-0" placeholder="Search by name, email, department, faculty..." value="{{ request('search') }}">
+                        <input type="text" name="search" class="form-control border-start-0 ps-0" placeholder="{{ __('messages.search_placeholder') }}" value="{{ request('search') }}">
                     </div>
                 </div>
                 <div class="col-md-2">
-                    <button type="submit" class="btn btn-dark w-100">Filter</button>
+                    <button type="submit" class="btn btn-dark w-100">{{ __('messages.filter') }}</button>
                 </div>
             </form>
         </div>
@@ -55,11 +55,11 @@
                 <table class="table table-hover align-middle mb-0">
                     <thead class="bg-light">
                         <tr>
-                            <th class="border-0 text-muted small fw-semibold ps-4 py-3">Beneficiary</th>
-                            <th class="border-0 text-muted small fw-semibold py-3">Academic Info</th>
-                            <th class="border-0 text-muted small fw-semibold py-3">Total Amount</th>
-                            <th class="border-0 text-muted small fw-semibold py-3">Tuition</th>
-                            <th class="border-0 text-muted small fw-semibold py-3 text-end pe-4">Actions</th>
+                            <th class="border-0 text-muted small fw-semibold ps-4 py-3">{{ __('messages.user') }}</th>
+                            <th class="border-0 text-muted small fw-semibold py-3">{{ __('messages.academic_info') }}</th>
+                            <th class="border-0 text-muted small fw-semibold py-3">{{ __('messages.amount_received') }}</th>
+                            <th class="border-0 text-muted small fw-semibold py-3">{{ __('messages.tuition_cost') }}</th>
+                            <th class="border-0 text-muted small fw-semibold py-3 text-end pe-4">{{ __('messages.actions') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -106,58 +106,58 @@
                                     @csrf @method('PUT')
                                     <div class="modal-content">
                                         <div class="modal-header border-0 pb-0">
-                                            <h5 class="fw-bold">Edit Beneficiary</h5>
+                                            <h5 class="fw-bold">{{ __('messages.edit_beneficiary') }}</h5>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                         </div>
                                         <div class="modal-body">
                                             <div class="row">
                                                 <div class="col-md-6 mb-3">
-                                                    <label class="form-label">Full Name</label>
+                                                    <label class="form-label">{{ __('messages.full_name') }}</label>
                                                     <input type="text" name="name" class="form-control" value="{{ $beneficiary->name }}" required>
                                                 </div>
                                                 <div class="col-md-6 mb-3">
-                                                    <label class="form-label">Email</label>
+                                                    <label class="form-label">{{ __('messages.email') }}</label>
                                                     <input type="email" name="email" class="form-control" value="{{ $beneficiary->email }}">
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-4 mb-3">
-                                                    <label class="form-label">Age</label>
+                                                    <label class="form-label">{{ __('messages.age') }}</label>
                                                     <input type="number" name="age" class="form-control" value="{{ $beneficiary->age }}">
                                                 </div>
                                                 <div class="col-md-4 mb-3">
-                                                    <label class="form-label">Phone</label>
+                                                    <label class="form-label">{{ __('messages.phone_number') }}</label>
                                                     <input type="text" name="phone" class="form-control" value="{{ $beneficiary->phone }}">
                                                 </div>
                                                 <div class="col-md-4 mb-3">
-                                                    <label class="form-label">Address</label>
+                                                    <label class="form-label">{{ __('messages.address') }}</label>
                                                     <input type="text" name="address" class="form-control" value="{{ $beneficiary->address }}">
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-6 mb-3">
-                                                    <label class="form-label">Faculty</label>
+                                                    <label class="form-label">{{ __('messages.faculty') }}</label>
                                                     <input type="text" name="faculte" class="form-control" value="{{ $beneficiary->faculte }}">
                                                 </div>
                                                 <div class="col-md-6 mb-3">
-                                                    <label class="form-label">Department</label>
+                                                    <label class="form-label">{{ __('messages.department') }}</label>
                                                     <input type="text" name="departement" class="form-control" value="{{ $beneficiary->departement }}">
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-6 mb-3">
-                                                    <label class="form-label">Amount Received</label>
+                                                    <label class="form-label">{{ __('messages.amount_received') }}</label>
                                                     <input type="number" step="0.01" name="amount_received" class="form-control" value="{{ $beneficiary->amount_received }}" required>
                                                 </div>
                                                 <div class="col-md-6 mb-3">
-                                                    <label class="form-label">Tuition Cost</label>
+                                                    <label class="form-label">{{ __('messages.tuition_cost') }}</label>
                                                     <input type="number" step="0.01" name="tuition" class="form-control" value="{{ $beneficiary->tuition }}" required>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="modal-footer border-0 pt-0">
-                                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
-                                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">{{ __('messages.cancel') }}</button>
+                                            <button type="submit" class="btn btn-primary">{{ __('messages.save_changes') }}</button>
                                         </div>
                                     </div>
                                 </form>
@@ -170,13 +170,13 @@
                                 <div class="modal-content border-0 shadow">
                                     <div class="modal-body text-center p-4">
                                         <div class="text-danger mb-3"><i data-lucide="alert-triangle" style="width: 48px; height: 48px;"></i></div>
-                                        <h5 class="fw-bold">Delete Beneficiary?</h5>
-                                        <p class="text-muted small">This action will permanently remove this record.</p>
+                                        <h5 class="fw-bold">{{ __('messages.delete_beneficiary_confirm') }}</h5>
+                                        <p class="text-muted small">{{ __('messages.delete_beneficiary_desc') }}</p>
                                         <div class="d-flex gap-2">
-                                            <button type="button" class="btn btn-light flex-grow-1" data-bs-dismiss="modal">Cancel</button>
+                                            <button type="button" class="btn btn-light flex-grow-1" data-bs-dismiss="modal">{{ __('messages.cancel') }}</button>
                                             <form action="{{ route('admin.beneficiaries.destroy', $beneficiary->id) }}" method="POST" class="flex-grow-1">
                                                 @csrf @method('DELETE')
-                                                <button type="submit" class="btn btn-danger w-100">Delete</button>
+                                                <button type="submit" class="btn btn-danger w-100">{{ __('messages.delete', ['entity' => '']) }}</button>
                                             </form>
                                         </div>
                                     </div>
@@ -185,7 +185,7 @@
                         </div>
                         @empty
                         <tr>
-                            <td colspan="5" class="text-center py-5">No beneficiaries found.</td>
+                            <td colspan="5" class="text-center py-5 text-muted">{{ __('messages.no_beneficiaries_found') }}</td>
                         </tr>
                         @endforelse
                     </tbody>
@@ -208,58 +208,58 @@
             @csrf
             <div class="modal-content">
                 <div class="modal-header border-0 pb-0">
-                    <h5 class="fw-bold">Add New Beneficiary</h5>
+                    <h5 class="fw-bold">{{ __('messages.add_beneficiary') }}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <label class="form-label">Full Name</label>
-                            <input type="text" name="name" class="form-control" placeholder="Enter full name" required>
+                            <label class="form-label">{{ __('messages.full_name') }}</label>
+                            <input type="text" name="name" class="form-control" placeholder="{{ __('messages.enter_name') }}" required>
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label class="form-label">Email</label>
-                            <input type="email" name="email" class="form-control" placeholder="Enter email">
+                            <label class="form-label">{{ __('messages.email') }}</label>
+                            <input type="email" name="email" class="form-control" placeholder="{{ __('messages.enter_email') }}">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-4 mb-3">
-                            <label class="form-label">Age</label>
-                            <input type="number" name="age" class="form-control" placeholder="Age">
+                            <label class="form-label">{{ __('messages.age') }}</label>
+                            <input type="number" name="age" class="form-control" placeholder="{{ __('messages.age') }}">
                         </div>
                         <div class="col-md-4 mb-3">
-                            <label class="form-label">Phone</label>
-                            <input type="text" name="phone" class="form-control" placeholder="Phone">
+                            <label class="form-label">{{ __('messages.phone_number') }}</label>
+                            <input type="text" name="phone" class="form-control" placeholder="{{ __('messages.phone_number') }}">
                         </div>
                         <div class="col-md-4 mb-3">
-                            <label class="form-label">Address</label>
-                            <input type="text" name="address" class="form-control" placeholder="Address">
+                            <label class="form-label">{{ __('messages.address') }}</label>
+                            <input type="text" name="address" class="form-control" placeholder="{{ __('messages.address') }}">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <label class="form-label">Faculty</label>
-                            <input type="text" name="faculte" class="form-control" placeholder="Faculty">
+                            <label class="form-label">{{ __('messages.faculty') }}</label>
+                            <input type="text" name="faculte" class="form-control" placeholder="{{ __('messages.faculty') }}">
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label class="form-label">Department</label>
-                            <input type="text" name="departement" class="form-control" placeholder="Department">
+                            <label class="form-label">{{ __('messages.department') }}</label>
+                            <input type="text" name="departement" class="form-control" placeholder="{{ __('messages.department') }}">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <label class="form-label">Amount Received</label>
+                            <label class="form-label">{{ __('messages.amount_received') }}</label>
                             <input type="number" step="0.01" name="amount_received" class="form-control" placeholder="0.00" required>
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label class="form-label">Tuition Cost</label>
+                            <label class="form-label">{{ __('messages.tuition_cost') }}</label>
                             <input type="number" step="0.01" name="tuition" class="form-control" placeholder="0.00" required>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer border-0 pt-0">
-                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Add Beneficiary</button>
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">{{ __('messages.cancel') }}</button>
+                    <button type="submit" class="btn btn-primary">{{ __('messages.add_beneficiary') }}</button>
                 </div>
             </div>
         </form>

@@ -2,6 +2,7 @@
 
 @section('title', __('messages.register'))
 
+
 @section('content')
 <section class="py-5 bg-light" style="min-height: 80vh; display: flex; align-items: center;">
     <div class="container">
@@ -17,10 +18,16 @@
                         <form method="POST" action="{{ route('register') }}">
                             @csrf
 
+                            @php
+                                $prefillName = session('registration_name', old('name'));
+                                $prefillEmail = session('registration_email', old('email'));
+                                $isReadonly = session()->has('registration_name');
+                            @endphp
+
                             <!-- Name -->
                             <div class="mb-3">
                                 <label for="name" class="form-label small text-muted fw-bold">{{ __('messages.name') }}</label>
-                                <input id="name" type="text" class="form-control py-2 @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autofocus autocomplete="name" placeholder="John Doe">
+                                <input id="name" type="text" class="form-control py-2 @error('name') is-invalid @enderror" name="name" value="{{ $prefillName }}" required {{ $isReadonly ? 'readonly' : '' }} autofocus autocomplete="name" placeholder="John Doe">
                                 @error('name')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -31,7 +38,7 @@
                             <!-- Email Address -->
                             <div class="mb-3">
                                 <label for="email" class="form-label small text-muted fw-bold">{{ __('messages.email') }}</label>
-                                <input id="email" type="email" class="form-control py-2 @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="username" placeholder="name@example.com">
+                                <input id="email" type="email" class="form-control py-2 @error('email') is-invalid @enderror" name="email" value="{{ $prefillEmail }}" required {{ $isReadonly ? 'readonly' : '' }} autocomplete="username" placeholder="name@example.com">
                                 @error('email')
                                     <div class="invalid-feedback">
                                         {{ $message }}

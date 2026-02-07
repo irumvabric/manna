@@ -35,16 +35,27 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
+        $role = 'donator';
+        // If it's an admin registering someone, we might want to handle it differently, 
+        // but for now, simple registration is always donator (admin creation handled separately)
+        
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
+            'role' => $role,
             'password' => Hash::make($request->password),
         ]);
+
+        // Link to existing donator record if email matches
+        $donator = \App\Models\Donator::where('email', $request->email)->first();
+        if ($donator) {
+            $donator->update(['user_id' => $user->id]);
+        }
 
         event(new Registered($user));
 
         Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
+        return redirect(route('admin.donations.mydonations', absolute: false));
     }
 }

@@ -72,7 +72,7 @@
                 </div>
                 <div>
                     <div class="text-muted small mb-1">{{ __('messages.total_amount') }}</div>
-                    <div class="h5 fw-bold text-dark mb-0">${{ number_format($totalAmount, 2) }}</div>
+                    <div class="h5 fw-bold text-dark mb-0">{{ session('currency_symbol', '$') }}{{ number_format($totalAmount, 2) }}</div>
                 </div>
             </div>
             
@@ -114,7 +114,7 @@
                                 {{ $donation->donator->email ?? '-' }}
                             </td>
                             <td class="fw-bold text-dark">
-                                ${{ number_format($donation->amount) }}
+                                {{ number_format($donation->amount, 2) }} <span class="text-muted small text-uppercase">{{ $donation->currency ?? 'USD' }}</span>
                             </td>
                             <td class="text-muted small">
                                 @php

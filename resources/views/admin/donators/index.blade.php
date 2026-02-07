@@ -82,7 +82,7 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-start mb-3">
                         <div>
-                            <div class="text-muted small mb-1">Total Target Amount</div>
+                            <div class="text-muted small mb-1">{{ __('messages.total_target_amount') }}</div>
                             <div class="h4 mb-0 fw-bold text-dark">{{ number_format($totalTargetAmount, 2) }}</div>
                         </div>
                         <div class="d-flex align-items-center justify-content-center bg-success bg-opacity-10 rounded-3" style="width: 40px; height: 40px;">
@@ -211,24 +211,24 @@
                                         </div>
                                         <div class="modal-body">
                                             <div class="mb-3">
-                                                <label class="form-label">Full Name</label>
+                                                <label class="form-label">{{ __('messages.full_name') }}</label>
                                                 <input type="text" name="name" class="form-control" value="{{ $donator->name }}" required>
                                             </div>
                                             <div class="mb-3">
-                                                <label class="form-label">Email</label>
+                                                <label class="form-label">{{ __('messages.email') }}</label>
                                                 <input type="email" name="email" class="form-control" value="{{ $donator->email }}" required>
                                             </div>
                                             <div class="mb-3">
-                                                <label class="form-label">Phone</label>
+                                                <label class="form-label">{{ __('messages.phone_number') }}</label>
                                                 <input type="text" name="phone" class="form-control" value="{{ $donator->phone }}">
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-6 mb-3">
-                                                    <label class="form-label">Target Amount</label>
+                                                    <label class="form-label">{{ __('messages.target_amount') }}</label>
                                                     <input type="number" step="0.01" name="target_amount" class="form-control" value="{{ $donator->target_amount }}" required>
                                                 </div>
                                                 <div class="col-md-6 mb-3">
-                                                    <label class="form-label">Currency</label>
+                                                    <label class="form-label">{{ __('messages.currency') }}</label>
                                                     <select name="currency" class="form-select" required>
                                                         <option value="BIF" {{ $donator->currency == 'BIF' ? 'selected' : '' }}>BIF</option>
                                                         <option value="USD" {{ $donator->currency == 'USD' ? 'selected' : '' }}>USD</option>
@@ -307,24 +307,24 @@
                 </div>
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label class="form-label">Full Name</label>
-                        <input type="text" name="name" class="form-control" placeholder="Enter name" required>
+                        <label class="form-label">{{ __('messages.full_name') }}</label>
+                        <input type="text" name="name" class="form-control" placeholder="{{ __('messages.enter_name') }}" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">{{ __('messages.email') }}</label>
-                        <input type="email" name="email" class="form-control" placeholder="{{ __('messages.email') }}" required>
+                        <input type="email" name="email" class="form-control" placeholder="{{ __('messages.enter_email') }}" required>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Phone</label>
+                        <label class="form-label">{{ __('messages.phone_number') }}</label>
                         <input type="text" name="phone" class="form-control" placeholder="+257 ...">
                     </div>
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <label class="form-label">Target Amount</label>
+                            <label class="form-label">{{ __('messages.target_amount') }}</label>
                             <input type="number" step="0.01" name="target_amount" class="form-control" placeholder="0.00" required>
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label class="form-label">Currency</label>
+                            <label class="form-label">{{ __('messages.currency') }}</label>
                             <select name="currency" class="form-select" required>
                                 <option value="BIF">BIF</option>
                                 <option value="USD">USD</option>

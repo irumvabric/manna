@@ -15,7 +15,15 @@ class DonationController extends Controller
 {
     public function index(Request $request)
     {
+        $user = \Illuminate\Support\Facades\Auth::user();
         $query = Donation::with('donator');
+
+        // If donator role, restrict to their own donations
+        if ($user && $user->role === 'donator') {
+            $query->whereHas('donator', function($q) use ($user) {
+                $q->where('email', $user->email);
+            });
+        }
 
         // Search Filter (by Donator Name)
         if ($request->filled('search')) {
@@ -47,32 +55,50 @@ class DonationController extends Controller
         // Sorting
         $donations = $query->latest()->paginate(10);
 
-        // Stats Logic
-        // 1. Total Approved Amount (All time)
-        $totalApprovedAmount = Donation::where('status', 'approved')->sum('amount');
-        
-        // 2. Pending Amount (Potential revenue waiting approval)
-        $pendingAmount = Donation::where('status', 'pending')->sum('amount');
+        // If donator role, restrict stats to their own donations
+        $donator = null;
+        if ($user && $user->role === 'donator') {
+            $donator = Donator::where('email', $user->email)->first();
+            
+            $totalApprovedAmount = Donation::where('donator_id', $donator->id)->where('status', 'approved')->sum('amount');
+            $pendingAmount = Donation::where('donator_id', $donator->id)->where('status', 'pending')->sum('amount');
+            $thisMonthAmount = Donation::where('donator_id', $donator->id)
+                ->where('status', 'approved')
+                ->whereYear('created_at', now()->year)
+                ->whereMonth('created_at', now()->month)
+                ->sum('amount');
+            $todayCount = Donation::where('donator_id', $donator->id)->whereDate('created_at', today())->count();
+        } else {
+            // Stats Logic for Admin
+            // 1. Total Approved Amount (All time)
+            $totalApprovedAmount = Donation::where('status', 'approved')->sum('amount');
+            
+            // 2. Pending Amount (Potential revenue waiting approval)
+            $pendingAmount = Donation::where('status', 'pending')->sum('amount');
 
-        // 3. This Month's Donations (Approved)
-        $thisMonthAmount = Donation::where('status', 'approved')
-            ->whereYear('created_at', now()->year)
-            ->whereMonth('created_at', now()->month)
-            ->sum('amount');
+            // 3. This Month's Donations (Approved)
+            $thisMonthAmount = Donation::where('status', 'approved')
+                ->whereYear('created_at', now()->year)
+                ->whereMonth('created_at', now()->month)
+                ->sum('amount');
 
-        // 4. Today's Count
-        $todayCount = Donation::whereDate('created_at', today())->count();
+            // 4. Today's Count
+            $todayCount = Donation::whereDate('created_at', today())->count();
+        }
 
         // For "Record Donation" modal
         $donatorsList = Donator::all();
 
-        return view('admin.donations.index', compact(
+        $viewName = ($user && $user->role === 'donator') ? 'admin.donations.mydonations' : 'admin.donations.index';
+
+        return view($viewName, compact(
             'donations',
             'donatorsList',
             'totalApprovedAmount',
             'pendingAmount',
             'thisMonthAmount',
-            'todayCount'
+            'todayCount',
+            'donator'
         ));
     }
 
@@ -99,9 +125,19 @@ class DonationController extends Controller
             ]
         );
 
-        // Record the donation as pending
+        // Create the engagement record
+        $engagement = \App\Models\Engagement::create([
+            'donator_id' => $donator->id,
+            'amount' => $request->target_amount,
+            'currency' => $request->currency,
+            'periodicity' => $request->periodicity,
+            'status' => 'active',
+        ]);
+
+        // Record the initial donation as pending
         Donation::create([
             'donator_id' => $donator->id,
+            'engagement_id' => $engagement->id,
             'amount' => $request->target_amount,
             'currency' => $request->currency,
             'status' => 'pending',
@@ -115,8 +151,11 @@ class DonationController extends Controller
         } catch (\Exception $e) {
             Log::error('Mail sending failed: ' . $e->getMessage());
         }
+        
+        // Store info in session for pre-filling registration
+        session(['registration_name' => $request->name, 'registration_email' => $request->email]);
 
-        return redirect()->back()->with('success', 'Your donation submission has been received. Thank you!');
+        return redirect()->route('register')->with(['success' => 'Your donation submission has been received. Thank you!']);
     }
 
     public function contactSubmit(Request $request)

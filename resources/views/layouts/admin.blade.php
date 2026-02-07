@@ -211,23 +211,29 @@
     $currentPage = $currentPage ?? '';
 
     $donatorMenuItems = [
-        ['id' => 'dashboard', 'label' => __('messages.home'), 'icon' => 'layout-dashboard'],
-        ['id' => 'make-donation', 'label' => __('messages.donate'), 'icon' => 'dollar-sign'],
-        ['id' => 'history', 'label' => 'Donation History', 'icon' => 'history'],
-        ['id' => 'notifications', 'label' => 'Notifications', 'icon' => 'bell'],
+        ['id' => 'admin.donations.mydonations', 'label' => __('messages.my_donations'), 'icon' => 'heart-handshake'],
+    ];
+
+    $bloggerMenuItems = [
+        ['id' => 'admin.blogs.index', 'label' => __('messages.blog_management'), 'icon' => 'newspaper'],
     ];
 
     $adminMenuItems = [
         ['id' => 'admin.dashboard', 'label' => __('messages.home'), 'icon' => 'layout-dashboard'],
-        ['id' => 'admin.donators.index', 'label' => 'Donator Management', 'icon' => 'users'],
-        ['id' => 'admin.donations.index', 'label' => 'Donations Management', 'icon' => 'heart-handshake'],
-        ['id' => 'admin.beneficiaries.index', 'label' => 'Beneficiaries', 'icon' => 'graduation-cap'],
-        ['id' => 'admin.blogs.index', 'label' => 'Blog Management', 'icon' => 'newspaper'],
-        ['id' => 'admin.reports.index', 'label' => 'Reports & Analytics', 'icon' => 'bar-chart-3'],
-        ['id' => 'admin.settings', 'label' => 'Settings', 'icon' => 'settings'],
+        ['id' => 'admin.users.index', 'label' => __('messages.user_management'), 'icon' => 'users'],
+        ['id' => 'admin.donators.index', 'label' => __('messages.donator_management'), 'icon' => 'users'],
+        ['id' => 'admin.donations.index', 'label' => __('messages.donations_management'), 'icon' => 'heart-handshake'],
+        ['id' => 'admin.beneficiaries.index', 'label' => __('messages.beneficiaries'), 'icon' => 'graduation-cap'],
+        ['id' => 'admin.blogs.index', 'label' => __('messages.blog_management'), 'icon' => 'newspaper'],
+        ['id' => 'admin.reports.index', 'label' => __('messages.reports_analytics'), 'icon' => 'bar-chart-3'],
+        ['id' => 'admin.settings', 'label' => __('messages.settings'), 'icon' => 'settings'],
     ];
 
-    $menuItems = $currentUser->role === 'admin' ? $adminMenuItems : $donatorMenuItems;
+    $menuItems = match($currentUser->role) {
+        'admin' => $adminMenuItems,
+        'blogger' => $bloggerMenuItems,
+        default => $donatorMenuItems,
+    };
 @endphp
 
 <!-- Sidebar -->
@@ -292,7 +298,7 @@
                     <div class="d-none d-md-flex align-items-center gap-3 ps-3 border-start">
                         <div class="text-end">
                             <div class="fw-semibold small">{{ $currentUser->name }}</div>
-                            <div class="text-muted" style="font-size: 12px;">{{ ucfirst($currentUser->role) }}</div>
+                            <div class="text-muted" style="font-size: 12px;">{{ __('messages.' . $currentUser->role) }}</div>
                         </div>
                         <div class="user-avatar">
                             {{ substr($currentUser->name, 0, 1) }}

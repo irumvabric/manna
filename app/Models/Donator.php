@@ -15,6 +15,7 @@ class Donator extends Model
      * @var array
      */
     protected $fillable = [
+        'user_id',
         'name',
         'email',
         'phone',
@@ -34,5 +35,19 @@ class Donator extends Model
             'id' => 'integer',
             'target_amount' => 'double',
         ];
+    }
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function engagements(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Engagement::class);
+    }
+
+    public function donations(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Donation::class);
     }
 }
