@@ -7,7 +7,7 @@
     <!-- Get Involved / Donation Section -->
     <section class="py-5">
         <div class="container overflow-hidden" style="max-height: 85vh;">
-            <div class="scrollable-container px-3" style="max-height: 80vh; overflow-y: auto; overflow-x: hidden;">
+            <div class="container px-3" style="max-height: 80vh; overflow-y: auto; overflow-x: hidden;">
                 <div class="row g-4 align-items-center">
                     <!-- Left Column: Info (Like Contact Page) -->
                     <div class="col-md-6">
@@ -21,10 +21,10 @@
                                     <i class="bi bi-check2-circle text-primary me-2"></i>
                                     <strong>{{ __('messages.transparency') }}</strong>: {{ __('messages.transparency_desc', ['default' => '100% of your donation goes to the cause.']) }}
                                 </li>
-                                <li class="mb-3">
+                                <!-- <li class="mb-3">
                                     <i class="bi bi-shield-check text-primary me-2"></i>
                                     <strong>{{ __('messages.security') }}</strong>: {{ __('messages.security_desc', ['default' => 'Secure encrypted payment processing.']) }}
-                                </li>
+                                </li> -->
                             </ul>
                         </div>
 
