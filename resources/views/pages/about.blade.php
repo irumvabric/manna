@@ -10,7 +10,7 @@
             <h2 class="fw-bold text-primary mb-4">{{ __('messages.who_we_are') }}</h2>
             <p class="lead mb-5 ">{{ __('messages.about_description') }}</p>
             <!-- Note: Using a direct URL for the image below, but if you download it and place it in your public folder, use asset() -->
-            <img src="https://images.pexels.com/photos/901962/pexels-photo-901962.jpeg" alt="Students learning"
+            <img src="{{ asset('img/web_image_4.jpg') }}" alt="Students learning"
                 class="img-fluid rounded shadow-sm mb-5 w-50 x-25">
         </div>
     </section>

@@ -3,10 +3,10 @@
 }
 
 .hero {
-    background: linear-gradient(rgba(0, 0, 50, 0.5), rgba(0, 0, 0, 0.536)),
-        url("https://images.pexels.com/photos/301926/pexels-photo-301926.jpeg")
-            center/cover no-repeat;
-    min-height: 85vh;
+    background:
+        linear-gradient(rgba(0, 0, 50, 0.5), rgba(0, 0, 0, 0.536)),
+        url("../img/web_image_3.jpg") center/cover no-repeat;
+    height: 80vh;
 }
 
 .nav-link.active {
@@ -33,5 +33,6 @@ footer {
 }
 
 .get-involved {
-    background-image: url("../img/bac.png");
+    background-color: rgba(0, 112, 186, 0.5);
+    background: url("../img/bac.png") center/cover no-repeat;
 }

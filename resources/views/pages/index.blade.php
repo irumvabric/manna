@@ -21,7 +21,7 @@
             <div class="row align-items-center g-4">
                 <div class="col-lg-6 text-center text-lg-start">
                     {{-- <img src="{{ asset('img/bac.png') }}" alt="About Manna" class="about-image img-fluid"> --}}
-                    <img src="https://images.pexels.com/photos/6207910/pexels-photo-6207910.jpeg" alt="About Manna"
+                    <img src="{{ asset('img/web_image_4.jpg') }}" alt="About Manna"
                         class="about-image img-fluid">
                 </div>
                 <div class="col-lg-6">
@@ -37,63 +37,65 @@
     </section>
 
     <!-- Focus Areas -->
-    <section class="py-5">
-        <div class="container text-center">
-            <h2 class="fw-bold text-primary mb-4" style="color: #0070ba;">{{ __('messages.our_focus') }}</h2>
-            <div class="row g-4">
-                <div class="col-md-4">
-                    <div class="card h-100 shadow-sm">
-                        <div class="card-body">
-                            <img src="https://images.pexels.com/photos/289737/pexels-photo-289737.jpeg" alt="">
-                            <h5 class="card-title fw-bold">{{ __('messages.scholarships') }}</h5>
-                            <p class="card-text">
-                                {{ __('messages.scholarships_desc') }}
-                            </p>
-                        </div>
+    <section class="py-5 bg-light">
+    <div class="container text-center">
+        <h2 class="fw-bold mb-2" style="color: #0070ba;">{{ __('messages.our_focus') }}</h2>
+        <p class="text-muted mb-5">Empowering the next generation of leaders in Burundi</p>
+        
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm border-0 hover-lift">
+                    <div class="card-img-container">
+                         <img src="{{ asset('img/web_image_5.jpg') }}" class="card-img-top" alt="Scholarships" style="height: 200px; object-fit: cover;">
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card h-100 shadow-sm">
-                        <div class="card-body">
-                            <img src="https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg" alt="">
-                            <h5 class="card-title fw-bold">{{ __('messages.educational_resources') }}</h5>
-                            <p class="card-text">
-                                {{ __('messages.educational_resources_desc') }}
-                            </p>
+                    <div class="card-body p-4">
+                        <div class="icon-circle mb-3">
+                            <i class="fas fa-graduation-cap text-primary"></i>
                         </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card h-100 shadow-sm">
-                        <div class="card-body">
-                            <img src="https://images.pexels.com/photos/3280130/pexels-photo-3280130.jpeg" alt="">
-                            <h5 class="card-title fw-bold">{{ __('messages.career_guidance') }}</h5>
-                            <p class="card-text">
-                                {{ __('messages.career_guidance_desc') }}
-                            </p>
-                        </div>
+                        <h5 class="card-title fw-bold">{{ __('messages.scholarships') }}</h5>
+                        <p class="card-text text-muted medium">
+                            {{ __('messages.scholarships_desc') }}
+                        </p>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- Get Involved section -->
-    <section class="get-involved text-white">
-        <div class="container py-5">
-            <div class="row align-items-center">
-                <div class="col-md-8 content">
-                    <h2 class="fw-bold">{{ __('messages.get_involved') }}</h2>
-                    <p class="lead mb-0">
-                        {{ __('messages.get_involved_desc') }}
-                    </p>
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm border-0 hover-lift">
+                    <div class="card-img-container">
+                        <img src="{{ asset('https://images.pexels.com/photos/289737/pexels-photo-289737.jpeg') }}" class="card-img-top" alt="Educational Resources" style="height: 200px; object-fit: cover;">
+                    </div>
+                    <div class="card-body p-4">
+                        <h5 class="card-title fw-bold">{{ __('messages.educational_resources') }}</h5>
+                        <p class="card-text text-muted medium">
+                            {{ __('messages.educational_resources_desc') }}
+                        </p>
+                    </div>
                 </div>
-                <div class="col-md-4 text-md-end content text-white">
-                    <a href="{{ url('/contact') }}"
-                        class="btn btn-primary btn-contact px-4">{{ __('messages.contact') }}</a>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm border-0 hover-lift">
+                    <div class="card-img-container">
+                        <img src="{{ asset('img/web_image_6.png') }}" class="card-img-top" alt="Mentorship" style="height: 200px; object-fit: cover;">
+                    </div>
+                    <div class="card-body p-4">
+                        <h5 class="card-title fw-bold">{{ __('messages.career_guidance') }}</h5>
+                        <p class="card-text text-muted medium">
+                            {{ __('messages.career_guidance_desc') }}
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
+
+<style>
+
+    .card-img-container {
+        overflow: hidden;
+    }
+</style>
 
 @endsection
