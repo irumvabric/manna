@@ -4,162 +4,154 @@
 
 @section('content')
     
-    <!-- Donation Section -->
+    <!-- Get Involved / Donation Section -->
     <section class="py-5">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-7">
-                    @if (session('success'))
-                        <div class="alert alert-success alert-dismissible fade show border-0 shadow-sm" role="alert">
-                            <i class="bi bi-check-circle-fill me-2"></i>
-                            {{ session('success') }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                    @endif
-
-                    @if ($errors->any())
-                        <div class="alert alert-danger border-0 shadow-sm">
-                            <ul class="mb-0">
-                                @foreach ($errors->all() as $err)
-                                    <li>{{ $err }}</li>
-                                @endforeach
+        <div class="container overflow-hidden" style="max-height: 85vh;">
+            <div class="scrollable-container px-3" style="max-height: 80vh; overflow-y: auto; overflow-x: hidden;">
+                <div class="row g-4 align-items-center">
+                    <!-- Left Column: Info (Like Contact Page) -->
+                    <div class="col-md-6">
+                        <h2 class="fw-bold text-primary mb-4">{{ __('messages.make_donation') }}</h2>
+                        <p class="lead text-muted">{{ __('messages.choose_how_to_support') }}</p>
+                        <p>{{ __('messages.donation_impact_description', ['default' => 'Your contribution directly supports our mission to empower lives and build sustainable futures for those in need.']) }}</p>
+                        
+                        <div class="mt-4">
+                            <ul class="list-unstyled">
+                                <li class="mb-3">
+                                    <i class="bi bi-check2-circle text-primary me-2"></i>
+                                    <strong>{{ __('messages.transparency') }}</strong>: {{ __('messages.transparency_desc', ['default' => '100% of your donation goes to the cause.']) }}
+                                </li>
+                                <li class="mb-3">
+                                    <i class="bi bi-shield-check text-primary me-2"></i>
+                                    <strong>{{ __('messages.security') }}</strong>: {{ __('messages.security_desc', ['default' => 'Secure encrypted payment processing.']) }}
+                                </li>
                             </ul>
                         </div>
-                    @endif
 
-                    <div class="card border-0 shadow-lg overflow-hidden" style="border-radius: 20px;">
-                        <div class="card-header bg-white border-0 pt-4 pb-0 text-center">
-                            <h3 class="fw-bold text-dark mb-0">{{ __('messages.make_donation') }}</h3>
-                            <p class="text-muted small">{{ __('messages.choose_how_to_support') }}</p>
+                        <div class="mt-4 pt-2">
+                            <a href="{{ asset('docs/donation_form.pdf') }}" class="btn btn-outline-primary rounded-pill px-4" download>
+                                <i class="bi bi-file-earmark-pdf me-1"></i> {{ __('messages.download_pdf_form') }}
+                            </a>
                         </div>
-                        <div class="card-body p-4 p-md-5">
-                            <form action="{{ url('/donate_form') }}" method="POST" id="donationForm">
-                                @csrf
+                    </div>
 
-                                <div class="row g-3">
-                                    <div class="col-md-6 mb-3">
-                                        <label class="form-label fw-semibold">{{ __('messages.full_name') }}</label>
-                                        <div class="input-group">
-                                            <span class="input-group-text bg-light border-0"><i class="bi bi-person"></i></span>
-                                            <input type="text" name="name" value="{{ old('name') }}" class="form-control bg-light border-0" placeholder="{{ __('messages.name_placeholder') }}" required>
-                                        </div>
+                    <!-- Right Column: Form (Styled Like Contact Page) -->
+                    <div class="col-md-6">
+                        @if (session('success'))
+                            <div class="alert alert-success border-0 shadow-sm mb-3">
+                                <i class="bi bi-check-circle-fill me-2"></i>
+                                {{ session('success') }}
+                            </div>
+                        @endif
+
+                        @if ($errors->any())
+                            <div class="alert alert-danger border-0 shadow-sm mb-3">
+                                <ul class="mb-0 small">
+                                    @foreach ($errors->all() as $err)
+                                        <li>{{ $err }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+
+                        <form action="{{ url('/donate_form') }}" method="POST" id="donationForm" class="shadow p-4 bg-white rounded border-top border-primary border-4">
+                            @csrf
+                            
+                            <!-- Personal Info Row -->
+                            <div class="row g-3 mb-3">
+                                <div class="col-sm-6">
+                                    <label class="form-label small fw-bold">{{ __('messages.full_name') }}</label>
+                                    <input type="text" name="name" value="{{ old('name') }}" class="form-control" placeholder="{{ __('messages.name_placeholder') }}" required>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label class="form-label small fw-bold">{{ __('messages.email') }}</label>
+                                    <input type="email" name="email" value="{{ old('email') }}" class="form-control" placeholder="{{ __('messages.email_placeholder') }}" required>
+                                </div>
+                            </div>
+
+                            <!-- Phone & Currency Row -->
+                            <div class="row g-3 mb-3">
+                                <div class="col-sm-6">
+                                    <label class="form-label small fw-bold">{{ __('messages.phone') }}</label>
+                                    <input type="text" name="phone" value="{{ old('phone') }}" class="form-control" placeholder="+257 ...">
+                                </div>
+                                <div class="col-sm-6">
+                                    <label class="form-label small fw-bold">{{ __('messages.currency') }}</label>
+                                    <select name="currency" class="form-select bg-light border-0">
+                                        <option value="USD" {{ old('currency') == 'USD' ? 'selected' : '' }}>USD ($)</option>
+                                        <option value="EUR" {{ old('currency') == 'EUR' ? 'selected' : '' }}>EUR (€)</option>
+                                        <option value="BIF" {{ old('currency') == 'BIF' ? 'selected' : '' }}>BIF (FBu)</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Amount Row -->
+                            <div class="mb-3">
+                                <label class="form-label small fw-bold">{{ __('messages.donation_amount') }}</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-primary text-white border-0 py-2 small" id="currencySymbol">BIF</span>
+                                    <input type="number" step="0.01" name="target_amount" id="donationAmount" value="{{ old('target_amount', 50) }}" class="form-control border-primary border-2 text-primary fw-bold" required>
+                                </div>
+                            </div>
+
+                            <!-- Frequency Row -->
+                            <div class="mb-4">
+                                <label class="form-label small fw-bold">{{ __('messages.frequency') }}</label>
+                                <div class="row g-2">
+                                    <div class="col-6">
+                                        <input type="radio" class="btn-check" name="periodicity" id="freq_once" value="one_time" checked>
+                                        <label class="btn btn-outline-secondary w-100 py-2 border-0 bg-light small" for="freq_once">{{ __('messages.one_time') }}</label>
                                     </div>
-
-                                    <div class="col-md-6 mb-3">
-                                        <label class="form-label fw-semibold">{{ __('messages.email') }}</label>
-                                        <div class="input-group">
-                                            <span class="input-group-text bg-light border-0"><i class="bi bi-envelope"></i></span>
-                                            <input type="email" name="email" value="{{ old('email') }}" class="form-control bg-light border-0" placeholder="{{ __('messages.email_placeholder') }}" required>
-                                        </div>
+                                    <div class="col-6">
+                                        <input type="radio" class="btn-check" name="periodicity" id="freq_monthly" value="monthly">
+                                        <label class="btn btn-outline-secondary w-100 py-2 border-0 bg-light small" for="freq_monthly">{{ __('messages.monthly') }}</label>
+                                    </div>
+                                    <div class="col-6">
+                                        <input type="radio" class="btn-check" name="periodicity" id="freq_semester" value="semester">
+                                        <label class="btn btn-outline-secondary w-100 py-2 border-0 bg-light small" for="freq_semester">{{ __('messages.semester') }}</label>
+                                    </div>
+                                    <div class="col-6">
+                                        <input type="radio" class="btn-check" name="periodicity" id="freq_yearly" value="yearly">
+                                        <label class="btn btn-outline-secondary w-100 py-2 border-0 bg-light small" for="freq_yearly">{{ __('messages.yearly') }}</label>
                                     </div>
                                 </div>
+                            </div>
 
-                                <div class="row g-3">
-                                    <div class="col-md-6 mb-4">
-                                        <label class="form-label fw-semibold">{{ __('messages.phone') }}</label>
-                                        <div class="input-group">
-                                            <span class="input-group-text bg-light border-0"><i class="bi bi-telephone"></i></span>
-                                            <input type="text" name="phone" value="{{ old('phone') }}" class="form-control bg-light border-0" placeholder="+257 ...">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 mb-4">
-                                        <label class="form-label fw-semibold">{{ __('messages.currency') }}</label>
-                                        <select name="currency" class="form-select bg-light border-0">
-                                            <option value="USD" {{ old('currency') == 'USD' ? 'selected' : '' }}>USD ($)</option>
-                                            <option value="EUR" {{ old('currency') == 'EUR' ? 'selected' : '' }}>EUR (€)</option>
-                                            <option value="BIF" {{ old('currency') == 'BIF' ? 'selected' : '' }}>BIF (FBu)</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="mb-4">
-                                    <label class="form-label fw-semibold">{{ __('messages.donation_amount') }}</label>
-                                    <div class="input-group input-group-lg">
-                                        <span class="input-group-text bg-primary text-white border-0" id="currencySymbol">BIF</span>
-                                        <input type="number" step="0.01" name="target_amount" id="donationAmount" value="{{ old('target_amount', 50) }}" class="form-control border-primary border-2 text-primary fw-bold" required>
-                                    </div>
-                                </div>
-
-                                <div class="mb-4">
-                                    <label class="form-label fw-semibold">{{ __('messages.frequency') }}</label>
-                                    <div class="row g-2">
-                                        <div class="col-6 col-sm-3">
-                                            <input type="radio" class="btn-check" name="periodicity" id="freq_once" value="one_time" checked>
-                                            <label class="btn btn-outline-secondary w-100 py-2 border-0 bg-light" for="freq_once">{{ __('messages.one_time') }}</label>
-                                        </div>
-                                        <div class="col-6 col-sm-3">
-                                            <input type="radio" class="btn-check" name="periodicity" id="freq_monthly" value="monthly">
-                                            <label class="btn btn-outline-secondary w-100 py-2 border-0 bg-light" for="freq_monthly">{{ __('messages.monthly') }}</label>
-                                        </div>
-                                        <div class="col-6 col-sm-3">
-                                            <input type="radio" class="btn-check" name="periodicity" id="freq_semester" value="semester">
-                                            <label class="btn btn-outline-secondary w-100 py-2 border-0 bg-light" for="freq_semester">{{ __('messages.semester') }}</label>
-                                        </div>
-                                        <div class="col-6 col-sm-3">
-                                            <input type="radio" class="btn-check" name="periodicity" id="freq_yearly" value="yearly">
-                                            <label class="btn btn-outline-secondary w-100 py-2 border-0 bg-light" for="freq_yearly">{{ __('messages.yearly') }}</label>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="d-grid gap-3 pt-3">
-                                    <button type="submit" class="btn btn-primary btn-lg fw-bold py-3 shadow-sm rounded-pill">{{ __('messages.complete_donation') }}</button>
-                                    <div class="text-center">
-                                         <a href="{{ asset('docs/donation_form.pdf') }}" class="text-muted small text-decoration-none" download>
-                                            <i class="bi bi-file-earmark-pdf me-1"></i> {{ __('messages.download_pdf_form') }}
-                                         </a>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
+                            <button type="submit" class="btn btn-primary w-100 fw-bold py-3 shadow-sm">{{ __('messages.complete_donation') }}</button>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-   
-
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const amountBtns = document.querySelectorAll('.amount-btn');
             const amountInput = document.getElementById('donationAmount');
             const currencySelect = document.querySelector('select[name="currency"]');
             const currencySymbol = document.getElementById('currencySymbol');
-
-            // Amount button handling
-            amountBtns.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    amountBtns.forEach(b => b.classList.remove('active', 'btn-primary'));
-                    amountBtns.forEach(b => b.classList.add('btn-outline-primary'));
-                    
-                    this.classList.remove('btn-outline-primary');
-                    this.classList.add('active', 'btn-primary');
-                    
-                    amountInput.value = this.dataset.amount;
-                });
-            });
 
             // Currency symbol sync
             const symbols = { 'USD': '$', 'EUR': '€', 'BIF': 'FBu' };
             currencySelect.addEventListener('change', function() {
                 currencySymbol.textContent = symbols[this.value] || '$';
             });
-
-            // Input handling to sync buttons
-            amountInput.addEventListener('input', function() {
-                amountBtns.forEach(b => b.classList.remove('active', 'btn-primary'));
-                amountBtns.forEach(b => b.classList.add('btn-outline-primary'));
-            });
         });
     </script>
     
     <style>
-        .amount-btn { min-width: 70px; border-radius: 12px; font-weight: 600; padding: 10px 20px; border: 2px solid #0070ba; color: #0070ba; }
-        .amount-btn:hover { background-color: #0070ba; color: white; }
-        .amount-btn.active { background-color: #0070ba; color: white; border-color: #0070ba; }
+        .scrollable-container::-webkit-scrollbar { width: 5px; }
+        .scrollable-container::-webkit-scrollbar-track { background: #f8f9fa; }
+        .scrollable-container::-webkit-scrollbar-thumb { background: #0070ba; border-radius: 10px; }
+        
         .btn-check:checked + label { background-color: #0070ba !important; color: white !important; font-weight: 600; }
-        .form-control:focus, .form-select:focus { box-shadow: none; border-color: #0070ba; }
-        .input-group-text { border: none; }
+        .form-control:focus, .form-select:focus { box-shadow: 0 0 0 0.25rem rgba(0, 112, 186, 0.15); border-color: #0070ba; }
+        
+        .input-group-text { border-top-left-radius: 8px; border-bottom-left-radius: 8px; font-weight: 700; }
+        .form-control, .form-select { border-radius: 8px; padding: 0.6rem 1rem; }
+        
+        @media (max-height: 700px) {
+            .scrollable-container { max-height: 75vh !important; }
+        }
     </style>
 @endsection
