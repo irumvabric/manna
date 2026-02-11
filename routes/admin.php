@@ -39,5 +39,10 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     Route::get('/settings', [App\Http\Controllers\Admin\SettingsController::class, 'index'])->name('settings');
     Route::post('/settings', [App\Http\Controllers\Admin\SettingsController::class, 'update'])->name('settings.update');
 
+    Route::get('/beneficiaries/{beneficiary}/expenses', [App\Http\Controllers\Admin\ExpenseController::class, 'index'])->name('beneficiaries.expenses.index');
+    Route::post('/beneficiaries/{beneficiary}/expenses', [App\Http\Controllers\Admin\ExpenseController::class, 'store'])->name('beneficiaries.expenses.store');
+    Route::put('/expenses/{expense}', [App\Http\Controllers\Admin\ExpenseController::class, 'update'])->name('expenses.update');
+    Route::delete('/expenses/{expense}', [App\Http\Controllers\Admin\ExpenseController::class, 'destroy'])->name('expenses.destroy');
+
     Route::resource('blogs', App\Http\Controllers\Admin\BlogController::class)->names('blogs');
 });

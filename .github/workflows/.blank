@@ -14,7 +14,7 @@ jobs:
     - name: 📂 Sync files
       uses: SamKirkland/FTP-Deploy-Action@v4.3.4
       with:
-        server: ftp.initiativemanna.org
-        username: brice@initiativemanna.org
-        password: q?9C^T0Hh4V.2?Zt
+        server: ${{ github.secrets.SERVER }}
+        username: ${{ github.secrets.FTP_ACCOUNT }}
+        password: ${{ github.secrets.FTP_ACCOUNT_PASSWORD }}
         server-dir: ./

@@ -18,4 +18,16 @@ class Beneficiary extends Model
         'tuition',
         'notes',
     ];
+
+    public function expenses()
+    {
+        return $this->hasMany(BeneficiaryExpense::class);
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        // No need for a separate observer for simple logic
+    }
 }

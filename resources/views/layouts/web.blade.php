@@ -46,6 +46,42 @@
             object-fit: contain;
             border-radius: 2%;
         }
+
+        /* Floating Donate Button */
+        .btn-floating-donate {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1050;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0, 112, 186, 0.4);
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .btn-floating-donate:hover {
+            transform: scale(1.1);
+        }
+
+        .btn-floating-donate i {
+            font-size: 24px;
+        }
+
+        @media (max-width: 576px) {
+            .btn-floating-donate {
+                bottom: 20px;
+                right: 20px;
+                width: 50px;
+                height: 50px;
+            }
+            .btn-floating-donate i {
+                font-size: 20px;
+            }
+        }
     </style>
 
     <!-- Use asset() helper for Laravel public files -->
@@ -80,6 +116,32 @@
                         <a class="nav-link @if (Request::is('/contact')) active @endif"
                             href="{{ url('/contact') }}">{{ __('messages.contact') }}</a>
                     </li>
+
+                    @guest
+                        <li class="nav-item">
+                            <a class="nav-link @if (Request::is('login')) active @endif"
+                                href="{{ route('login') }}">{{ __('messages.login') }}</a>
+                        </li>
+                    @endguest
+                    
+                    @auth
+                        @if (Auth::user()->role === 'donator')
+                            <li class="nav-item">
+                                <a class="nav-link fw-bold text-primary @if (Request::is('admin/mydonations')) active @endif"
+                                    href="{{ route('admin.donations.mydonations') }}">
+                                    <i class="bi bi-person-circle"></i> {{ __('messages.my_donations') }}
+                                </a>
+                            </li>
+                        @endif
+                        @if (Auth::user()->role === 'admin')
+                        <li class="nav-item">
+                            <a class="nav-link fw-bold @if (Request::is('dashboard')) active @endif"
+                                href="{{ route('dashboard') }}">
+                                Dashboard
+                            </a>
+                        </li>
+                        @endif
+                    @endauth
                 </ul>
                 <div class="nav-item dropdown ms-lg-3">
                     <a class="nav-link dropdown-toggle" href="#" id="langDropdown" role="button"
@@ -159,6 +221,11 @@
             </div>
         </div>
     </footer>
+
+    <!-- Floating Donate Button -->
+    <a href="{{ url('/get-involved') }}" class="btn btn-primary btn-floating-donate d-lg-none" title="{{ __('messages.donate') }}">
+        <i class="bi bi-heart-fill"></i>
+    </a>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>

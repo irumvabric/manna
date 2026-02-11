@@ -89,6 +89,9 @@
                             </td>
                             <td class="text-end pe-4">
                                 <div class="d-flex justify-content-end gap-2">
+                                    <a href="{{ route('admin.beneficiaries.expenses.index', $beneficiary->id) }}" class="btn btn-sm btn-light-info border-0" title="Expenses">
+                                        <i data-lucide="receipt" style="width: 16px; height: 16px;"></i>
+                                    </a>
                                     <button class="btn btn-sm btn-light-primary border-0" data-bs-toggle="modal" data-bs-target="#editBeneficiaryModal{{ $beneficiary->id }}">
                                         <i data-lucide="edit-2" style="width: 16px; height: 16px;"></i>
                                     </button>
@@ -271,5 +274,7 @@
     .btn-light-primary:hover { background-color: #3b82f6; color: white; }
     .btn-light-danger { background-color: rgba(239, 68, 68, 0.1); color: #ef4444; }
     .btn-light-danger:hover { background-color: #ef4444; color: white; }
+    .btn-light-info { background-color: rgba(6, 182, 212, 0.1); color: #0891b2; }
+    .btn-light-info:hover { background-color: #0891b2; color: white; }
 </style>
 @endsection
