@@ -9,7 +9,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class DonationNotification extends Mailable implements ShouldQueue
+class DonationConfirmation extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
@@ -29,7 +29,7 @@ class DonationNotification extends Mailable implements ShouldQueue
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'New Donation Received: ' . ($this->data['target_amount'] ?? '') . ' ' . ($this->data['currency'] ?? ''),
+            subject: 'Thank you for your generous donation to Manna Initiative',
         );
     }
 
@@ -39,7 +39,7 @@ class DonationNotification extends Mailable implements ShouldQueue
     public function content(): Content
     {
         return new Content(
-            view: 'emails.donation_notification',
+            view: 'emails.donation_confirmation',
         );
     }
 

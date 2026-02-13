@@ -141,7 +141,7 @@
                             </a>
                         </li>
                         @endif
-                    @endauth
+                @endauth
                 </ul>
                 <div class="nav-item dropdown ms-lg-3">
                     <a class="nav-link dropdown-toggle" href="#" id="langDropdown" role="button"

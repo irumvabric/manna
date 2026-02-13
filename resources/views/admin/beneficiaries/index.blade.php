@@ -125,8 +125,8 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-4 mb-3">
-                                                    <label class="form-label">{{ __('messages.age') }}</label>
-                                                    <input type="number" name="age" class="form-control" value="{{ $beneficiary->age }}">
+                                                    <label class="form-label">{{ __('messages.date_of_birth') }}</label>
+                                                    <input type="date" name="date_of_birth" class="form-control" value="{{ $beneficiary->age }}">
                                                 </div>
                                                 <div class="col-md-4 mb-3">
                                                     <label class="form-label">{{ __('messages.phone_number') }}</label>
@@ -227,8 +227,8 @@
                     </div>
                     <div class="row">
                         <div class="col-md-4 mb-3">
-                            <label class="form-label">{{ __('messages.age') }}</label>
-                            <input type="number" name="age" class="form-control" placeholder="{{ __('messages.age') }}">
+                            <label class="form-label">{{ __('messages.date_of_birth') }}</label>
+                            <input type="date" name="date_of_birth" class="form-control" placeholder="{{ __('messages.date_of_birth') }}">
                         </div>
                         <div class="col-md-4 mb-3">
                             <label class="form-label">{{ __('messages.phone_number') }}</label>

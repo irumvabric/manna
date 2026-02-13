@@ -38,6 +38,18 @@ class DonatorController extends Controller
         $totalDonators = Donator::count();
         $monthlyDonators = Donator::where('periodicity', 1)->count();
         $yearlyDonators = Donator::where('periodicity', 12)->count();
+        $periodMap = [
+            // Numeric values
+            1 => __('messages.monthly'),
+            3 => __('messages.quarterly'),
+            6 => __('messages.semiannually'),
+            12 => __('messages.yearly'),
+            // String values (for backward compatibility)
+            'monthly' => __('messages.monthly'),
+            'quarterly' => __('messages.quarterly'),
+            'semiannually' => __('messages.semiannually'),
+            'yearly' => __('messages.yearly')
+        ];
         // Calculate total potential monthly revenue (approximation)
         // Convert all to a base currency if needed, but for now sum target_amount 
         // assuming single currency or just raw sum.
@@ -48,7 +60,8 @@ class DonatorController extends Controller
             'totalDonators',
             'monthlyDonators',
             'yearlyDonators',
-            'totalTargetAmount'
+            'totalTargetAmount',
+            'periodMap'
         ));
     }
 

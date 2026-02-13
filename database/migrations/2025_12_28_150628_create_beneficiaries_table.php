@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('beneficiaries', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('age')->nullable();
+            $table->date('date_of_birth')->nullable();
             $table->string('departement')->nullable();
             $table->string('faculte')->nullable();
             $table->string('address')->nullable();

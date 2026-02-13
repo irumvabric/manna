@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>New Donation Received!</title>
+    <title>New Contact Inquiry Received</title>
     <style>
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 0; background-color: #f3f4f6; }
         .container { max-width: 600px; margin: 20px auto; background: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); }
@@ -13,16 +13,13 @@
         .logo-subtext { color: #ffffff; font-size: 10px; margin-top: 1px; letter-spacing: 2px; text-transform: uppercase; }
         .content { padding: 30px; }
         .footer { background-color: #f9fafb; padding: 20px; text-align: center; font-size: 12px; color: #6b7280; border-top: 1px solid #e5e7eb; }
-        .celebration { text-align: center; margin-bottom: 30px; }
-        .celebration h1 { color: #0066A1; margin-bottom: 5px; font-size: 26px; }
-        .amount-card { background-color: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 20px; text-align: center; margin: 20px 0; }
-        .amount-value { font-size: 32px; font-weight: 800; color: #166534; }
-        .amount-label { font-size: 14px; color: #166534; text-transform: uppercase; letter-spacing: 1px; }
+        h1 { color: #0066A1; margin-top: 0; font-size: 20px; border-bottom: 2px solid #0066A1; padding-bottom: 10px; }
         .data-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
         .data-table th, .data-table td { padding: 12px; text-align: left; border-bottom: 1px solid #e5e7eb; }
-        .data-table th { color: #6b7280; font-weight: 600; width: 35%; font-size: 13px; text-transform: uppercase; }
+        .data-table th { color: #6b7280; font-weight: 600; width: 30%; font-size: 13px; text-transform: uppercase; }
+        .message-content { background-color: #fcfcfc; border: 1px solid #e5e7eb; padding: 15px; border-radius: 4px; margin-top: 10px; white-space: pre-line; }
         .button { display: inline-block; padding: 12px 24px; background-color: #0066A1; color: #ffffff !important; text-decoration: none; border-radius: 5px; font-weight: bold; margin-top: 25px; text-align: center; width: calc(100% - 48px); }
-        .badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; background-color: #f0fdf4; color: #166534; }
+        .badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; background-color: #e0f2fe; color: #0369a1; }
     </style>
 </head>
 <body>
@@ -34,42 +31,38 @@
             </div>
         </div>
         <div class="content">
-            <div class="celebration">
-                <span class="badge">Great News!</span>
-                <h1>New Donation Received</h1>
-                <p>A new contribution has been pledged to Manna Initiative.</p>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h1>New Contact Inquiry</h1>
+                <span class="badge">Inquiry</span>
             </div>
             
-            <div class="amount-card">
-                <div class="amount-label">Donation Amount</div>
-                <div class="amount-value">{{ number_format($data['target_amount'] ?? 0, 2) }} {{ $data['currency'] ?? 'BIF' }}</div>
-                <div style="font-size: 13px; color: #15803d; margin-top: 5px;">{{ ucfirst($data['periodicity'] ?? 'one_time') }} Frequency</div>
-            </div>
+            <p>A new contact form submission has been received through the website. Here are the details:</p>
             
             <table class="data-table">
                 <tr>
-                    <th>Donor Name</th>
-                    <td><strong>{{ $data['name'] ?? 'Anonymous' }}</strong></td>
+                    <th>Submitted By</th>
+                    <td><strong>{{ $data['name'] ?? 'N/A' }}</strong></td>
                 </tr>
                 <tr>
-                    <th>Email Address</th>
+                    <th>Email</th>
                     <td>{{ $data['email'] ?? 'N/A' }}</td>
                 </tr>
                 <tr>
-                    <th>Phone Number</th>
-                    <td>{{ $data['phone'] ?? 'N/A' }}</td>
-                </tr>
-                <tr>
-                    <th>Date Received</th>
+                    <th>Date</th>
                     <td>{{ date('M d, Y H:i') }}</td>
                 </tr>
             </table>
             
-            <a href="{{ url('/admin/donators') }}" class="button">Manage Donors</a>
+            <div style="font-weight: 600; color: #6b7280; font-size: 13px; text-transform: uppercase;">Message:</div>
+            <div class="message-content">
+                {{ $data['message'] ?? 'No message content provided.' }}
+            </div>
+            
+            <a href="{{ url('/admin/dashboard') }}" class="button">View in Admin Panel</a>
         </div>
         <div class="footer">
-            Financial Notification &bull; Manna Initiative System<br>
-            Together, we are making a lasting impact.
+            Admin Notification &bull; Manna Initiative System<br>
+            Please do not reply directly to this automated email.
         </div>
     </div>
 </body>

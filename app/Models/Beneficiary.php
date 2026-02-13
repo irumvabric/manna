@@ -8,7 +8,7 @@ class Beneficiary extends Model
 {
     protected $fillable = [
         'name',
-        'age',
+        'date_of_birth',
         'departement',
         'faculte',
         'address',

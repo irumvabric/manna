@@ -168,12 +168,6 @@
                             </td>
                             <td>
                                 @php
-                                    $periodMap = [
-                                        1 => __('messages.monthly'),
-                                        3 => __('messages.quarterly'),
-                                        6 => __('messages.semiannually'),
-                                        12 => __('messages.yearly')
-                                    ];
                                     $label = $periodMap[$donator->periodicity] ?? 'Unknown';
                                 @endphp
                                 <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill fw-medium">

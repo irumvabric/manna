@@ -28,7 +28,7 @@ class BeneficiaryController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'age' => 'nullable|integer',
+            'date_of_birth' => 'nullable|date',
             'departement' => 'nullable|string|max:255',
             'faculte' => 'nullable|string|max:255',
             'address' => 'nullable|string|max:255',
@@ -47,7 +47,7 @@ class BeneficiaryController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'age' => 'nullable|integer',
+            'date_of_birth' => 'nullable|date',
             'departement' => 'nullable|string|max:255',
             'faculte' => 'nullable|string|max:255',
             'address' => 'nullable|string|max:255',

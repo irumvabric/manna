@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Mail\DonationNotification;
+use App\Mail\DonationConfirmation;
+use App\Mail\ContactMail;
+use App\Mail\ContactAdminNotification;
 use App\Models\Donation;
 use App\Models\Donator;
 use Illuminate\Http\Request;
@@ -144,12 +147,18 @@ class DonationController extends Controller
             'payment_method' => 'cash', // Default or placeholder
         ]);
 
-        // Send notification to admin
+        // Send notifications
         try {
-            $adminEmail = 'irumvabric@gmail.com'; // Fallback or configured admin email
-            Mail::to($adminEmail)->send(new DonationNotification($request->all(), 'donation'));
+            $adminEmail = 'irumvabric@gmail.com';
+            $donatorEmail = $donator->email;
+            
+            // To Admin: System notification
+            Mail::to($adminEmail)->queue(new DonationNotification($request->all()));
+            
+            // To Donor: Appreciative confirmation
+            Mail::to($donatorEmail)->queue(new DonationConfirmation($request->all()));
         } catch (\Exception $e) {
-            Log::error('Mail sending failed: ' . $e->getMessage());
+            Log::error('Donation Mail sending failed: ' . $e->getMessage());
         }
         
         // Store info in session for pre-filling registration
@@ -166,10 +175,17 @@ class DonationController extends Controller
             'message' => 'required|string',
         ]);
 
-        // Send notification to admin
+        // Send notifications
         try {
             $adminEmail = 'irumvabric@gmail.com';
-            Mail::to($adminEmail)->send(new DonationNotification($request->all(), 'contact'));
+            $admin2Email = 'initiativemanna@gmail.com';
+            $userEmail = $request->email;
+
+            // To Admins: Notification of new inquiry
+            Mail::to([$adminEmail, $admin2Email])->queue(new ContactAdminNotification($request->all()));
+            
+            // To User: Appreciative confirmation
+            Mail::to($userEmail)->queue(new ContactMail($request->all()));
         } catch (\Exception $e) {
             Log::error('Contact Mail sending failed: ' . $e->getMessage());
         }

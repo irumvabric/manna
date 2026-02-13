@@ -34,6 +34,7 @@ class Donator extends Model
         return [
             'id' => 'integer',
             'target_amount' => 'double',
+            'periodicity' => 'integer',
         ];
     }
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
