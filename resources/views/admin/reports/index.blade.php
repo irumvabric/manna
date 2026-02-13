@@ -65,15 +65,19 @@
     <!-- Summary & Actions -->
     <div class="card border-0 shadow-sm">
         <div class="card-body p-4 d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
-            <div class="d-flex gap-5">
+            <div class="d-flex flex-wrap gap-4 gap-md-5">
                 <div>
                     <div class="text-muted small mb-1">{{ __('messages.total_records') }}</div>
                     <div class="h5 fw-bold text-dark mb-0">{{ $totalRecords }}</div>
                 </div>
+                @foreach($totalAmounts as $currency => $amount)
                 <div>
-                    <div class="text-muted small mb-1">{{ __('messages.total_amount') }}</div>
-                    <div class="h5 fw-bold text-dark mb-0">{{ session('currency_symbol', '$') }}{{ number_format($totalAmount, 2) }}</div>
+                    <div class="text-muted small mb-1">{{ __('messages.total_amount') }} ({{ strtoupper($currency) }})</div>
+                    <div class="h5 fw-bold text-dark mb-0">
+                        {{ number_format($amount, 2) }} <span class="text-muted small text-uppercase">{{ $currency }}</span>
+                    </div>
                 </div>
+                @endforeach
             </div>
             
             <div class="d-flex gap-2">

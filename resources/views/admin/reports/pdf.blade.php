@@ -52,8 +52,10 @@
     </div>
 
     <div class="summary">
-        <strong>{{ __('messages.total_records') }}:</strong> {{ $totalRecords }} | 
-        <strong>{{ __('messages.total_amount') }}:</strong> {{ session('currency_symbol', '$') }}{{ number_format($totalAmount, 2) }}
+        <strong>{{ __('messages.total_records') }}:</strong> {{ $totalRecords }}
+        @foreach($totalAmounts as $currency => $amount)
+            | <strong>{{ __('messages.total_amount') }} ({{ strtoupper($currency) }}):</strong> {{ number_format($amount, 2) }} {{ strtoupper($currency) }}
+        @endforeach
     </div>
 
     <table>

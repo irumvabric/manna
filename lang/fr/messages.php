@@ -256,4 +256,7 @@ return [
     'my_recent_donations' => 'Mes dons récents',
     'view_all' => 'Voir tout',
     'no_donations_yet' => 'Vous n\'avez pas encore fait de dons.',
+    'view_donations' => 'Voir les Dons',
+    'view_reports' => 'Voir les Rapports',
+    'dashboard_welcome_message' => 'Bienvenue sur votre portail de gestion. Ici, vous pouvez suivre les dons, gérer les bénéficiaires et superviser l\'impact de :app.',
 ];

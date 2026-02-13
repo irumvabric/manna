@@ -17,7 +17,11 @@ class ReportController extends Controller
         // Get filtered results for calculation
         $filteredDonations = $query->get();
         $totalRecords = $filteredDonations->count();
-        $totalAmount = $filteredDonations->sum('amount');
+        
+        // Group by currency
+        $totalAmounts = $filteredDonations->groupBy('currency')->map(function($items) {
+            return $items->sum('amount');
+        });
 
         // Pagination for the table
         $donations = $query->latest()->paginate(10);
@@ -25,7 +29,7 @@ class ReportController extends Controller
         return view('admin.reports.index', compact(
             'donations',
             'totalRecords',
-            'totalAmount'
+            'totalAmounts'
         ));
     }
 
@@ -39,10 +43,14 @@ class ReportController extends Controller
         if ($type === 'pdf') {
             $query = $this->getFilteredQuery($request);
             $donations = $query->get();
-            $totalAmount = $donations->sum('amount');
             $totalRecords = $donations->count();
+            
+            // Group by currency
+            $totalAmounts = $donations->groupBy('currency')->map(function($items) {
+                return $items->sum('amount');
+            });
 
-            $pdf = Pdf::loadView('admin.reports.pdf', compact('donations', 'totalAmount', 'totalRecords'));
+            $pdf = Pdf::loadView('admin.reports.pdf', compact('donations', 'totalAmounts', 'totalRecords'));
             return $pdf->download('donations_' . now()->format('Ymd_His') . '.pdf');
         }
 

@@ -261,4 +261,7 @@ return [
     'my_recent_donations' => 'My Recent Donations',
     'view_all' => 'View All',
     'no_donations_yet' => 'You haven\'t made any donations yet.',
+    'view_donations' => 'View Donations',
+    'view_reports' => 'View Reports',
+    'dashboard_welcome_message' => 'Welcome to your management portal. Here you can track donations, manage beneficiaries, and oversee the impact of :app.',
 ];
