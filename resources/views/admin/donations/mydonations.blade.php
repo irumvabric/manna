@@ -31,21 +31,14 @@
 
     <!-- ... (Stats Cards and Filters remain identical, adding back for file integrity) ... -->
     <!-- Stats Cards -->
-    <div class="row g-4">
+     <!--<div class="row g-4">
         <div class="col-12 col-sm-6 col-xl-3">
             <div class="card border-0 shadow-sm h-100">
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-start mb-3">
-                        @php
-                            $symbol = match($donator->currency ?? 'BIF') {
-                                'USD' => '$',
-                                'EUR' => '€',
-                                default => 'BIF '
-                            };
-                        @endphp
                         <div>
                             <div class="text-muted small mb-1">{{ __('messages.total_approved') }}</div>
-                            <div class="h4 mb-0 fw-bold text-dark">{{ $symbol }}{{ number_format($totalApprovedAmount, 2) }}</div>
+                            <div class="h4 mb-0 fw-bold text-dark">{{ $currencySymbol }}{{ number_format($totalApprovedAmount, 2) }}</div>
                         </div>
                         <div class="d-flex align-items-center justify-content-center bg-success bg-opacity-10 rounded-3" style="width: 40px; height: 40px;">
                             <i data-lucide="check-circle" class="text-success" style="width: 20px; height: 20px;"></i>
@@ -60,7 +53,7 @@
                     <div class="d-flex justify-content-between align-items-start mb-3">
                         <div>
                             <div class="text-muted small mb-1">{{ __('messages.pending_amount') }}</div>
-                            <div class="h4 mb-0 fw-bold text-dark">{{ $symbol }}{{ number_format($pendingAmount, 2) }}</div>
+                            <div class="h4 mb-0 fw-bold text-dark">{{ $currencySymbol }}{{ number_format($pendingAmount, 2) }}</div>
                         </div>
                         <div class="d-flex align-items-center justify-content-center bg-warning bg-opacity-10 rounded-3" style="width: 40px; height: 40px;">
                             <i data-lucide="clock" class="text-warning" style="width: 20px; height: 20px;"></i>
@@ -75,7 +68,7 @@
                     <div class="d-flex justify-content-between align-items-start mb-3">
                         <div>
                             <div class="text-muted small mb-1">{{ __('messages.this_month') }}</div>
-                            <div class="h4 mb-0 fw-bold text-dark">{{ $symbol }}{{ number_format($thisMonthAmount, 2) }}</div>
+                            <div class="h4 mb-0 fw-bold text-dark">{{ $currencySymbol }}{{ number_format($thisMonthAmount, 2) }}</div>
                         </div>
                         <div class="d-flex align-items-center justify-content-center bg-info bg-opacity-10 rounded-3" style="width: 40px; height: 40px;">
                             <i data-lucide="calendar" class="text-info" style="width: 20px; height: 20px;"></i>
@@ -142,7 +135,7 @@
                 </div>
             </form>
         </div>
-    </div>
+    </div>-->
 
     <!-- Donations Table -->
     <div class="card border-0 shadow-sm">

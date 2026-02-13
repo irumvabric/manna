@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Donator;
 
 use App\Http\Controllers\Controller;
 use App\Models\Donation;
+use App\Models\Donator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -12,16 +13,20 @@ class DashboardController extends Controller
     public function index()
     {
         $user = Auth::user();
+        $donator = Donator::where('user_id', $user->id)->first();
         
         // Fetch donations for this user
-        $donations = Donation::whereHas('donator', function($query) use ($user) {
-            $query->where('user_id', $user->id);
-        })->latest()->take(10)->get();
+        $donations = Donation::where('donator_id', $donator->id)
+            ->latest()
+            ->take(10)
+            ->get();
 
-        $totalDonated = Donation::whereHas('donator', function($query) use ($user) {
-            $query->where('user_id', $user->id);
-        })->sum('amount');
+        $totalDonated = Donation::where('donator_id', $donator->id)
+            ->where('status', 'approved')
+            ->sum('amount');
 
-        return view('donator.dashboard', compact('donations', 'totalDonated'));
+        $currencySymbol = $donator->currency_symbol ?? '$';
+
+        return view('donator.dashboard', compact('donations', 'totalDonated', 'currencySymbol'));
     }
 }

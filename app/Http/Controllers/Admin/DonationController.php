@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\DB;
 
 class DonationController extends Controller
 {
@@ -58,10 +59,12 @@ class DonationController extends Controller
         // Sorting
         $donations = $query->latest()->paginate(10);
 
-        // If donator role, restrict stats to their own donations
+        // Stats Logic
+        $currencySymbol = '$';
         $donator = null;
         if ($user && $user->role === 'donator') {
             $donator = Donator::where('email', $user->email)->first();
+            $currencySymbol = $donator->currency_symbol ?? '$';
             
             $totalApprovedAmount = Donation::where('donator_id', $donator->id)->where('status', 'approved')->sum('amount');
             $pendingAmount = Donation::where('donator_id', $donator->id)->where('status', 'pending')->sum('amount');
@@ -72,20 +75,22 @@ class DonationController extends Controller
                 ->sum('amount');
             $todayCount = Donation::where('donator_id', $donator->id)->whereDate('created_at', today())->count();
         } else {
-            // Stats Logic for Admin
-            // 1. Total Approved Amount (All time)
-            $totalApprovedAmount = Donation::where('status', 'approved')->sum('amount');
+            // Stats Logic for Admin (Separated by Currency)
+            $totals = Donation::select('currency', 'status', DB::raw('SUM(amount) as total'))
+                ->groupBy('currency', 'status')
+                ->get();
             
-            // 2. Pending Amount (Potential revenue waiting approval)
-            $pendingAmount = Donation::where('status', 'pending')->sum('amount');
-
-            // 3. This Month's Donations (Approved)
+            $totalApprovedAmount = $totals->where('status', 'approved')->pluck('total', 'currency')->toArray();
+            $pendingAmount = $totals->where('status', 'pending')->pluck('total', 'currency')->toArray();
+            
             $thisMonthAmount = Donation::where('status', 'approved')
                 ->whereYear('created_at', now()->year)
                 ->whereMonth('created_at', now()->month)
-                ->sum('amount');
+                ->select('currency', DB::raw('SUM(amount) as total'))
+                ->groupBy('currency')
+                ->pluck('total', 'currency')
+                ->toArray();
 
-            // 4. Today's Count
             $todayCount = Donation::whereDate('created_at', today())->count();
         }
 
@@ -101,7 +106,8 @@ class DonationController extends Controller
             'pendingAmount',
             'thisMonthAmount',
             'todayCount',
-            'donator'
+            'donator',
+            'currencySymbol'
         ));
     }
 

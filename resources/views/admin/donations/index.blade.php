@@ -38,7 +38,15 @@
                     <div class="d-flex justify-content-between align-items-start mb-3">
                         <div>
                             <div class="text-muted small mb-1">{{ __('messages.total_approved') }}</div>
-                            <div class="h4 mb-0 fw-bold text-dark">${{ number_format($totalApprovedAmount, 2) }}</div>
+                            @if(is_array($totalApprovedAmount))
+                                <div class="d-flex flex-column gap-1">
+                                    @foreach($totalApprovedAmount as $curr => $amt)
+                                        <div class="h5 mb-0 fw-bold text-dark"><span class="small text-muted">{{ $curr }}</span> {{ number_format($amt, 0) }}</div>
+                                    @endforeach
+                                </div>
+                            @else
+                                <div class="h4 mb-0 fw-bold text-dark">{{ $currencySymbol }}{{ number_format($totalApprovedAmount, 2) }}</div>
+                            @endif
                         </div>
                         <div class="d-flex align-items-center justify-content-center bg-success bg-opacity-10 rounded-3" style="width: 40px; height: 40px;">
                             <i data-lucide="check-circle" class="text-success" style="width: 20px; height: 20px;"></i>
@@ -53,7 +61,15 @@
                     <div class="d-flex justify-content-between align-items-start mb-3">
                         <div>
                             <div class="text-muted small mb-1">{{ __('messages.pending_amount') }}</div>
-                            <div class="h4 mb-0 fw-bold text-dark">${{ number_format($pendingAmount, 2) }}</div>
+                            @if(is_array($pendingAmount))
+                                <div class="d-flex flex-column gap-1">
+                                    @foreach($pendingAmount as $curr => $amt)
+                                        <div class="h5 mb-0 fw-bold text-dark"><span class="small text-muted">{{ $curr }}</span> {{ number_format($amt, 0) }}</div>
+                                    @endforeach
+                                </div>
+                            @else
+                                <div class="h4 mb-0 fw-bold text-dark">{{ $currencySymbol }}{{ number_format($pendingAmount, 2) }}</div>
+                            @endif
                         </div>
                         <div class="d-flex align-items-center justify-content-center bg-warning bg-opacity-10 rounded-3" style="width: 40px; height: 40px;">
                             <i data-lucide="clock" class="text-warning" style="width: 20px; height: 20px;"></i>
@@ -68,7 +84,15 @@
                     <div class="d-flex justify-content-between align-items-start mb-3">
                         <div>
                             <div class="text-muted small mb-1">{{ __('messages.this_month') }}</div>
-                            <div class="h4 mb-0 fw-bold text-dark">${{ number_format($thisMonthAmount, 2) }}</div>
+                            @if(is_array($thisMonthAmount))
+                                <div class="d-flex flex-column gap-1">
+                                    @foreach($thisMonthAmount as $curr => $amt)
+                                        <div class="h5 mb-0 fw-bold text-dark"><span class="small text-muted">{{ $curr }}</span> {{ number_format($amt, 0) }}</div>
+                                    @endforeach
+                                </div>
+                            @else
+                                <div class="h4 mb-0 fw-bold text-dark">{{ $currencySymbol }}{{ number_format($thisMonthAmount, 2) }}</div>
+                            @endif
                         </div>
                         <div class="d-flex align-items-center justify-content-center bg-info bg-opacity-10 rounded-3" style="width: 40px; height: 40px;">
                             <i data-lucide="calendar" class="text-info" style="width: 20px; height: 20px;"></i>

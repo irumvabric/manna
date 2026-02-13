@@ -110,7 +110,7 @@
                     <select name="periodicity" class="form-select">
                         <option value="">{{ __('messages.all_periods') }}</option>
                         <option value="1" {{ request('periodicity') == 1 ? 'selected' : '' }}>{{ __('messages.monthly') }}</option>
-                        <option value="3" {{ request('periodicity') == 3 ? 'selected' : '' }}>{{ __('messages.quarterly') }}</option>
+                        <option value="3" {{ request('periodicity') == 3 ? 'selected' : '' }}>{{ __('messages.one_time') }}</option>
                         <option value="6" {{ request('periodicity') == 6 ? 'selected' : '' }}>{{ __('messages.semiannually') }}</option>
                         <option value="12" {{ request('periodicity') == 12 ? 'selected' : '' }}>{{ __('messages.yearly') }}</option>
                     </select>
@@ -234,7 +234,7 @@
                                                 <label class="form-label">{{ __('messages.frequency') }}</label>
                                                 <select name="periodicity" class="form-select" required>
                                                     <option value="1" {{ $donator->periodicity == 1 ? 'selected' : '' }}>{{ __('messages.monthly') }}</option>
-                                                    <option value="3" {{ $donator->periodicity == 3 ? 'selected' : '' }}>{{ __('messages.quarterly') }}</option>
+                                                    <option value="3" {{ $donator->periodicity == 3 ? 'selected' : '' }}>{{ __('messages.one_time') }}</option>
                                                     <option value="6" {{ $donator->periodicity == 6 ? 'selected' : '' }}>{{ __('messages.semiannually') }}</option>
                                                     <option value="12" {{ $donator->periodicity == 12 ? 'selected' : '' }}>{{ __('messages.yearly') }}</option>
                                                 </select>
@@ -330,7 +330,7 @@
                         <label class="form-label">{{ __('messages.frequency') }}</label>
                         <select name="periodicity" class="form-select" required>
                             <option value="1">{{ __('messages.monthly') }}</option>
-                            <option value="3">{{ __('messages.quarterly') }}</option>
+                            <option value="3">{{ __('messages.one_time') }}</option>
                             <option value="6">{{ __('messages.semiannually') }}</option>
                             <option value="12">{{ __('messages.yearly') }}</option>
                         </select>

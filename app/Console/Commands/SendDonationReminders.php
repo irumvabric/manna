@@ -44,14 +44,14 @@ class SendDonationReminders extends Command
         $monthlyDonators = \App\Models\Donator::where('periodicity', 1)->get();
         foreach ($monthlyDonators as $donator) {
             $this->info('Sending monthly reminder to ' . $donator->email);
-            \Illuminate\Support\Facades\Mail::to($donator->email)->send(new \App\Mail\DonationReminder($donator, 'Monthly Donation Reminder'));
+            \Illuminate\Support\Facades\Mail::to($donator->email)->queue(new \App\Mail\DonationReminder($donator, 'Monthly Donation Reminder'));
         }
 
         // 2. Yearly Reminders (Only if target month is January)
         if ($month == 1) {
             $yearlyDonators = \App\Models\Donator::where('periodicity', 12)->get();
             foreach ($yearlyDonators as $donator) {
-                \Illuminate\Support\Facades\Mail::to($donator->email)->send(new \App\Mail\DonationReminder($donator, 'Yearly Donation Reminder'));
+                \Illuminate\Support\Facades\Mail::to($donator->email)->queue(new \App\Mail\DonationReminder($donator, 'Yearly Donation Reminder'));
             }
         }
 
@@ -59,7 +59,7 @@ class SendDonationReminders extends Command
         if ($month == 1 || $month == 7) {
             $semesterDonators = \App\Models\Donator::where('periodicity', 6)->get();
             foreach ($semesterDonators as $donator) {
-                \Illuminate\Support\Facades\Mail::to($donator->email)->send(new \App\Mail\DonationReminder($donator, 'Semi-Annual Donation Reminder'));
+                \Illuminate\Support\Facades\Mail::to($donator->email)->queue(new \App\Mail\DonationReminder($donator, 'Semi-Annual Donation Reminder'));
             }
         }
 

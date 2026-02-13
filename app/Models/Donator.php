@@ -22,7 +22,18 @@ class Donator extends Model
         'payment_method',
         'target_amount',
         'periodicity',
+        'currency',
     ];
+
+    public function getCurrencySymbolAttribute()
+    {
+        return match($this->currency) {
+            'USD' => '$',
+            'EUR' => '€',
+            'BIF' => 'FBu',
+            default => '$'
+        };
+    }
 
     /**
      * Get the attributes that should be cast.

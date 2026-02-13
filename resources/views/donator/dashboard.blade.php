@@ -21,7 +21,7 @@
                     <div class="d-flex justify-content-between align-items-start mb-3">
                         <div>
                             <div class="text-muted small mb-1">{{ __('messages.total_donated') }}</div>
-                            <div class="h4 mb-0 fw-bold text-dark">{{ session('currency_symbol', '$') }}{{ number_format($totalDonated, 2) }}</div>
+                            <div class="h4 mb-0 fw-bold text-dark">{{ $currencySymbol }}{{ number_format($totalDonated, 2) }}</div>
                         </div>
                         <div class="d-flex align-items-center justify-content-center bg-success bg-opacity-10 rounded-3" style="width: 40px; height: 40px;">
                             <i data-lucide="heart" class="text-success" style="width: 20px; height: 20px;"></i>
@@ -52,7 +52,7 @@
                     <tbody>
                         @forelse($donations as $donation)
                         <tr>
-                            <td class="ps-3 fw-medium text-dark">{{ session('currency_symbol', '$') }}{{ number_format($donation->amount, 2) }}</td>
+                            <td class="ps-3 fw-medium text-dark">{{ $currencySymbol }}{{ number_format($donation->amount, 2) }}</td>
                             <td>
                                 @php
                                     $statusClass = match($donation->status) {

@@ -32,7 +32,11 @@
                     <div class="d-flex justify-content-between align-items-start mb-3">
                         <div>
                             <div class="text-muted small mb-1">{{ __('messages.total_received') }}</div>
-                            <div class="h4 mb-0 fw-bold text-dark">{{ session('currency_symbol', '$') }}{{ number_format($totalReceived, 2) }}</div>
+                            <div class="d-flex flex-column gap-1">
+                                <div class="h5 mb-0 fw-bold text-dark"><span class="text-primary small">$</span>{{ number_format($totalReceivedUSD, 0) }}</div>
+                                <div class="h5 mb-0 fw-bold text-dark"><span class="text-success small">€</span>{{ number_format($totalReceivedEUR, 0) }}</div>
+                                <div class="h5 mb-0 fw-bold text-dark"><span class="text-info small">FBu</span>{{ number_format($totalReceivedBIF, 0) }}</div>
+                            </div>
                         </div>
                         <div class="d-flex align-items-center justify-content-center bg-success bg-opacity-10 rounded-3" style="width: 40px; height: 40px;">
                             <i data-lucide="dollar-sign" class="text-success" style="width: 20px; height: 20px;"></i>
@@ -153,7 +157,10 @@
                                     <div class="fw-medium text-dark">{{ $donation->donator_name }}</div>
                                 </div>
                             </td>
-                            <td class="fw-medium text-dark">${{ number_format($donation->amount) }}</td>
+                            <td class="fw-medium text-dark">
+                                {{ number_format($donation->amount) }} 
+                                <span class="text-muted small text-uppercase">{{ $donation->currency }}</span>
+                            </td>
                             <td class="text-muted">{{ $donation->period }}</td>
                             <td>
                                 @php

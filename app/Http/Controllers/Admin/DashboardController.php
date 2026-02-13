@@ -13,9 +13,16 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        // 1. Total Received (Approved Donations)
-        // Assuming 'controller' field being NOT NULL means Approved
-        $totalReceived = Donation::sum('amount');
+        // 1. Total Received (Grouped by Currency)
+        $totals = Donation::select('currency', DB::raw('SUM(amount) as total'))
+            ->where('status', 'approved')
+            ->groupBy('currency')
+            ->pluck('total', 'currency')
+            ->toArray();
+
+        $totalReceivedUSD = $totals['USD'] ?? 0;
+        $totalReceivedEUR = $totals['EUR'] ?? 0;
+        $totalReceivedBIF = $totals['BIF'] ?? 0;
 
         // 2. Pending Approvals
         $pendingApprovalCount = Donation::count();
@@ -117,7 +124,9 @@ class DashboardController extends Controller
             });
 
         return view('admin.dashboard', compact(
-            'totalReceived', 
+            'totalReceivedUSD', 
+            'totalReceivedEUR', 
+            'totalReceivedBIF', 
             'pendingApprovalCount', 
             'activeDonatorsCount', 
             'lateDonationsCount',
