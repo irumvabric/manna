@@ -36,14 +36,10 @@ class DonatorController extends Controller
 
         // Stats for the top cards
         $totalDonators = Donator::count();
-        $monthlyDonators = Donator::where('periodicity', 1)->count();
-        $yearlyDonators = Donator::where('periodicity', 12)->count();
-        $periodMap = [
-            1 => __('messages.monthly'),
-            3 => __('messages.one_time'),
-            6 => __('messages.semiannually'),
-            12 => __('messages.yearly'),
-        ];
+        $totalDonators = Donator::count();
+        $monthlyDonators = Donator::where('periodicity', Donator::PERIOD_MONTHLY)->count();
+        $yearlyDonators = Donator::where('periodicity', Donator::PERIOD_YEARLY)->count();
+        $periodMap = Donator::getPeriodicityOptions();
         // Calculate total potential monthly revenue (approximation)
         // Convert all to a base currency if needed, but for now sum target_amount 
         // assuming single currency or just raw sum.

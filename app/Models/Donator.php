@@ -8,6 +8,27 @@ use Illuminate\Database\Eloquent\Model;
 class Donator extends Model
 {
     use HasFactory;
+    
+    // Periodicity constants
+    const PERIOD_MONTHLY = 1;
+    const PERIOD_ONE_TIME = 3;
+    const PERIOD_SEMIANNUALLY = 6;
+    const PERIOD_YEARLY = 12;
+
+    public static function getPeriodicityOptions(): array
+    {
+        return [
+            self::PERIOD_MONTHLY => __('messages.monthly'),
+            self::PERIOD_ONE_TIME => __('messages.one_time'),
+            self::PERIOD_SEMIANNUALLY => __('messages.semiannually'),
+            self::PERIOD_YEARLY => __('messages.yearly'),
+        ];
+    }
+
+    public function getPeriodicityLabelAttribute(): string
+    {
+        return self::getPeriodicityOptions()[$this->periodicity] ?? __('messages.unknown');
+    }
 
     /**
      * The attributes that are mass assignable.

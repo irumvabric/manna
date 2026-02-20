@@ -109,10 +109,9 @@
                 <div class="col-md-3">
                     <select name="periodicity" class="form-select">
                         <option value="">{{ __('messages.all_periods') }}</option>
-                        <option value="1" {{ request('periodicity') == 1 ? 'selected' : '' }}>{{ __('messages.monthly') }}</option>
-                        <option value="3" {{ request('periodicity') == 3 ? 'selected' : '' }}>{{ __('messages.one_time') }}</option>
-                        <option value="6" {{ request('periodicity') == 6 ? 'selected' : '' }}>{{ __('messages.semiannually') }}</option>
-                        <option value="12" {{ request('periodicity') == 12 ? 'selected' : '' }}>{{ __('messages.yearly') }}</option>
+                        @foreach(App\Models\Donator::getPeriodicityOptions() as $value => $label)
+                            <option value="{{ $value }}" {{ request('periodicity') == $value ? 'selected' : '' }}>{{ $label }}</option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="col-md-3">
@@ -167,11 +166,8 @@
                                 </div>
                             </td>
                             <td>
-                                @php
-                                    $label = $periodMap[$donator->periodicity] ?? 'Unknown';
-                                @endphp
                                 <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill fw-medium">
-                                    {{ $label }}
+                                    {{ $donator->periodicity_label }}
                                 </span>
                             </td>
                             <td class="fw-medium text-dark">
@@ -233,10 +229,9 @@
                                             <div class="mb-3">
                                                 <label class="form-label">{{ __('messages.frequency') }}</label>
                                                 <select name="periodicity" class="form-select" required>
-                                                    <option value="1" {{ $donator->periodicity == 1 ? 'selected' : '' }}>{{ __('messages.monthly') }}</option>
-                                                    <option value="3" {{ $donator->periodicity == 3 ? 'selected' : '' }}>{{ __('messages.one_time') }}</option>
-                                                    <option value="6" {{ $donator->periodicity == 6 ? 'selected' : '' }}>{{ __('messages.semiannually') }}</option>
-                                                    <option value="12" {{ $donator->periodicity == 12 ? 'selected' : '' }}>{{ __('messages.yearly') }}</option>
+                                                    @foreach(App\Models\Donator::getPeriodicityOptions() as $value => $label)
+                                                        <option value="{{ $value }}" {{ $donator->periodicity == $value ? 'selected' : '' }}>{{ $label }}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                         </div>
@@ -329,10 +324,9 @@
                     <div class="mb-3">
                         <label class="form-label">{{ __('messages.frequency') }}</label>
                         <select name="periodicity" class="form-select" required>
-                            <option value="1">{{ __('messages.monthly') }}</option>
-                            <option value="3">{{ __('messages.one_time') }}</option>
-                            <option value="6">{{ __('messages.semiannually') }}</option>
-                            <option value="12">{{ __('messages.yearly') }}</option>
+                            @foreach(App\Models\Donator::getPeriodicityOptions() as $value => $label)
+                                <option value="{{ $value }}">{{ $label }}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
