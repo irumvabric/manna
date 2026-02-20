@@ -40,3 +40,9 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 require __DIR__.'/admin.php';
+
+// Stripe Payments
+use App\Http\Controllers\PaymentController;
+Route::get('/checkout', [PaymentController::class, 'index'])->name('checkout');
+Route::post('/payment', [PaymentController::class, 'store'])->name('payment.store');
+Route::get('/payment/success', [PaymentController::class, 'success'])->name('payment.success');
