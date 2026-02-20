@@ -14,6 +14,9 @@ jobs:
       - name: 🚚 Get latest code
         uses: actions/checkout@v3
 
+      - name: 📦 Install Composer Dependencies
+        run: composer install --no-dev --optimize-autoloader
+
       - name: 📂 Sync files via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
@@ -22,3 +25,8 @@ jobs:
           password: ${{ secrets.FTP_ACCOUNT_PASSWORD }}
           protocol: ftps
           server-dir: /public_html/
+          exclude: |
+            **/.git*
+            **/.github/**
+            node_modules/**
+            tests/**
