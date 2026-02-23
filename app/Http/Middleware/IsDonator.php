@@ -17,7 +17,7 @@ class IsDonator
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::check() && Auth::user()->role === 'donator') {
+        if (Auth::check() && (Auth::user()->role === 'donator' || Auth::user()->role === 'admin')) {
             return $next($request);
         }
 

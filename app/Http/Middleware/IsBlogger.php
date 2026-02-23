@@ -17,7 +17,7 @@ class IsBlogger
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::check() && Auth::user()->role === 'blogger') {
+        if (Auth::check() && (Auth::user()->role === 'blogger'  || Auth::user()->role === 'admin')) {
             return $next($request);
         }
 

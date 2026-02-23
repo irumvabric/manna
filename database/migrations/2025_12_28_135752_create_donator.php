@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('phone')->nullable();
             $table->string('payment_method')->nullable();
             $table->double('target_amount')->nullable();
-            $table->enum('periodicity',['one_time','semester','monthly','yearly'])->nullable();
+            $table->integer('periodicity')->nullable();
             $table->string('currency')->default('BIF');
             $table->timestamps();
             $table->softDeletes();
