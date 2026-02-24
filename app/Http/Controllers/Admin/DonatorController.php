@@ -44,14 +44,18 @@ class DonatorController extends Controller
         // Calculate total potential monthly revenue (approximation)
         // Convert all to a base currency if needed, but for now sum target_amount 
         // assuming single currency or just raw sum.
-        $totalTargetAmount = Donator::sum('target_amount');
+        $totalTargetAmountBIF = Donator::where('currency', 'BIF')->sum('target_amount');
+        $totalTargetAmountUSD = Donator::where('currency', 'USD')->sum('target_amount');
+        $totalTargetAmountEUR = Donator::where('currency', 'EUR')->sum('target_amount');
 
         return view('admin.donators.index', compact(
             'donators',
             'totalDonators',
             'monthlyDonators',
             'yearlyDonators',
-            'totalTargetAmount',
+            'totalTargetAmountBIF',
+            'totalTargetAmountUSD',
+            'totalTargetAmountEUR',
             'periodMap'
         ));
     }

@@ -83,7 +83,9 @@
                     <div class="d-flex justify-content-between align-items-start mb-3">
                         <div>
                             <div class="text-muted small mb-1">{{ __('messages.total_target_amount') }}</div>
-                            <div class="h4 mb-0 fw-bold text-dark">{{ number_format($totalTargetAmount, 2) }}</div>
+                            <div class="h6 mb-0 fw-bold text-dark">{{ number_format($totalTargetAmountBIF) }} BIF</div>
+                            <div class="h6 mb-0 fw-bold text-dark">{{ number_format($totalTargetAmountUSD) }} USD</div>
+                            <div class="h6 mb-0 fw-bold text-dark">{{ number_format($totalTargetAmountEUR) }} EUR</div>
                         </div>
                         <div class="d-flex align-items-center justify-content-center bg-success bg-opacity-10 rounded-3" style="width: 40px; height: 40px;">
                             <i data-lucide="target" class="text-success" style="width: 20px; height: 20px;"></i>
