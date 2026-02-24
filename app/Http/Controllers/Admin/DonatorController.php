@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Donator;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class DonatorController extends Controller
 {
@@ -62,7 +63,11 @@ class DonatorController extends Controller
             'email' => 'required|email|unique:donators,email',
             'phone' => 'nullable|string|max:20',
             'target_amount' => 'required|numeric|min:0',
-            'periodicity' => 'required|integer',
+            'periodicity' => [
+        'required',
+        'integer',
+        Rule::in(array_keys(Donator::getPeriodicityOptions()))
+    ],
             'currency' => 'required|string|size:3',
         ]);
 

@@ -93,29 +93,68 @@
                                     <input type="number" step="0.01" name="target_amount" id="donationAmount" value="{{ old('target_amount', 50) }}" class="form-control border-primary border-2 text-primary fw-bold" required>
                                 </div>
                             </div>
+<!-- Frequency Row -->
+<div class="mb-4">
+    <label class="form-label small fw-bold">
+        {{ __('messages.frequency') }}
+    </label>
 
-                            <!-- Frequency Row -->
-                            <div class="mb-4">
-                                <label class="form-label small fw-bold">{{ __('messages.frequency') }}</label>
-                                <div class="row g-2">
-                                    <div class="col-6">
-                                        <input type="radio" class="btn-check" name="periodicity" id="freq_once" value="one_time" checked>
-                                        <label class="btn btn-outline-secondary w-100 py-2 border-0 bg-light small" for="freq_once">{{ __('messages.one_time') }}</label>
-                                    </div>
-                                    <div class="col-6">
-                                        <input type="radio" class="btn-check" name="periodicity" id="freq_monthly" value="monthly">
-                                        <label class="btn btn-outline-secondary w-100 py-2 border-0 bg-light small" for="freq_monthly">{{ __('messages.monthly') }}</label>
-                                    </div>
-                                    <div class="col-6">
-                                        <input type="radio" class="btn-check" name="periodicity" id="freq_semester" value="semester">
-                                        <label class="btn btn-outline-secondary w-100 py-2 border-0 bg-light small" for="freq_semester">{{ __('messages.semester') }}</label>
-                                    </div>
-                                    <div class="col-6">
-                                        <input type="radio" class="btn-check" name="periodicity" id="freq_yearly" value="yearly">
-                                        <label class="btn btn-outline-secondary w-100 py-2 border-0 bg-light small" for="freq_yearly">{{ __('messages.yearly') }}</label>
-                                    </div>
-                                </div>
-                            </div>
+    <div class="row g-2">
+
+        <div class="col-6">
+            <input type="radio"
+                   class="btn-check"
+                   name="periodicity"
+                   id="freq_once"
+                   value="0"
+                   {{ old('periodicity', 0) == 0 ? 'checked' : '' }}>
+            <label class="btn btn-outline-secondary w-100 py-2 border-0 bg-light small"
+                   for="freq_once">
+                {{ __('messages.one_time') }}
+            </label>
+        </div>
+
+        <div class="col-6">
+            <input type="radio"
+                   class="btn-check"
+                   name="periodicity"
+                   id="freq_monthly"
+                   value="1"
+                   {{ old('periodicity') == 1 ? 'checked' : '' }}>
+            <label class="btn btn-outline-secondary w-100 py-2 border-0 bg-light small"
+                   for="freq_monthly">
+                {{ __('messages.monthly') }}
+            </label>
+        </div>
+
+        <div class="col-6">
+            <input type="radio"
+                   class="btn-check"
+                   name="periodicity"
+                   id="freq_semester"
+                   value="6"
+                   {{ old('periodicity') == 6 ? 'checked' : '' }}>
+            <label class="btn btn-outline-secondary w-100 py-2 border-0 bg-light small"
+                   for="freq_semester">
+                {{ __('messages.semester') }}
+            </label>
+        </div>
+
+        <div class="col-6">
+            <input type="radio"
+                   class="btn-check"
+                   name="periodicity"
+                   id="freq_yearly"
+                   value="12"
+                   {{ old('periodicity') == 12 ? 'checked' : '' }}>
+            <label class="btn btn-outline-secondary w-100 py-2 border-0 bg-light small"
+                   for="freq_yearly">
+                {{ __('messages.yearly') }}
+            </label>
+        </div>
+
+    </div>
+</div>
 
                             <button type="submit" class="btn btn-primary w-100 fw-bold py-3 shadow-sm">{{ __('messages.complete_donation') }}</button>
                         </form>

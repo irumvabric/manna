@@ -9,11 +9,15 @@ use App\Mail\ContactMail;
 use App\Mail\ContactAdminNotification;
 use App\Models\Donation;
 use App\Models\Donator;
+use App\Models\Engagement;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
+
+
 
 class DonationController extends Controller
 {
@@ -112,66 +116,88 @@ class DonationController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'phone' => 'nullable|string|max:20',
-            'target_amount' => 'required|numeric|min:0',
-            'periodicity' => 'required|string',
-            'currency' => 'required|string|size:3',
-        ]);
+{
+    $validated = $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|email|max:255',
+        'phone' => 'nullable|string|max:20',
+        'target_amount' => 'required|numeric|min:0',
+        'periodicity' => [
+            'required',
+            'integer',
+            Rule::in(array_keys(Donator::getPeriodicityOptions()))
+        ],
+        'currency' => 'required|string|size:3',
+    ]);
 
-        // Find or create donator
+    DB::beginTransaction();
+
+    try {
+
+        // 1️⃣ Create or update donator
         $donator = Donator::updateOrCreate(
-            ['email' => $request->email],
+            ['email' => $validated['email']],
             [
-                'name' => $request->name,
-                'phone' => $request->phone,
-                'target_amount' => $request->target_amount,
-                'periodicity' => $request->periodicity,
-                'currency' => $request->currency,
+                'name' => $validated['name'],
+                'phone' => $validated['phone'] ?? null,
+                'target_amount' => $validated['target_amount'],
+                'periodicity' => $validated['periodicity'],
+                'currency' => $validated['currency'],
             ]
         );
 
-        // Create the engagement record
-        $engagement = \App\Models\Engagement::create([
+        // 2️⃣ Create engagement
+        $engagement = Engagement::create([
             'donator_id' => $donator->id,
-            'amount' => $request->target_amount,
-            'currency' => $request->currency,
-            'periodicity' => $request->periodicity,
+            'amount' => $validated['target_amount'],
+            'currency' => $validated['currency'],
+            'periodicity' => $validated['periodicity'],
             'status' => 'active',
         ]);
 
-        // Record the initial donation as pending
+        // 3️⃣ Create donation
         Donation::create([
             'donator_id' => $donator->id,
             'engagement_id' => $engagement->id,
-            'amount' => $request->target_amount,
-            'currency' => $request->currency,
+            'amount' => $validated['target_amount'],
+            'currency' => $validated['currency'],
             'status' => 'pending',
-            'payment_method' => 'cash', // Default or placeholder
+            'payment_method' => 'cash',
         ]);
 
-        // Send notifications
-        try {
-            $adminEmail = 'irumvabric@gmail.com';
-            $donatorEmail = $donator->email;
-            
-            // To Admin: System notification
-            Mail::to($adminEmail)->queue(new DonationNotification($request->all()));
-            
-            // To Donor: Appreciative confirmation
-            Mail::to($donatorEmail)->queue(new DonationConfirmation($request->all()));
-        } catch (\Exception $e) {
-            Log::error('Donation Mail sending failed: ' . $e->getMessage());
-        }
-        
-        // Store info in session for pre-filling registration
-        session(['registration_name' => $request->name, 'registration_email' => $request->email]);
+        DB::commit();
 
-        return redirect()->route('register')->with(['success' => 'Your donation submission has been received. Thank you!']);
+    } catch (\Exception $e) {
+
+        DB::rollBack();
+        Log::error('Donation creation failed: ' . $e->getMessage());
+
+        return back()->withErrors('Something went wrong. Please try again.');
     }
+
+    // 4️⃣ Send notifications (outside transaction)
+    try {
+        $adminEmail = 'irumvabric@gmail.com';
+
+        Mail::to($adminEmail)
+            ->queue(new DonationNotification($validated));
+
+        Mail::to($donator->email)
+            ->queue(new DonationConfirmation($validated));
+
+    } catch (\Exception $e) {
+        Log::error('Donation Mail sending failed: ' . $e->getMessage());
+    }
+
+    session([
+        'registration_name' => $validated['name'],
+        'registration_email' => $validated['email']
+    ]);
+
+    return redirect()
+        ->route('register')
+        ->with('success', 'Your donation submission has been received. Thank you!');
+}
 
     public function contactSubmit(Request $request)
     {

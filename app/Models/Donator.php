@@ -2,39 +2,15 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Donator extends Model
 {
-    use HasFactory;
-    
-    // Periodicity constants
-    const PERIOD_MONTHLY = 1;
-    const PERIOD_ONE_TIME = 3;
-    const PERIOD_SEMIANNUALLY = 6;
-    const PERIOD_YEARLY = 12;
+    use HasFactory, SoftDeletes;
 
-    public static function getPeriodicityOptions(): array
-    {
-        return [
-            self::PERIOD_MONTHLY => __('messages.monthly'),
-            self::PERIOD_ONE_TIME => __('messages.one_time'),
-            self::PERIOD_SEMIANNUALLY => __('messages.semiannually'),
-            self::PERIOD_YEARLY => __('messages.yearly'),
-        ];
-    }
-
-    public function getPeriodicityLabelAttribute(): string
-    {
-        return self::getPeriodicityOptions()[$this->periodicity] ?? __('messages.unknown');
-    }
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'user_id',
         'name',
@@ -43,8 +19,46 @@ class Donator extends Model
         'payment_method',
         'target_amount',
         'periodicity',
-        'currency',
+        'currency'
     ];
+
+    protected $casts = [
+        'periodicity' => 'integer',
+        'target_amount' => 'double',
+    ];
+
+    // 🔥 Periodicity constants
+    const PERIOD_ONE_TIME = 0;
+    const PERIOD_MONTHLY = 1;
+    const PERIOD_SEMIANNUALLY = 6;
+    const PERIOD_YEARLY = 12;
+
+    public static function getPeriodicityOptions(): array
+    {
+        return [
+            self::PERIOD_ONE_TIME => __('messages.one_time'),
+            self::PERIOD_MONTHLY => __('messages.monthly'),
+            self::PERIOD_SEMIANNUALLY => __('messages.semiannually'),
+            self::PERIOD_YEARLY => __('messages.yearly'),
+        ];
+    }
+
+    // ✅ Accessor for label
+    public function getPeriodicityLabelAttribute(): string
+    {
+        return self::getPeriodicityOptions()[$this->periodicity]
+            ?? __('messages.unknown');
+    }
+
+    // 🚀 Calculate next payment date
+    public function getNextPaymentDateAttribute(): ?Carbon
+    {
+        if ($this->periodicity === self::PERIOD_ONE_TIME) {
+            return null;
+        }
+
+        return $this->created_at?->addMonths($this->periodicity);
+    }
 
     public function getCurrencySymbolAttribute()
     {
