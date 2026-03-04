@@ -21,7 +21,7 @@
             <div class="row align-items-center g-4">
                 <div class="col-lg-6 text-center text-lg-start">
                     {{-- <img src="{{ asset('img/bac.png') }}" alt="About Manna" class="about-image img-fluid"> --}}
-                    <img src="{{ asset('img/web_image_4.jpg') }}" alt="About Manna"
+                    <img src="{{  asset('img/web_image_8.png') }}" alt="About Manna"
                         class="about-image img-fluid">
                 </div>
                 <div class="col-lg-6">
@@ -46,7 +46,7 @@
             <div class="col-md-4">
                 <div class="card h-100 shadow-sm border-0 hover-lift">
                     <div class="card-img-container">
-                         <img src="{{ asset('img/web_image_5.jpg') }}" class="card-img-top" alt="Scholarships" style="height: 200px; object-fit: cover;">
+                         <img src="{{ asset('img/web_image_5.png') }}" class="card-img-top" alt="Scholarships" style="height: 200px; object-fit: cover;">
                     </div>
                     <div class="card-body p-4">
                         <div class="icon-circle mb-3">
@@ -63,7 +63,7 @@
             <div class="col-md-4">
                 <div class="card h-100 shadow-sm border-0 hover-lift">
                     <div class="card-img-container">
-                        <img src="{{ asset('https://images.pexels.com/photos/289737/pexels-photo-289737.jpeg') }}" class="card-img-top" alt="Educational Resources" style="height: 200px; object-fit: cover;">
+                        <img src="{{ asset('img/web_image_6.png') }}" class="card-img-top" alt="Educational Resources" style="height: 200px; object-fit: cover;">
                     </div>
                     <div class="card-body p-4">
                         <h5 class="card-title fw-bold">{{ __('messages.educational_resources') }}</h5>
@@ -77,7 +77,7 @@
             <div class="col-md-4">
                 <div class="card h-100 shadow-sm border-0 hover-lift">
                     <div class="card-img-container">
-                        <img src="{{ asset('img/web_image_6.png') }}" class="card-img-top" alt="Mentorship" style="height: 200px; object-fit: cover;">
+                        <img src="{{ asset('img/web_image_8.png') }}" class="card-img-top" alt="Mentorship" style="height: 200px; object-fit: cover;">
                     </div>
                     <div class="card-body p-4">
                         <h5 class="card-title fw-bold">{{ __('messages.career_guidance') }}</h5>
