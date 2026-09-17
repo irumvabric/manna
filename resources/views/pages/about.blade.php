@@ -10,9 +10,8 @@
             <h2 class="fw-bold text-primary mb-4">{{ __('messages.who_we_are') }}</h2>
             <p class="lead mb-5 ">{{ __('messages.about_description') }}</p>
             <!-- Note: Using a direct URL for the image below, but if you download it and place it in your public folder, use asset() -->
-            <img src="{{ asset('img/web_image_4.jpg') }}" alt="Students learning"
-                class="img-fluid rounded shadow-sm mb-5 w-50 x-25">
-        </div>
+            <img src="{{ asset('img/Second_Student.png') }}" alt="Étudiants en train d'apprendre"
+                class="img-fluid rounded shadow-sm mb-5 w-25" {{-- <img src="{{ asset('img/web_image_4.jpg') }}" alt="Students learning" class="img-fluid rounded shadow-sm mb-5 w-50 x-25"> --}} </div>
     </section>
 
     <!-- Mission, Vision, Values -->
@@ -49,7 +48,8 @@
                     </p>
                 </div>
                 <div class="col-md-4 text-md-end content text-white">
-                    <a href="{{ url('/contact') }}" class="btn btn-primary btn-contact px-4">{{ __('messages.contact') }}</a>
+                    <a href="{{ url('/contact') }}"
+                        class="btn btn-primary btn-contact px-4">{{ __('messages.contact') }}</a>
                 </div>
             </div>
         </div>

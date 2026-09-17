@@ -21,8 +21,8 @@
             <div class="row align-items-center g-4">
                 <div class="col-lg-6 text-center text-lg-start">
                     {{-- <img src="{{ asset('img/bac.png') }}" alt="About Manna" class="about-image img-fluid"> --}}
-                    <img src="{{  asset('img/web_image_8.png') }}" alt="About Manna"
-                        class="about-image img-fluid">
+                    <img src="{{  asset('img/web_image_8.png') }}" alt="About Manna" class="about-image img-fluid">
+                    {{-- <img src="{{  asset('img/web_image_8.png') }}" alt="About Manna" class="about-image img-fluid"> --}}
                 </div>
                 <div class="col-lg-6">
                     <p class="small text-muted mb-2">{{ __('messages.small_help') }}</p>
