@@ -31,7 +31,7 @@ return [
     'career_guidance' => "Mentorat et Orientation Professionnelle",
     'see_more' => 'En savoir plus sur nous',
     'who_we_are' => 'Qui Nous Sommes',
-    'about_description' => 'Manna Initiative est une organisation à but non lucratif dédiée à aider les universitaires issus de familles défavorisées à accéder à une éducation de qualité et à des opportunités de mentorat.',
+    'about_description' => 'Manna Initiative est une organisation à but non lucratif dédiée à aider les universitaires du Burundi issus de familles défavorisées à accéder à une éducation de qualité et à des opportunités de mentorat.',
     'mission_vision_values' => 'Notre Mission, Vision et Valeurs',
     'mission' => 'Mission',
     'mission_desc' => 'Collecter des fonds à travers le monde provenant des natifs burundais ou d\'ailleurs et les canaliser de manière à procurer aux dits étudiants toutes les ressources leur permettant de poursuivre débuter leurs parcours universitaires.',

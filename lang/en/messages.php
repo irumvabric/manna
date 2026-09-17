@@ -31,7 +31,7 @@ return [
   'career_guidance' => 'Mentorship and Career Guidance',
   'see_more' => 'See more about us',
   'who_we_are' => 'Who We Are',
-  'about_description' => 'Manna Initiative is a non-profit organization dedicated to helping university scholars from underprivileged families access quality education and mentorship opportunities.',
+  'about_description' => 'Manna Initiative is a non-profit organization dedicated to helping university scholars from Burundi from underprivileged families access quality education and mentorship opportunities.',
   'mission_vision_values' => 'Our Mission, Vision & Values',
   'mission' => 'Mission',
   // 'mission_desc' => 'To support and empower young scholars by providing financial assistance and mentorship opportunities.',
