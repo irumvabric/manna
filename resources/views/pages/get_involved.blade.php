@@ -1,6 +1,6 @@
 @extends('layouts.web')
 
-@section('title', __('messages.get_involved') . ' — Manna Initiative')
+@section('title', __('messages.get_involved') . ' — Initiative Manna')
 
 @section('content')
     

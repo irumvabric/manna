@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@yield('title', 'Manna Initiative | Home')</title>
+    <title>@yield('title', 'Initiative Manna | Home')</title>
     <link rel="icon" href="{{ asset('img/favicon.png') }}" type="image/x-icon" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
@@ -78,6 +78,7 @@
                 width: 50px;
                 height: 50px;
             }
+
             .btn-floating-donate i {
                 font-size: 20px;
             }
@@ -93,7 +94,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
         <div class="container">
             <a class="navbar-brand fw-bold text-primary" href="{{ url('/') }}"><img
-                    src="{{ asset('img/maana_logo.png') }}" alt="Manna Logo"></a>
+                    src="{{ asset('img/Main-Logo.jpg') }}" alt="Manna Logo" height="25%" width="40%"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -123,7 +124,7 @@
                                 href="{{ route('login') }}">{{ __('messages.login') }}</a>
                         </li>
                     @endguest
-                    
+
                     @auth
                         @if (Auth::user()->role === 'donator')
                             <li class="nav-item">
@@ -134,14 +135,14 @@
                             </li>
                         @endif
                         @if (Auth::user()->role === 'admin')
-                        <li class="nav-item">
-                            <a class="nav-link fw-bold @if (Request::is('dashboard')) active @endif"
-                                href="{{ route('dashboard') }}">
-                                Dashboard
-                            </a>
-                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link fw-bold @if (Request::is('dashboard')) active @endif"
+                                    href="{{ route('dashboard') }}">
+                                    Dashboard
+                                </a>
+                            </li>
                         @endif
-                @endauth
+                    @endauth
                 </ul>
                 <div class="nav-item dropdown ms-lg-3">
                     <a class="nav-link dropdown-toggle" href="#" id="langDropdown" role="button"
@@ -170,7 +171,8 @@
             <div class="row">
                 <!-- Column 1: About -->
                 <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
-                    <img src="{{ asset('img/LOGO.png') }}" alt="Footer Logo" class="border-2">
+                    <img src="{{ asset('img/Logo-Manna-Footer.png') }}" width="40%" height="25%" alt="Footer Logo"
+                        class="border-2">
                     <h5 class="fw-bold mb-3">{{ __('messages.about_manna') }}</h5>
                     <p class="small">{{ __('messages.footer_about_desc') }}</p>
                 </div>
@@ -223,7 +225,8 @@
     </footer>
 
     <!-- Floating Donate Button -->
-    <a href="{{ url('/get-involved') }}" class="btn btn-primary btn-floating-donate d-lg-none" title="{{ __('messages.donate') }}">
+    <a href="{{ url('/get-involved') }}" class="btn btn-primary btn-floating-donate d-lg-none"
+        title="{{ __('messages.donate') }}">
         <i class="bi bi-heart-fill"></i>
     </a>
 

@@ -34,7 +34,7 @@
         <div class="content">
             <h1>You're Making a Difference!</h1>
             
-            <p class="thanks-message">Dear {{ $data['name'] ?? 'Donor' }}, we are deeply moved by your incredible generosity. Thank you for choosing to support Manna Initiative.</p>
+            <p class="thanks-message">Dear {{ $data['name'] ?? 'Donor' }}, we are deeply moved by your incredible generosity. Thank you for choosing to support Initiative Manna.</p>
             
             <div class="summary-card">
                 <div class="summary-title">Donation Confirmation</div>
@@ -50,12 +50,12 @@
             </div>
             
             <p style="margin-top: 40px; text-align: center;">With heartfelt gratitude,<br>
-            <strong style="font-size: 18px; color: #0066A1;">The Manna Initiative Team</strong></p>
+            <strong style="font-size: 18px; color: #0066A1;">The Initiative Manna Team</strong></p>
         </div>
         <div class="footer">
-            <strong>Manna Initiative</strong><br>
+            <strong>Initiative Manna</strong><br>
             Empowering communities through collective action.<br><br>
-            &copy; {{ date('Y') }} Manna Initiative. All rights reserved.<br>
+            &copy; {{ date('Y') }} Initiative Manna. All rights reserved.<br>
             <em>You received this email because you made a donation commitment on our website.</em>
         </div>
     </div>

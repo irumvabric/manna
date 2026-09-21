@@ -29,7 +29,7 @@ class DonationConfirmation extends Mailable implements ShouldQueue
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Thank you for your generous donation to Manna Initiative',
+            subject: 'Thank you for your generous donation to Initiative Manna',
         );
     }
 

@@ -37,7 +37,7 @@
             <div class="celebration">
                 <span class="badge">Great News!</span>
                 <h1>New Donation Received</h1>
-                <p>A new contribution has been pledged to Manna Initiative.</p>
+                <p>A new contribution has been pledged to Initiative Manna.</p>
             </div>
             
             <div class="amount-card">
@@ -68,7 +68,7 @@
             <a href="{{ url('/admin/donators') }}" class="button">Manage Donors</a>
         </div>
         <div class="footer">
-            Financial Notification &bull; Manna Initiative System<br>
+            Financial Notification &bull; Initiative Manna System<br>
             Together, we are making a lasting impact.
         </div>
     </div>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thank You for Contacting Manna Initiative</title>
+    <title>Thank You for Contacting Initiative Manna</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -93,7 +93,7 @@
         <div class="content">
             <h1>Thank You for Reaching Out!</h1>
             <p>Dear {{ $data['name'] ?? 'Value Member' }},</p>
-            <p>We've received your message and want to thank you for contacting <strong>Manna Initiative</strong>. Your interest in our work means the world to us.</p>
+            <p>We've received your message and want to thank you for contacting <strong>Initiative Manna</strong>. Your interest in our work means the world to us.</p>
             
             <p>Our team is currently reviewing your inquiry and we will get back to you as soon as possible. We strive to respond to all messages within 24-48 hours.</p>
             
@@ -106,10 +106,10 @@
             <a href="{{ config('app.url') }}" class="button">Visit Our Website</a>
             
             <p style="margin-top: 30px;">Warm regards,<br>
-            <strong>The Manna Initiative Team</strong></p>
+            <strong>The Initiative Manna Team</strong></p>
         </div>
         <div class="footer">
-            &copy; {{ date('Y') }} Manna Initiative. All rights reserved.<br>
+            &copy; {{ date('Y') }} Initiative Manna. All rights reserved.<br>
             Working together for a better future.
         </div>
     </div>

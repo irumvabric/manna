@@ -1,6 +1,6 @@
 @extends('layouts.web')
 
-@section('title', $blog->title . ' | Manna Initiative')
+@section('title', $blog->title . ' | Initiative Manna')
 
 @section('content')
     <!-- Blog Header -->

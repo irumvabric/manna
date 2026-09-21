@@ -61,7 +61,7 @@
             <a href="{{ url('/admin/dashboard') }}" class="button">View in Admin Panel</a>
         </div>
         <div class="footer">
-            Admin Notification &bull; Manna Initiative System<br>
+            Admin Notification &bull; Initiative Manna System<br>
             Please do not reply directly to this automated email.
         </div>
     </div>

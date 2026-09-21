@@ -1,6 +1,6 @@
 @extends('layouts.web')
 
-@section('title', __('messages.blog_title') . ' | Manna Initiative')
+@section('title', __('messages.blog_title') . ' | Initiative Manna')
 
 @section('content')
     <!-- Hero Section -->
