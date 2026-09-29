@@ -37,6 +37,71 @@
         </div>
     </section>
 
+    <!-- Team members -- Team/ -->
+
+    <section class="team-members py-5">
+        <div class="container">
+            <h3 class="fw-bold text-primary mb-4 text-center">{{ __('messages.our_team') }}</h3>
+            <div class="row g-4">
+
+                <!-- Benit Cadeau -->
+                <div class="col-12 col-sm-6 col-md-3">
+                    <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden position-relative">
+                        <img src="{{ asset('img/Team/Ngerageze Cadeau.jpg') }}" class="card-img-top w-100 object-fit-cover"
+                            style="height: 320px;" alt="Benit Cadeau">
+                        <div
+                            class="card-body text-center bg-white m-2 rounded-3 shadow-sm position-absolute bottom-0 start-0 end-0 py-2 px-1">
+                            <h6 class="fw-bold text-dark mb-0 fs-6">Bénit Cadeau Ngerageze</h6>
+                            <small class="text-muted small">President & Co-Founder</small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ciella Ininahazwe -->
+                <div class="col-12 col-sm-6 col-md-3">
+                    <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden position-relative">
+                        <img src="{{ asset('img/Team/Ciella Ininahazwe.jpg') }}"
+                            class="card-img-top w-100 object-fit-cover" style="height: 320px;" alt="Ciella Ininahazwe">
+                        <div
+                            class="card-body text-center bg-white m-2 rounded-3 shadow-sm position-absolute bottom-0 start-0 end-0 py-2 px-1">
+                            <h6 class="fw-bold text-dark mb-0 fs-6">Ciella Ininahazwe</h6>
+                            <small class="text-muted small">Vice President & Co-Founder</small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Guy Tresor -->
+                <div class="col-12 col-sm-6 col-md-3">
+                    <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden position-relative">
+                        <img src="{{ asset('img/Team/KARIKERA Guy Trésor.jpeg') }}"
+                            class="card-img-top w-100 object-fit-cover" style="height: 320px;" alt="Guy Tresor">
+                        <div
+                            class="card-body text-center bg-white m-2 rounded-3 shadow-sm position-absolute bottom-0 start-0 end-0 py-2 px-1">
+                            <h6 class="fw-bold text-dark mb-0 fs-6">Guy Trésor Karikera</h6>
+                            <small class="text-muted small">Social Media Manager</small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Brice Berry -->
+                <div class="col-12 col-sm-6 col-md-3">
+                    <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden position-relative">
+                        <img src="{{ asset('img/Team/Irumva Brice Berry.jpg') }}"
+                            class="card-img-top w-100 object-fit-cover" style="height: 320px;" alt="Brice Berry">
+                        <div
+                            class="card-body text-center bg-white m-2 rounded-3 shadow-sm position-absolute bottom-0 start-0 end-0 py-2 px-1">
+                            <h6 class="fw-bold text-dark mb-0 fs-6">Brice Berry Irumva</h6>
+                            <small class="text-muted small">IT Manager</small>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+
     <!-- Get Involved section -->
     <section class="get-involved text-white">
         <div class="container py-5">

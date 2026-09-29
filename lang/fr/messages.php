@@ -13,6 +13,8 @@ return [
     'confirm_password' => 'Confirmer le mot de passe',
     'home' => 'Accueil',
     'about' => 'À propos',
+    'our_team' => 'Notre Équipe',
+
     'contact' => 'Contact',
     'blog' => 'Blog',
     'get_involved' => 'S\'impliquer',

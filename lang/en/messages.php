@@ -13,6 +13,7 @@ return [
   'confirm_password' => 'Confirm Password',
   'home' => 'Home',
   'about' => 'About',
+  'our_team' => 'Our Team',
   'contact' => 'Contact',
   'blog' => 'Blog',
   'get_involved' => 'Get Involved',
